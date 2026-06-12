@@ -1,0 +1,154 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="Marila_Garden_App.Views.Services.ServicesPage"
+             BackgroundColor="#F7F8F5"
+             Shell.NavBarIsVisible="False">
+
+    <ScrollView>
+
+        <VerticalStackLayout
+            Padding="24"
+            Spacing="20">
+
+            <Label
+                Text="Nuestros Servicios"
+                FontSize="30"
+                FontAttributes="Bold"
+                TextColor="#24541B"
+                Margin="0,20,0,0"/>
+
+            <Label
+                Text="Soluciones personalizadas para crear y mantener espacios verdes únicos."
+                FontSize="15"
+                TextColor="#666666"/>
+
+            <!-- Servicio 1 -->
+
+            <Border
+                BackgroundColor="White"
+                Stroke="#E5E7EB"
+                Padding="20">
+
+                <Border.StrokeShape>
+                    <RoundRectangle CornerRadius="24"/>
+                </Border.StrokeShape>
+
+                <VerticalStackLayout Spacing="10">
+
+                    <Label
+                        Text="🌱"
+                        FontSize="38"/>
+
+                    <Label
+                        Text="Diseño de Jardines"
+                        FontSize="20"
+                        FontAttributes="Bold"
+                        TextColor="#24541B"/>
+
+                    <Label
+                        Text="Diseñamos jardines personalizados que armonizan con el espacio y las necesidades del cliente."
+                        TextColor="#666666"/>
+
+                </VerticalStackLayout>
+
+            </Border>
+
+            <!-- Servicio 2 -->
+
+            <Border
+                BackgroundColor="White"
+                Stroke="#E5E7EB"
+                Padding="20">
+
+                <Border.StrokeShape>
+                    <RoundRectangle CornerRadius="24"/>
+                </Border.StrokeShape>
+
+                <VerticalStackLayout Spacing="10">
+
+                    <Label
+                        Text="✂️"
+                        FontSize="38"/>
+
+                    <Label
+                        Text="Poda Profesional"
+                        FontSize="20"
+                        FontAttributes="Bold"
+                        TextColor="#24541B"/>
+
+                    <Label
+                        Text="Mantenimiento y control del crecimiento para conservar la salud y estética de las plantas."
+                        TextColor="#666666"/>
+
+                </VerticalStackLayout>
+
+            </Border>
+
+            <!-- Servicio 3 -->
+
+            <Border
+                BackgroundColor="White"
+                Stroke="#E5E7EB"
+                Padding="20">
+
+                <Border.StrokeShape>
+                    <RoundRectangle CornerRadius="24"/>
+                </Border.StrokeShape>
+
+                <VerticalStackLayout Spacing="10">
+
+                    <Label
+                        Text="🪴"
+                        FontSize="38"/>
+
+                    <Label
+                        Text="Instalación de Plantas"
+                        FontSize="20"
+                        FontAttributes="Bold"
+                        TextColor="#24541B"/>
+
+                    <Label
+                        Text="Selección e instalación de especies adecuadas para interiores y exteriores."
+                        TextColor="#666666"/>
+
+                </VerticalStackLayout>
+
+            </Border>
+
+            <!-- Servicio 4 -->
+
+            <Border
+                BackgroundColor="White"
+                Stroke="#E5E7EB"
+                Padding="20">
+
+                <Border.StrokeShape>
+                    <RoundRectangle CornerRadius="24"/>
+                </Border.StrokeShape>
+
+                <VerticalStackLayout Spacing="10">
+
+                    <Label
+                        Text="🌿"
+                        FontSize="38"/>
+
+                    <Label
+                        Text="Mantenimiento Integral"
+                        FontSize="20"
+                        FontAttributes="Bold"
+                        TextColor="#24541B"/>
+
+                    <Label
+                        Text="Programas de mantenimiento periódico para jardines residenciales y comerciales."
+                        TextColor="#666666"/>
+
+                </VerticalStackLayout>
+
+            </Border>
+
+        </VerticalStackLayout>
+
+    </ScrollView>
+
+</ContentPage>

@@ -3,12 +3,46 @@
     x:Class="Marila_Garden_App.AppShell"
     xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-    xmlns:local="clr-namespace:Marila_Garden_App"
-    Title="Marila_Garden_App">
+    
+    xmlns:splash="clr-namespace:Marila_Garden_App.Views.Splash"
+    xmlns:authentication="clr-namespace:Marila_Garden_App.Views.Authentication"
+    xmlns:home="clr-namespace:Marila_Garden_App.Views.Home"
+    xmlns:services="clr-namespace:Marila_Garden_App.Views.Services"
+    xmlns:request="clr-namespace:Marila_Garden_App.Views.Request"
+    
+    Shell.NavBarIsVisible="False"
+    Shell.TabBarBackgroundColor="#FFFFFF"
+    Shell.TabBarForegroundColor="#64BC1E"
+    Shell.TabBarTitleColor="#64BC1E"
+    Shell.TabBarUnselectedColor="#666666">
 
-    <ShellContent
-        Title="Home"
-        ContentTemplate="{DataTemplate local:MainPage}"
-        Route="MainPage" />
+    <TabBar>
+
+        <ShellContent
+            Title="Splash"
+            Route="Splash"
+            ContentTemplate="{DataTemplate splash:SplashPage}" />
+
+        <ShellContent
+            Title="Login"
+            Route="Login"
+            ContentTemplate="{DataTemplate authentication:LoginPage}" />
+
+        <ShellContent
+            Title="Inicio"
+            Route="Home"
+            ContentTemplate="{DataTemplate home:HomePage}" />
+
+        <ShellContent
+            Title="Servicios"
+            Route="Services"
+            ContentTemplate="{DataTemplate services:ServicesPage}" />
+
+        <ShellContent
+            Title="Solicitud"
+            Route="Request"
+            ContentTemplate="{DataTemplate request:RequestPage}" />
+
+    </TabBar>
 
 </Shell>

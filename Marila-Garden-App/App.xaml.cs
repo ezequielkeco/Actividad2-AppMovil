@@ -7,6 +7,7 @@ namespace Marila_Garden_App
         public App()
         {
             InitializeComponent();
+
         }
 
         protected override Window CreateWindow(IActivationState? activationState)

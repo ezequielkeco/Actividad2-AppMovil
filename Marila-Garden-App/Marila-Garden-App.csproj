@@ -70,4 +70,31 @@
 		<PackageReference Include="Microsoft.Extensions.Logging.Debug" Version="10.0.0" />
 	</ItemGroup>
 
+	<ItemGroup>
+	  <Folder Include="Data\" />
+	  <Folder Include="Helpers\" />
+	  <Folder Include="Models\" />
+	  <Folder Include="Controls\" />
+	  <Folder Include="ViewModels\" />
+	  <Folder Include="Services\" />
+	</ItemGroup>
+
+	<ItemGroup>
+	  <MauiXaml Update="Views\Authentication\LoginPage.xaml">
+	    <Generator>MSBuild:Compile</Generator>
+	  </MauiXaml>
+	  <MauiXaml Update="Views\Home\HomePage.xaml">
+	    <Generator>MSBuild:Compile</Generator>
+	  </MauiXaml>
+	  <MauiXaml Update="Views\Request\RequestPage.xaml">
+	    <Generator>MSBuild:Compile</Generator>
+	  </MauiXaml>
+	  <MauiXaml Update="Views\Services\ServicesPage.xaml">
+	    <Generator>MSBuild:Compile</Generator>
+	  </MauiXaml>
+	  <MauiXaml Update="Views\Splash\SplashPage.xaml">
+	    <Generator>MSBuild:Compile</Generator>
+	  </MauiXaml>
+	</ItemGroup>
+
 </Project>
