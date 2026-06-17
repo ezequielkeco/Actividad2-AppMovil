@@ -1,11 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <color name="colorPrimary">#64BC1E</color>
+    <color name="colorPrimary">#F2F2F2</color>
     <color name="colorPrimaryDark">#24541B</color>
     <color name="colorMediumGray">#666666</color>
-	<color name="colorBackground">#F7F8F5</color>
+	<color name="colorBackground">#F2F2F2</color>
 	<color name="colorCard">#FFFFFF</color>
 	<color name="colorTextPrimary">#1F1F1F</color>
 	<color name="colorTextSecondary">#6B7280</color>
-	<color name="colorSuccess">#4CAF50</color>
 </resources>

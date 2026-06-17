@@ -35,6 +35,11 @@ namespace Marila_Garden_App
                     handler.PlatformView.Background = null;
                 });
 
+                EditorHandler.Mapper.AppendToMapping("NoUnderline", (handler, view) =>
+                {
+                    handler.PlatformView.Background = null;
+                });
+
 #endif
             });
 
