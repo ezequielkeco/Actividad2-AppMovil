@@ -2,7 +2,7 @@
 <ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="Marila_Garden_App.Views.Authentication.LoginPage"
-             BackgroundColor="#F7F8F5"
+             BackgroundColor="{StaticResource Background}"
              Shell.NavBarIsVisible="False">
 
     <ScrollView>
@@ -10,7 +10,7 @@
 
             <VerticalStackLayout
                 Grid.Row="0"
-                Spacing="18"
+                Spacing="15"
                 Margin="0,35,0,20">
 
                 <Image
@@ -20,40 +20,34 @@
                     Aspect="AspectFit" />
 
                 <Label
-                    Text="Bienvenido"
-                    FontSize="30"
-                    FontAttributes="Bold"
-                    TextColor="#24541B"
+                    Text="¡Hola!"
+                    Style="{StaticResource TitleLabel}"
+                    Padding="0,20,0,0"
                     HorizontalTextAlignment="Center" />
 
                 <Label
                     Text="Accede a tu cuenta para solicitar y consultar servicios de jardinería."
-                    FontSize="15"
-                    TextColor="#666666"
+                    Style="{StaticResource SubtitleLabel}"
                     HorizontalTextAlignment="Center"
-                    LineHeight="1.2" />
+                    Padding="20,0,20,0"
+                    LineHeight="1.3" />
 
             </VerticalStackLayout>
 
             <Border
                 Grid.Row="1"
-                BackgroundColor="White"
-                Stroke="#E5E7EB"
-                StrokeThickness="1"
-                Padding="24"
+                Style="{StaticResource FormBorder}"
                 Margin="0,20,0,0">
 
                 <Border.StrokeShape>
                     <RoundRectangle CornerRadius="28" />
                 </Border.StrokeShape>
 
-                <VerticalStackLayout Spacing="18">
+                <VerticalStackLayout Spacing="15">
 
                     <Label
                         Text="Correo electrónico"
-                        FontSize="14"
-                        TextColor="#24541B"
-                        FontAttributes="Bold" />
+                        Style="{StaticResource FieldLabel}" />
 
                     <Border
                         BackgroundColor="#F7F8F5"
@@ -68,16 +62,12 @@
                         <Entry
                             Placeholder="ejemplo@correo.com"
                             Keyboard="Email"
-                            TextColor="#1F1F1F"
-                            PlaceholderColor="#999999"
-                            BackgroundColor="Transparent" />
+                            Style="{StaticResource InputEntry}" />
                     </Border>
 
                     <Label
                         Text="Contraseña"
-                        FontSize="14"
-                        TextColor="#24541B"
-                        FontAttributes="Bold" />
+                        Style="{StaticResource FieldLabel}" />
 
                     <Border
                         BackgroundColor="#F7F8F5"
@@ -92,25 +82,18 @@
                         <Entry
                             Placeholder="Ingresa tu contraseña"
                             IsPassword="True"
-                            TextColor="#1F1F1F"
-                            PlaceholderColor="#999999"
-                            BackgroundColor="Transparent" />
+                            Style="{StaticResource InputEntry}" />
                     </Border>
 
                     <Button
                         Text="Iniciar sesión"
-                        BackgroundColor="#64BC1E"
-                        TextColor="White"
-                        FontSize="16"
-                        FontAttributes="Bold"
-                        CornerRadius="18"
-                        HeightRequest="54"
+                        Style="{StaticResource PrimaryButton}"
                         Margin="0,12,0,0" />
 
                     <Label
                         Text="¿Aún no tienes cuenta? Crear cuenta"
-                        FontSize="14"
-                        TextColor="#666666"
+                        TextDecorations="Underline"
+                        Style="{StaticResource SubtitleLabel}"
                         HorizontalTextAlignment="Center"
                         Margin="0,8,0,0" />
 

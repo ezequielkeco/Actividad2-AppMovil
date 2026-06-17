@@ -2,7 +2,7 @@
 <ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="Marila_Garden_App.Views.Services.ServicesPage"
-             BackgroundColor="#F7F8F5"
+             BackgroundColor="{StaticResource Background}"
              Shell.NavBarIsVisible="False">
 
     <ScrollView>
@@ -10,20 +10,25 @@
         <VerticalStackLayout
             Padding="24"
             Spacing="20">
+            
+            <Image Source="marila_garden_logo.png"
+                   WidthRequest="150"
+                   HorizontalOptions="Center"
+                   Aspect="AspectFit" />
 
             <Label
                 Text="Nuestros Servicios"
-                FontSize="30"
-                FontAttributes="Bold"
-                TextColor="#24541B"
+                HorizontalTextAlignment="Center"
+                Style="{StaticResource TitleLabel}"
                 Margin="0,20,0,0"/>
 
             <Label
                 Text="Soluciones personalizadas para crear y mantener espacios verdes únicos."
-                FontSize="15"
-                TextColor="#666666"/>
+                HorizontalTextAlignment="Center"
+                Padding="15,10"
+                Style="{StaticResource SubtitleLabel}" />
 
-            <!-- Servicio 1 -->
+            <!-- Servicio - Diseño de Jardines -->
 
             <Border
                 BackgroundColor="White"
@@ -38,27 +43,34 @@
 
                     <Label
                         Text="🌱"
+                        HorizontalTextAlignment="Center"
                         FontSize="38"/>
 
                     <Label
                         Text="Diseño de Jardines"
-                        FontSize="20"
-                        FontAttributes="Bold"
-                        TextColor="#24541B"/>
+                        HorizontalTextAlignment="Center"
+                        Style="{StaticResource SectionTitleLabel}"/>
 
                     <Label
                         Text="Diseñamos jardines personalizados que armonizan con el espacio y las necesidades del cliente."
-                        TextColor="#666666"/>
+                        HorizontalTextAlignment="Center"
+                        Style="{StaticResource SubtitleLabel}"/>
 
                 </VerticalStackLayout>
+                <Border.Shadow>
+                    <Shadow
+                        Brush="Black"
+                        Offset="0,2"
+                        Radius="10"
+                        Opacity="0.1" />
+                </Border.Shadow>
 
             </Border>
 
-            <!-- Servicio 2 -->
+            <!-- Servicio - Poda Profesional -->
 
             <Border
-                BackgroundColor="White"
-                Stroke="#E5E7EB"
+                Style="{StaticResource CardBorder}"
                 Padding="20">
 
                 <Border.StrokeShape>
@@ -69,27 +81,34 @@
 
                     <Label
                         Text="✂️"
+                        HorizontalTextAlignment="Center"
                         FontSize="38"/>
 
                     <Label
                         Text="Poda Profesional"
-                        FontSize="20"
-                        FontAttributes="Bold"
-                        TextColor="#24541B"/>
+                        HorizontalTextAlignment="Center"
+                        Style="{StaticResource SectionTitleLabel}"/>
 
                     <Label
                         Text="Mantenimiento y control del crecimiento para conservar la salud y estética de las plantas."
-                        TextColor="#666666"/>
+                        HorizontalTextAlignment="Center"
+                        Style="{StaticResource SubtitleLabel}"/>
 
                 </VerticalStackLayout>
+                <Border.Shadow>
+                    <Shadow
+                        Brush="Black"
+                        Offset="0,2"
+                        Radius="10"
+                        Opacity="0.1" />
+                </Border.Shadow>
 
             </Border>
 
-            <!-- Servicio 3 -->
+            <!-- Servicio - Instalación de Plantas -->
 
             <Border
-                BackgroundColor="White"
-                Stroke="#E5E7EB"
+                Style="{StaticResource CardBorder}"
                 Padding="20">
 
                 <Border.StrokeShape>
@@ -100,27 +119,34 @@
 
                     <Label
                         Text="🪴"
+                        HorizontalTextAlignment="Center"
                         FontSize="38"/>
 
                     <Label
                         Text="Instalación de Plantas"
-                        FontSize="20"
-                        FontAttributes="Bold"
-                        TextColor="#24541B"/>
+                        HorizontalTextAlignment="Center"
+                        Style="{StaticResource SectionTitleLabel}"/>
 
                     <Label
                         Text="Selección e instalación de especies adecuadas para interiores y exteriores."
-                        TextColor="#666666"/>
+                        HorizontalTextAlignment="Center"
+                        Style="{StaticResource SubtitleLabel}"/>
 
                 </VerticalStackLayout>
+                <Border.Shadow>
+                    <Shadow
+                        Brush="Black"
+                        Offset="0,2"
+                        Radius="10"
+                        Opacity="0.1" />
+                </Border.Shadow>
 
             </Border>
 
-            <!-- Servicio 4 -->
+            <!-- Servicio - Mantenimiento Integral -->
 
             <Border
-                BackgroundColor="White"
-                Stroke="#E5E7EB"
+                Style="{StaticResource CardBorder}"
                 Padding="20">
 
                 <Border.StrokeShape>
@@ -131,19 +157,27 @@
 
                     <Label
                         Text="🌿"
+                        HorizontalTextAlignment="Center"
                         FontSize="38"/>
 
                     <Label
                         Text="Mantenimiento Integral"
-                        FontSize="20"
-                        FontAttributes="Bold"
-                        TextColor="#24541B"/>
+                        HorizontalTextAlignment="Center"
+                        Style="{StaticResource SectionTitleLabel}"/>
 
                     <Label
                         Text="Programas de mantenimiento periódico para jardines residenciales y comerciales."
-                        TextColor="#666666"/>
+                        HorizontalTextAlignment="Center"
+                        Style="{StaticResource SubtitleLabel}"/>
 
                 </VerticalStackLayout>
+                <Border.Shadow>
+                    <Shadow
+                        Brush="Black"
+                        Offset="0,2"
+                        Radius="10"
+                        Opacity="0.1" />
+                </Border.Shadow>
 
             </Border>
 

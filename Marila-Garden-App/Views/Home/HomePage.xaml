@@ -2,118 +2,145 @@
 <ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="Marila_Garden_App.Views.Home.HomePage"
-             BackgroundColor="#F7F8F5"
+             BackgroundColor="{StaticResource Background}"
              Shell.NavBarIsVisible="False">
 
     <ScrollView>
-        <VerticalStackLayout Padding="24" Spacing="24">
+        <VerticalStackLayout Padding="24"
+                             Spacing="24">
 
-            <Grid ColumnDefinitions="*,Auto" Margin="0,20,0,0">
+            <Grid ColumnDefinitions="*,Auto"
+                  Margin="0,20,0,0">
                 <VerticalStackLayout Spacing="4">
                     <Label Text="Hola, bienvenido"
-                           FontSize="15"
-                           TextColor="#666666" />
+                           Style="{StaticResource SubtitleLabel}" />
 
                     <Label Text="Marila Garden"
-                           FontSize="28"
-                           FontAttributes="Bold"
-                           TextColor="#24541B" />
+                           Style="{StaticResource TitleLabel}" />
                 </VerticalStackLayout>
 
-                <Border Grid.Column="1"
-                        WidthRequest="48"
-                        HeightRequest="48"
-                        BackgroundColor="#FFFFFF"
-                        Stroke="#E5E7EB"
-                        StrokeThickness="1">
-                    <Border.StrokeShape>
-                        <RoundRectangle CornerRadius="24" />
-                    </Border.StrokeShape>
-
-                    <Label Text="🌿"
-                           FontSize="24"
-                           HorizontalOptions="Center"
-                           VerticalOptions="Center" />
-                </Border>
+                <Image Source="marila_garden_logo.png"
+                       WidthRequest="130"
+                       HorizontalOptions="End"
+                       Aspect="AspectFit" />
             </Grid>
 
-            <Border BackgroundColor="#24541B"
+            <Border BackgroundColor="{StaticResource PrimaryDark}"
                     Padding="24"
                     StrokeThickness="0">
+                <Border.Shadow>
+                    <Shadow
+                        Brush="Black"
+                        Offset="0,5"
+                        Radius="10"
+                        Opacity="0.4" />
+                </Border.Shadow>
+
                 <Border.StrokeShape>
                     <RoundRectangle CornerRadius="28" />
                 </Border.StrokeShape>
 
                 <VerticalStackLayout Spacing="12">
-                    <Label Text="Diseñamos jardines que elevan tu bienestar"
+                    <Label Text="Diseños de jardines que elevan tu bienestar"
                            FontSize="24"
                            FontAttributes="Bold"
-                           TextColor="White"
+                           TextColor="{StaticResource White}"
+                           HorizontalTextAlignment="Center"
                            LineHeight="1.1" />
 
                     <Label Text="Solicita asesoría personalizada para transformar tus espacios verdes."
-                           FontSize="15"
-                           TextColor="#DDEFD5"
+                           FontSize="17"
+                           TextColor="{StaticResource SecondaryDarkText}"
+                           HorizontalTextAlignment="Center"
                            LineHeight="1.2" />
 
                     <Button Text="Solicitar servicio"
-                            BackgroundColor="#64BC1E"
-                            TextColor="White"
-                            CornerRadius="18"
+                            Style="{StaticResource PrimaryButton}"
                             HeightRequest="48"
-                            FontAttributes="Bold"
-                            Margin="0,8,0,0" />
+                            Margin="0,10,0,0" />
                 </VerticalStackLayout>
             </Border>
 
             <Label Text="Servicios destacados"
-                   FontSize="22"
-                   FontAttributes="Bold"
-                   TextColor="#24541B" />
+                   HorizontalTextAlignment="Center"
+                   Style="{StaticResource SectionTitleLabel}" />
 
-            <Grid ColumnDefinitions="*,*" RowDefinitions="Auto,Auto" ColumnSpacing="14" RowSpacing="14">
+            <Grid ColumnDefinitions="*,*"
+                  RowDefinitions="Auto,Auto"
+                  ColumnSpacing="10"
+                  RowSpacing="10">
 
-                <Border BackgroundColor="White" Padding="18" Stroke="#E5E7EB">
+                <Border Style="{StaticResource CardBorder}"
+                        Padding="10,15">
                     <Border.StrokeShape>
                         <RoundRectangle CornerRadius="22" />
                     </Border.StrokeShape>
                     <VerticalStackLayout Spacing="8">
-                        <Label Text="🌱" FontSize="30" />
-                        <Label Text="Diseño de jardines" FontAttributes="Bold" TextColor="#24541B" />
-                        <Label Text="Espacios naturales personalizados." FontSize="13" TextColor="#666666" />
+                        <Label Text="🌱" FontSize="35"
+                               HorizontalTextAlignment="Center"/>
+                        <Label Text="Diseño de jardines"
+                               HorizontalTextAlignment="Center"
+                               Style="{StaticResource FieldLabel}" />
+                        <Label Text="Espacios naturales personalizados."
+                               FontSize="15"
+                               HorizontalTextAlignment="Center"
+                               TextColor="{StaticResource PrimaryText}" />
                     </VerticalStackLayout>
                 </Border>
 
-                <Border Grid.Column="1" BackgroundColor="White" Padding="18" Stroke="#E5E7EB">
+                <Border Grid.Column="1"
+                        Style="{StaticResource CardBorder}"
+                        Padding="15">
                     <Border.StrokeShape>
                         <RoundRectangle CornerRadius="22" />
                     </Border.StrokeShape>
                     <VerticalStackLayout Spacing="8">
-                        <Label Text="✂️" FontSize="30" />
-                        <Label Text="Mantenimiento" FontAttributes="Bold" TextColor="#24541B" />
-                        <Label Text="Cuidado responsable y continuo." FontSize="13" TextColor="#666666" />
+                        <Label Text="✂️" FontSize="35"
+                               HorizontalTextAlignment="Center"/>
+                        <Label Text="Mantenimiento"
+                               HorizontalTextAlignment="Center"
+                               Style="{StaticResource FieldLabel}" />
+                        <Label Text="Cuidado responsable y continuo."
+                               HorizontalTextAlignment="Center"
+                               FontSize="15" TextColor="{StaticResource PrimaryText}" />
                     </VerticalStackLayout>
                 </Border>
 
-                <Border Grid.Row="1" BackgroundColor="White" Padding="18" Stroke="#E5E7EB">
+                <Border Grid.Row="1"
+                        Style="{StaticResource CardBorder}"
+                        Padding="20,15">
                     <Border.StrokeShape>
                         <RoundRectangle CornerRadius="22" />
                     </Border.StrokeShape>
                     <VerticalStackLayout Spacing="8">
-                        <Label Text="🪴" FontSize="30" />
-                        <Label Text="Instalación" FontAttributes="Bold" TextColor="#24541B" />
-                        <Label Text="Plantas, maceteros y detalles." FontSize="13" TextColor="#666666" />
+                        <Label Text="🪴" FontSize="35"
+                               HorizontalTextAlignment="Center"/>
+                        <Label Text="Instalación"
+                               HorizontalTextAlignment="Center"
+                               Style="{StaticResource FieldLabel}" />
+                        <Label Text="Plantas, maceteros y detalles."
+                               HorizontalTextAlignment="Center"
+                               FontSize="15" TextColor="{StaticResource PrimaryText}" />
                     </VerticalStackLayout>
                 </Border>
 
-                <Border Grid.Row="1" Grid.Column="1" BackgroundColor="White" Padding="18" Stroke="#E5E7EB">
+                <Border Grid.Row="1"
+                        Grid.Column="1"
+                        Style="{StaticResource CardBorder}"
+                        Padding="15">
                     <Border.StrokeShape>
                         <RoundRectangle CornerRadius="22" />
                     </Border.StrokeShape>
                     <VerticalStackLayout Spacing="8">
-                        <Label Text="🌳" FontSize="30" />
-                        <Label Text="Poda" FontAttributes="Bold" TextColor="#24541B" />
-                        <Label Text="Control, salud y estética vegetal." FontSize="13" TextColor="#666666" />
+                        <Label Text="🌳"
+                               HorizontalTextAlignment="Center"
+                               FontSize="35" />
+                        <Label Text="Poda"
+                               HorizontalTextAlignment="Center"
+                               Style="{StaticResource FieldLabel}" />
+                        <Label Text="Control, salud y estética vegetal."
+                               HorizontalTextAlignment="Center"
+                               TextColor="{StaticResource PrimaryText}" />
                     </VerticalStackLayout>
                 </Border>
 

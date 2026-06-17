@@ -2,7 +2,7 @@
 <ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="Marila_Garden_App.Views.Splash.SplashPage"
-             BackgroundColor="#F7F8F5"
+             BackgroundColor="{StaticResource Background}"
              Shell.NavBarIsVisible="False">
 
     <Grid Padding="32">
@@ -17,15 +17,9 @@
                 WidthRequest="260"
                 Aspect="AspectFit" />
 
-            <Label
-                Text="Transformando espacios verdes"
-                FontSize="16"
-                TextColor="#666666"
-                HorizontalTextAlignment="Center" />
-
             <ActivityIndicator
                 IsRunning="True"
-                Color="#64BC1E"
+                Style="{StaticResource LoadingIndicator}"
                 WidthRequest="36"
                 HeightRequest="36" />
 

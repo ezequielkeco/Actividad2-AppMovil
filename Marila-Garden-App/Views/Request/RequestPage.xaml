@@ -2,29 +2,30 @@
 <ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="Marila_Garden_App.Views.Request.RequestPage"
-             BackgroundColor="#F7F8F5"
+             BackgroundColor="{StaticResource Background}"
              Shell.NavBarIsVisible="False">
 
     <ScrollView>
         <VerticalStackLayout Padding="24" Spacing="20">
 
+            <Image Source="marila_garden_logo.png"
+                   WidthRequest="150"
+                   HorizontalOptions="Center"
+                   Aspect="AspectFit" />
+
             <Label
                 Text="Solicitar servicio"
-                FontSize="30"
-                FontAttributes="Bold"
-                TextColor="#24541B"
+                HorizontalTextAlignment="Center"
+                Style="{StaticResource TitleLabel}"
                 Margin="0,20,0,0" />
 
             <Label
                 Text="Completa la información para coordinar una evaluación personalizada de tu jardín."
-                FontSize="15"
-                TextColor="#666666" />
+                HorizontalTextAlignment="Center"
+                Style="{StaticResource SubtitleLabel}" />
 
             <Border
-                BackgroundColor="White"
-                Stroke="#E5E7EB"
-                StrokeThickness="1"
-                Padding="22">
+                Style="{StaticResource FormBorder}">
 
                 <Border.StrokeShape>
                     <RoundRectangle CornerRadius="26" />
@@ -33,10 +34,9 @@
                 <VerticalStackLayout Spacing="16">
 
                     <Label Text="Nombre completo"
-                           FontAttributes="Bold"
-                           TextColor="#24541B" />
+                           Style="{StaticResource FieldLabel}" />
 
-                    <Border BackgroundColor="#F7F8F5"
+                    <Border BackgroundColor="{StaticResource Background}"
                             Stroke="#E5E7EB"
                             Padding="14,4">
                         <Border.StrokeShape>
@@ -44,16 +44,13 @@
                         </Border.StrokeShape>
 
                         <Entry Placeholder="Ej. María Pérez"
-                               TextColor="#1F1F1F"
-                               PlaceholderColor="#999999"
-                               BackgroundColor="Transparent" />
+                               Style="{StaticResource InputEntry}" />
                     </Border>
 
                     <Label Text="Teléfono"
-                           FontAttributes="Bold"
-                           TextColor="#24541B" />
+                           Style="{StaticResource FieldLabel}" />
 
-                    <Border BackgroundColor="#F7F8F5"
+                    <Border BackgroundColor="{StaticResource Background}"
                             Stroke="#E5E7EB"
                             Padding="14,4">
                         <Border.StrokeShape>
@@ -62,16 +59,13 @@
 
                         <Entry Placeholder="Ej. 809-000-0000"
                                Keyboard="Telephone"
-                               TextColor="#1F1F1F"
-                               PlaceholderColor="#999999"
-                               BackgroundColor="Transparent" />
+                               Style="{StaticResource InputEntry}" />
                     </Border>
 
                     <Label Text="Tipo de servicio"
-                           FontAttributes="Bold"
-                           TextColor="#24541B" />
+                           Style="{StaticResource FieldLabel}" />
 
-                    <Border BackgroundColor="#F7F8F5"
+                    <Border BackgroundColor="{StaticResource Background}"
                             Stroke="#E5E7EB"
                             Padding="14,4">
                         <Border.StrokeShape>
@@ -79,9 +73,7 @@
                         </Border.StrokeShape>
 
                         <Picker Title="Selecciona un servicio"
-                                TitleColor="#999999"
-                                TextColor="#1F1F1F"
-                                BackgroundColor="Transparent">
+                                Style="{StaticResource InputPicker}">
                             <Picker.Items>
                                 <x:String>Diseño de jardines</x:String>
                                 <x:String>Mantenimiento integral</x:String>
@@ -92,25 +84,22 @@
                     </Border>
 
                     <Label Text="Fecha deseada"
-                           FontAttributes="Bold"
-                           TextColor="#24541B" />
+                           Style="{StaticResource FieldLabel}" />
 
-                    <Border BackgroundColor="#F7F8F5"
+                    <Border BackgroundColor="{StaticResource Background}"
                             Stroke="#E5E7EB"
                             Padding="14,4">
                         <Border.StrokeShape>
                             <RoundRectangle CornerRadius="16" />
                         </Border.StrokeShape>
 
-                        <DatePicker TextColor="#1F1F1F"
-                                    BackgroundColor="Transparent" />
+                        <DatePicker Style="{StaticResource InputDatePicker}" />
                     </Border>
 
                     <Label Text="Comentarios"
-                           FontAttributes="Bold"
-                           TextColor="#24541B" />
+                           Style="{StaticResource FieldLabel}" />
 
-                    <Border BackgroundColor="#F7F8F5"
+                    <Border BackgroundColor="{StaticResource Background}"
                             Stroke="#E5E7EB"
                             Padding="14,10">
                         <Border.StrokeShape>
@@ -120,19 +109,12 @@
                         <Editor Placeholder="Describe brevemente el servicio que necesita..."
                                 AutoSize="TextChanges"
                                 HeightRequest="110"
-                                TextColor="#1F1F1F"
-                                PlaceholderColor="#999999"
-                                BackgroundColor="Transparent" />
+                                Style="{StaticResource InputEditor}" />
                     </Border>
 
                     <Button
                         Text="Enviar solicitud"
-                        BackgroundColor="#64BC1E"
-                        TextColor="White"
-                        FontAttributes="Bold"
-                        FontSize="16"
-                        CornerRadius="18"
-                        HeightRequest="54"
+                        Style="{StaticResource PrimaryButton}"
                         Margin="0,10,0,0" />
 
                 </VerticalStackLayout>
