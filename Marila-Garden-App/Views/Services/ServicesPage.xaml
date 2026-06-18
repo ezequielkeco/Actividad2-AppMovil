@@ -6,7 +6,6 @@
              Shell.NavBarIsVisible="False">
 
     <ScrollView>
-
         <VerticalStackLayout
             Padding="24"
             Spacing="20">
@@ -20,12 +19,12 @@
                 Text="Nuestros Servicios"
                 HorizontalTextAlignment="Center"
                 Style="{StaticResource TitleLabel}"
-                Margin="0,20,0,0"/>
+                Margin="0,20,0,0" />
 
             <Label
                 Text="Soluciones personalizadas para crear y mantener espacios verdes únicos."
                 HorizontalTextAlignment="Center"
-                Padding="15,10"
+                Padding="15,0"
                 Style="{StaticResource SubtitleLabel}" />
 
             <!-- Servicio - Diseño de Jardines -->

@@ -8,6 +8,7 @@
     <Grid Padding="32">
 
         <VerticalStackLayout
+            x:Name="SplashContent"
             VerticalOptions="Center"
             HorizontalOptions="Center"
             Spacing="22">

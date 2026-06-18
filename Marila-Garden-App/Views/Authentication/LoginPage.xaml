@@ -46,7 +46,7 @@
                 <VerticalStackLayout Spacing="15">
 
                     <Label
-                        Text="Correo electrónico"
+                        Text="Nombre de usuario"
                         Style="{StaticResource FieldLabel}" />
 
                     <Border
@@ -60,8 +60,9 @@
                         </Border.StrokeShape>
 
                         <Entry
-                            Placeholder="ejemplo@correo.com"
-                            Keyboard="Email"
+                            x:Name="UserNameEntry"
+                            Placeholder="Nombre de usuario"
+                            Keyboard="Text"
                             Style="{StaticResource InputEntry}" />
                     </Border>
 
@@ -80,6 +81,7 @@
                         </Border.StrokeShape>
 
                         <Entry
+                            x:Name="PasswordEntry"
                             Placeholder="Ingresa tu contraseña"
                             IsPassword="True"
                             Style="{StaticResource InputEntry}" />
@@ -88,16 +90,25 @@
                     <Button
                         Text="Iniciar sesión"
                         Style="{StaticResource PrimaryButton}"
-                        Margin="0,12,0,0" />
+                        Margin="0,12,0,0"
+                        Clicked="OnLoginClicked" />
 
                     <Label
-                        Text="¿Aún no tienes cuenta? Crear cuenta"
+                        Text="¿No tienes cuenta? Crea una gratis"
                         TextDecorations="Underline"
                         Style="{StaticResource SubtitleLabel}"
                         HorizontalTextAlignment="Center"
                         Margin="0,8,0,0" />
 
                 </VerticalStackLayout>
+
+                <Border.Shadow>
+                    <Shadow
+                        Brush="Black"
+                        Offset="0,5"
+                        Radius="10"
+                        Opacity="0.1" />
+                </Border.Shadow>
 
             </Border>
 

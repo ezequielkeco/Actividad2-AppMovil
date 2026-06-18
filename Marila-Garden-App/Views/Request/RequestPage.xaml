@@ -6,7 +6,9 @@
              Shell.NavBarIsVisible="False">
 
     <ScrollView>
-        <VerticalStackLayout Padding="24" Spacing="20">
+        <VerticalStackLayout
+            Padding="24"
+            Spacing="20">
 
             <Image Source="marila_garden_logo.png"
                    WidthRequest="150"
@@ -22,6 +24,7 @@
             <Label
                 Text="Completa la información para coordinar una evaluación personalizada de tu jardín."
                 HorizontalTextAlignment="Center"
+                Padding="15,0"
                 Style="{StaticResource SubtitleLabel}" />
 
             <Border

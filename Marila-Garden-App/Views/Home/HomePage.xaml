@@ -12,11 +12,12 @@
             <Grid ColumnDefinitions="*,Auto"
                   Margin="0,20,0,0">
                 <VerticalStackLayout Spacing="4">
-                    <Label Text="Hola, bienvenido"
+                    <Label Text="¡Hola!"
                            Style="{StaticResource SubtitleLabel}" />
 
-                    <Label Text="Marila Garden"
-                           Style="{StaticResource TitleLabel}" />
+                    <Label x:Name="UserNameLabel"
+                           Text="Usuario"
+                           Style="{StaticResource SectionTitleLabel}" />
                 </VerticalStackLayout>
 
                 <Image Source="marila_garden_logo.png"
@@ -26,7 +27,7 @@
             </Grid>
 
             <Border BackgroundColor="{StaticResource PrimaryDark}"
-                    Padding="24"
+                    Padding="15"
                     StrokeThickness="0">
                 <Border.Shadow>
                     <Shadow
@@ -72,11 +73,14 @@
 
                 <Border Style="{StaticResource CardBorder}"
                         Padding="10,15">
+                    
                     <Border.StrokeShape>
                         <RoundRectangle CornerRadius="22" />
                     </Border.StrokeShape>
+                    
                     <VerticalStackLayout Spacing="8">
-                        <Label Text="🌱" FontSize="35"
+                        <Label Text="🌱"
+                               FontSize="35"
                                HorizontalTextAlignment="Center"/>
                         <Label Text="Diseño de jardines"
                                HorizontalTextAlignment="Center"
@@ -86,16 +90,26 @@
                                HorizontalTextAlignment="Center"
                                TextColor="{StaticResource PrimaryText}" />
                     </VerticalStackLayout>
+                    <Border.Shadow>
+                        <Shadow
+                            Brush="Black"
+                            Offset="0,2"
+                            Radius="10"
+                            Opacity="0.1" />
+                    </Border.Shadow>
                 </Border>
 
                 <Border Grid.Column="1"
                         Style="{StaticResource CardBorder}"
                         Padding="15">
+                    
                     <Border.StrokeShape>
                         <RoundRectangle CornerRadius="22" />
                     </Border.StrokeShape>
+                    
                     <VerticalStackLayout Spacing="8">
-                        <Label Text="✂️" FontSize="35"
+                        <Label Text="✂️"
+                               FontSize="35"
                                HorizontalTextAlignment="Center"/>
                         <Label Text="Mantenimiento"
                                HorizontalTextAlignment="Center"
@@ -104,16 +118,26 @@
                                HorizontalTextAlignment="Center"
                                FontSize="15" TextColor="{StaticResource PrimaryText}" />
                     </VerticalStackLayout>
+                    <Border.Shadow>
+                        <Shadow
+                            Brush="Black"
+                            Offset="0,2"
+                            Radius="10"
+                            Opacity="0.1" />
+                    </Border.Shadow>
                 </Border>
 
                 <Border Grid.Row="1"
                         Style="{StaticResource CardBorder}"
                         Padding="20,15">
+                    
                     <Border.StrokeShape>
                         <RoundRectangle CornerRadius="22" />
                     </Border.StrokeShape>
+                    
                     <VerticalStackLayout Spacing="8">
-                        <Label Text="🪴" FontSize="35"
+                        <Label Text="🪴"
+                               FontSize="35"
                                HorizontalTextAlignment="Center"/>
                         <Label Text="Instalación"
                                HorizontalTextAlignment="Center"
@@ -122,15 +146,24 @@
                                HorizontalTextAlignment="Center"
                                FontSize="15" TextColor="{StaticResource PrimaryText}" />
                     </VerticalStackLayout>
+                    <Border.Shadow>
+                        <Shadow
+                            Brush="Black"
+                            Offset="0,2"
+                            Radius="10"
+                            Opacity="0.1" />
+                    </Border.Shadow>
                 </Border>
 
                 <Border Grid.Row="1"
                         Grid.Column="1"
                         Style="{StaticResource CardBorder}"
                         Padding="15">
+                    
                     <Border.StrokeShape>
                         <RoundRectangle CornerRadius="22" />
                     </Border.StrokeShape>
+                    
                     <VerticalStackLayout Spacing="8">
                         <Label Text="🌳"
                                HorizontalTextAlignment="Center"
@@ -142,6 +175,13 @@
                                HorizontalTextAlignment="Center"
                                TextColor="{StaticResource PrimaryText}" />
                     </VerticalStackLayout>
+                    <Border.Shadow>
+                        <Shadow
+                            Brush="Black"
+                            Offset="0,2"
+                            Radius="10"
+                            Opacity="0.1" />
+                    </Border.Shadow>
                 </Border>
 
             </Grid>
