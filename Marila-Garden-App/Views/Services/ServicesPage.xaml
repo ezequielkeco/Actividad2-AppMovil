@@ -7,13 +7,33 @@
 
     <ScrollView>
         <VerticalStackLayout
-            Padding="24"
-            Spacing="20">
-            
-            <Image Source="marila_garden_logo.png"
-                   WidthRequest="150"
-                   HorizontalOptions="Center"
-                   Aspect="AspectFit" />
+                    Padding="24"
+                    Spacing="24">
+
+            <Grid ColumnDefinitions="Auto,*,Auto"
+                  Margin="0,20,0,0"
+                  ColumnSpacing="14">
+
+                <ImageButton
+                    Source="menu.png"
+                    Clicked="OnMenuClicked" />
+
+                <VerticalStackLayout
+                    Spacing="4"
+                    Grid.Column="1">
+                    <Label Text="¡Hola!"
+                           Style="{StaticResource SubtitleLabel}" />
+
+                    <Label x:Name="UserNameLabel"
+                           Text="Usuario"
+                           Style="{StaticResource SectionTitleLabel}" />
+                </VerticalStackLayout>
+                <Image Source="marila_garden_logo.png"
+                       WidthRequest="130"
+                       HorizontalOptions="End"
+                       Aspect="AspectFit" 
+                       Grid.Column="2"/>
+            </Grid>
 
             <Label
                 Text="Nuestros Servicios"
@@ -34,30 +54,30 @@
                 Stroke="#E5E7EB"
                 Padding="20">
 
-                <Border.StrokeShape>
-                    <RoundRectangle CornerRadius="24"/>
-                </Border.StrokeShape>
+            <Border.StrokeShape>
+                <RoundRectangle CornerRadius="24"/>
+            </Border.StrokeShape>
 
-                <VerticalStackLayout Spacing="10">
+            <VerticalStackLayout Spacing="10">
 
-                    <Label
+                <Label
                         Text="🌱"
                         HorizontalTextAlignment="Center"
                         FontSize="38"/>
 
-                    <Label
+                <Label
                         Text="Diseño de Jardines"
                         HorizontalTextAlignment="Center"
                         Style="{StaticResource SectionTitleLabel}"/>
 
-                    <Label
+                <Label
                         Text="Diseñamos jardines personalizados que armonizan con el espacio y las necesidades del cliente."
                         HorizontalTextAlignment="Center"
                         Style="{StaticResource SubtitleLabel}"/>
 
-                </VerticalStackLayout>
-                <Border.Shadow>
-                    <Shadow
+            </VerticalStackLayout>
+            <Border.Shadow>
+                <Shadow
                         Brush="Black"
                         Offset="0,2"
                         Radius="10"
@@ -72,30 +92,30 @@
                 Style="{StaticResource CardBorder}"
                 Padding="20">
 
-                <Border.StrokeShape>
-                    <RoundRectangle CornerRadius="24"/>
-                </Border.StrokeShape>
+            <Border.StrokeShape>
+                <RoundRectangle CornerRadius="24"/>
+            </Border.StrokeShape>
 
-                <VerticalStackLayout Spacing="10">
+            <VerticalStackLayout Spacing="10">
 
-                    <Label
+                <Label
                         Text="✂️"
                         HorizontalTextAlignment="Center"
                         FontSize="38"/>
 
-                    <Label
+                <Label
                         Text="Poda Profesional"
                         HorizontalTextAlignment="Center"
                         Style="{StaticResource SectionTitleLabel}"/>
 
-                    <Label
+                <Label
                         Text="Mantenimiento y control del crecimiento para conservar la salud y estética de las plantas."
                         HorizontalTextAlignment="Center"
                         Style="{StaticResource SubtitleLabel}"/>
 
-                </VerticalStackLayout>
-                <Border.Shadow>
-                    <Shadow
+            </VerticalStackLayout>
+            <Border.Shadow>
+                <Shadow
                         Brush="Black"
                         Offset="0,2"
                         Radius="10"
@@ -106,81 +126,81 @@
 
             <!-- Servicio - Instalación de Plantas -->
 
-            <Border
+        <Border
                 Style="{StaticResource CardBorder}"
                 Padding="20">
 
-                <Border.StrokeShape>
-                    <RoundRectangle CornerRadius="24"/>
-                </Border.StrokeShape>
+            <Border.StrokeShape>
+                <RoundRectangle CornerRadius="24"/>
+            </Border.StrokeShape>
 
-                <VerticalStackLayout Spacing="10">
+            <VerticalStackLayout Spacing="10">
 
-                    <Label
+                <Label
                         Text="🪴"
                         HorizontalTextAlignment="Center"
                         FontSize="38"/>
 
-                    <Label
+                <Label
                         Text="Instalación de Plantas"
                         HorizontalTextAlignment="Center"
                         Style="{StaticResource SectionTitleLabel}"/>
 
-                    <Label
+                <Label
                         Text="Selección e instalación de especies adecuadas para interiores y exteriores."
                         HorizontalTextAlignment="Center"
                         Style="{StaticResource SubtitleLabel}"/>
 
-                </VerticalStackLayout>
-                <Border.Shadow>
-                    <Shadow
+            </VerticalStackLayout>
+            <Border.Shadow>
+                <Shadow
                         Brush="Black"
                         Offset="0,2"
                         Radius="10"
                         Opacity="0.1" />
-                </Border.Shadow>
+            </Border.Shadow>
 
-            </Border>
+        </Border>
 
             <!-- Servicio - Mantenimiento Integral -->
 
-            <Border
+        <Border
                 Style="{StaticResource CardBorder}"
                 Padding="20">
 
-                <Border.StrokeShape>
-                    <RoundRectangle CornerRadius="24"/>
-                </Border.StrokeShape>
+            <Border.StrokeShape>
+                <RoundRectangle CornerRadius="24"/>
+            </Border.StrokeShape>
 
-                <VerticalStackLayout Spacing="10">
+            <VerticalStackLayout Spacing="10">
 
-                    <Label
+                <Label
                         Text="🌿"
                         HorizontalTextAlignment="Center"
                         FontSize="38"/>
 
-                    <Label
+                <Label
                         Text="Mantenimiento Integral"
                         HorizontalTextAlignment="Center"
                         Style="{StaticResource SectionTitleLabel}"/>
 
-                    <Label
+                <Label
                         Text="Programas de mantenimiento periódico para jardines residenciales y comerciales."
                         HorizontalTextAlignment="Center"
                         Style="{StaticResource SubtitleLabel}"/>
 
-                </VerticalStackLayout>
-                <Border.Shadow>
-                    <Shadow
+            </VerticalStackLayout>
+            <Border.Shadow>
+                <Shadow
                         Brush="Black"
                         Offset="0,2"
                         Radius="10"
                         Opacity="0.1" />
-                </Border.Shadow>
+            </Border.Shadow>
 
-            </Border>
+        </Border>
 
-        </VerticalStackLayout>
+      </VerticalStackLayout>
 
     </ScrollView>
 

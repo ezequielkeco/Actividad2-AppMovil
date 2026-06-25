@@ -84,6 +84,9 @@
 	  <MauiXaml Update="Views\Home\HomePage.xaml">
 	    <Generator>MSBuild:Compile</Generator>
 	  </MauiXaml>
+	  <MauiXaml Update="Views\RequestsHistory\RequestsHistoryPage.xaml">
+	    <Generator>MSBuild:Compile</Generator>
+	  </MauiXaml>
 	  <MauiXaml Update="Views\Request\RequestPage.xaml">
 	    <Generator>MSBuild:Compile</Generator>
 	  </MauiXaml>

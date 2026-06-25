@@ -1,0 +1,81 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="Marila_Garden_App.Views.RequestsHistory.RequestsHistoryPage"
+             BackgroundColor="{StaticResource Background}"
+             Shell.NavBarIsVisible="False">
+
+    <ScrollView>
+        <VerticalStackLayout
+                Padding="24"
+                Spacing="24">
+
+            <Grid ColumnDefinitions="Auto,*,Auto"
+                  Margin="0,20,0,0"
+                  ColumnSpacing="14">
+
+                <ImageButton
+                   Source="menu.png"
+                   Clicked="OnMenuClicked" />
+
+                <VerticalStackLayout
+                  Spacing="4"
+                  Grid.Column="1">
+                    <Label Text="¡Hola!"
+                           Style="{StaticResource SubtitleLabel}" />
+
+                    <Label x:Name="UserNameLabel"
+                           Text="Usuario"
+                           Style="{StaticResource SectionTitleLabel}" />
+                </VerticalStackLayout>
+                <Image Source="marila_garden_logo.png"
+                       WidthRequest="130"
+                       HorizontalOptions="End"
+                       Aspect="AspectFit" 
+                       Grid.Column="2"/>
+            </Grid>
+
+            <Label
+                Text="Historial de solicitudes"
+                Style="{StaticResource TitleLabel}"
+                Margin="0,20,0,0" />
+
+            <Label
+                Text="Aquí podrás ver, modificar o eliminar las solicitudes de servicios creadas."
+                Style="{StaticResource SubtitleLabel}" />
+
+            <Border
+                Style="{StaticResource CardBorder}"
+                Padding="22">
+
+                <Border.StrokeShape>
+                    <RoundRectangle CornerRadius="24" />
+                </Border.StrokeShape>
+
+                <VerticalStackLayout Spacing="10">
+
+                    <Label
+                        Text="Aún no hay solicitudes registradas"
+                        Style="{StaticResource SectionTitleLabel}"
+                        HorizontalTextAlignment="Center" />
+
+                    <Label
+                        Text="Cuando crees una solicitud de servicio, aparecerá en esta pantalla."
+                        Style="{StaticResource SubtitleLabel}"
+                        HorizontalTextAlignment="Center" />
+
+                </VerticalStackLayout>
+                <Border.Shadow>
+                <Shadow
+                    Brush="Black"
+                    Offset="0,2"
+                    Radius="10"
+                    Opacity="0.1" />
+                </Border.Shadow>
+
+            </Border>
+
+        </VerticalStackLayout>
+    </ScrollView>
+
+</ContentPage>

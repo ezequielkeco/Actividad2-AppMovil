@@ -9,6 +9,7 @@
     xmlns:home="clr-namespace:Marila_Garden_App.Views.Home"
     xmlns:services="clr-namespace:Marila_Garden_App.Views.Services"
     xmlns:request="clr-namespace:Marila_Garden_App.Views.Request"
+    xmlns:history="clr-namespace:Marila_Garden_App.Views.RequestsHistory"
     
     Shell.TabBarBackgroundColor="#FFFFFF"
     Shell.TabBarForegroundColor="#64BC1E"
@@ -67,6 +68,16 @@
                 Title="Solicitar"
                 Route="Request"
                 ContentTemplate="{DataTemplate request:RequestPage}" />
+        </Tab>
+
+        <Tab
+             Title="Historial"
+             Route="HistoryTab">
+
+             <ShellContent
+                 Title="Historial"
+                 Route="RequestsHistory"
+                 ContentTemplate="{DataTemplate history:RequestsHistoryPage}" />
         </Tab>
 
     </FlyoutItem>

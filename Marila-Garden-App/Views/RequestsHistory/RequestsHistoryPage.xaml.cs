@@ -1,13 +1,13 @@
 using Marila_Garden_App.Helpers;
 
-namespace Marila_Garden_App.Views.Services;
+namespace Marila_Garden_App.Views.RequestsHistory;
 
-public partial class ServicesPage : ContentPage
+public partial class RequestsHistoryPage : ContentPage
 {
-	public ServicesPage()
-	{
-		InitializeComponent();
-	}
+    public RequestsHistoryPage()
+    {
+        InitializeComponent();
+    }
     protected override void OnAppearing()
     {
         base.OnAppearing();

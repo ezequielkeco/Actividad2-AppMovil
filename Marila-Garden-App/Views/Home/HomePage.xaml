@@ -6,8 +6,9 @@
              Shell.NavBarIsVisible="False">
 
     <ScrollView>
-        <VerticalStackLayout Padding="24"
-                             Spacing="24">
+        <VerticalStackLayout
+                Padding="24"
+                Spacing="24">
 
             <Grid ColumnDefinitions="Auto,*,Auto"
                   Margin="0,20,0,0"

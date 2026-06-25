@@ -7,13 +7,33 @@
 
     <ScrollView>
         <VerticalStackLayout
-            Padding="24"
-            Spacing="20">
+                   Padding="24"
+                   Spacing="24">
 
-            <Image Source="marila_garden_logo.png"
-                   WidthRequest="150"
-                   HorizontalOptions="Center"
-                   Aspect="AspectFit" />
+            <Grid ColumnDefinitions="Auto,*,Auto"
+                  Margin="0,20,0,0"
+                  ColumnSpacing="14">
+
+                <ImageButton
+                  Source="menu.png"
+                  Clicked="OnMenuClicked" />
+
+                <VerticalStackLayout
+                  Spacing="4"
+                  Grid.Column="1">
+                    <Label Text="¡Hola!"
+                           Style="{StaticResource SubtitleLabel}" />
+
+                    <Label x:Name="UserNameLabel"
+                           Text="Usuario"
+                           Style="{StaticResource SectionTitleLabel}" />
+                </VerticalStackLayout>
+                <Image Source="marila_garden_logo.png"
+                       WidthRequest="130"
+                       HorizontalOptions="End"
+                       Aspect="AspectFit" 
+                       Grid.Column="2"/>
+            </Grid>
 
             <Label
                 Text="Solicitar servicio"
@@ -121,6 +141,13 @@
                         Margin="0,10,0,0" />
 
                 </VerticalStackLayout>
+                <Border.Shadow>
+                    <Shadow
+                        Brush="Black"
+                        Offset="0,2"
+                        Radius="10"
+                        Opacity="0.1" />
+                </Border.Shadow>
             </Border>
 
         </VerticalStackLayout>
