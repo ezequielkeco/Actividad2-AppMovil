@@ -3,46 +3,76 @@
     x:Class="Marila_Garden_App.AppShell"
     xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-    
+
     xmlns:splash="clr-namespace:Marila_Garden_App.Views.Splash"
     xmlns:authentication="clr-namespace:Marila_Garden_App.Views.Authentication"
     xmlns:home="clr-namespace:Marila_Garden_App.Views.Home"
     xmlns:services="clr-namespace:Marila_Garden_App.Views.Services"
     xmlns:request="clr-namespace:Marila_Garden_App.Views.Request"
     
-    Shell.NavBarIsVisible="False"
     Shell.TabBarBackgroundColor="#FFFFFF"
     Shell.TabBarForegroundColor="#64BC1E"
     Shell.TabBarTitleColor="#64BC1E"
-    Shell.TabBarUnselectedColor="#666666">
+    Shell.TabBarUnselectedColor="#666666"
 
-    <TabBar>
+    Shell.NavBarIsVisible="False"
+    
+    FlyoutBehavior="Disabled"
+    FlyoutWidth="320"
+    Shell.BackgroundColor="#24541B"
+    Shell.ForegroundColor="White"
+    Shell.TitleColor="White">
 
-        <ShellContent
-            Title="Splash"
-            Route="Splash"
-            ContentTemplate="{DataTemplate splash:SplashPage}" />
+    <ShellContent
+        Route="Splash"
+        Shell.NavBarIsVisible="False"
+        FlyoutItemIsVisible="False"
+        ContentTemplate="{DataTemplate splash:SplashPage}" />
 
-        <ShellContent
-            Title="Login"
-            Route="Login"
-            ContentTemplate="{DataTemplate authentication:LoginPage}" />
+    <ShellContent
+        Route="Login"
+        Shell.NavBarIsVisible="False"
+        FlyoutItemIsVisible="False"
+        ContentTemplate="{DataTemplate authentication:LoginPage}" />
 
-        <ShellContent
+    <FlyoutItem
+        Title="Marila Garden"
+        Route="Main">
+
+        <Tab
             Title="Inicio"
-            Route="Home"
-            ContentTemplate="{DataTemplate home:HomePage}" />
+            Route="HomeTab">
 
-        <ShellContent
+            <ShellContent
+                Title="Inicio"
+                Route="Home"
+                ContentTemplate="{DataTemplate home:HomePage}" />
+        </Tab>
+
+        <Tab
             Title="Servicios"
-            Route="Services"
-            ContentTemplate="{DataTemplate services:ServicesPage}" />
+            Route="ServicesTab">
 
-        <ShellContent
-            Title="Solicitud"
-            Route="Request"
-            ContentTemplate="{DataTemplate request:RequestPage}" />
+            <ShellContent
+                Title="Servicios"
+                Route="Services"
+                ContentTemplate="{DataTemplate services:ServicesPage}" />
+        </Tab>
 
-    </TabBar>
+        <Tab
+            Title="Solicitar"
+            Route="RequestTab">
+
+            <ShellContent
+                Title="Solicitar"
+                Route="Request"
+                ContentTemplate="{DataTemplate request:RequestPage}" />
+        </Tab>
+
+    </FlyoutItem>
+
+    <MenuItem
+        Text="Cerrar sesión"
+        Clicked="OnLogoutClicked" />
 
 </Shell>

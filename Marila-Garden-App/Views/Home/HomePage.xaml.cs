@@ -14,4 +14,8 @@ public partial class HomePage : ContentPage
 
         UserNameLabel.Text = SessionHelper.UserName;
     }
+    private void OnMenuClicked(object sender, EventArgs e)
+    {
+        Shell.Current.FlyoutIsPresented = true;
+    }
 }

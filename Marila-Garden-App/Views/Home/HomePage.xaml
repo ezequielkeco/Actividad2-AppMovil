@@ -9,9 +9,17 @@
         <VerticalStackLayout Padding="24"
                              Spacing="24">
 
-            <Grid ColumnDefinitions="*,Auto"
-                  Margin="0,20,0,0">
-                <VerticalStackLayout Spacing="4">
+            <Grid ColumnDefinitions="Auto,*,Auto"
+                  Margin="0,20,0,0"
+                  ColumnSpacing="14">
+
+                <ImageButton
+                        Source="menu.png"
+                        Clicked="OnMenuClicked" />
+               
+                <VerticalStackLayout
+                    Spacing="4"
+                    Grid.Column="1">
                     <Label Text="¡Hola!"
                            Style="{StaticResource SubtitleLabel}" />
 
@@ -23,7 +31,8 @@
                 <Image Source="marila_garden_logo.png"
                        WidthRequest="130"
                        HorizontalOptions="End"
-                       Aspect="AspectFit" />
+                       Aspect="AspectFit" 
+                       Grid.Column="2"/>
             </Grid>
 
             <Border BackgroundColor="{StaticResource PrimaryDark}"

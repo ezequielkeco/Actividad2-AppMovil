@@ -29,6 +29,7 @@ public partial class LoginPage : ContentPage
 
             SessionHelper.UserName = userName;
 
+            Shell.Current.FlyoutBehavior = FlyoutBehavior.Flyout;
             await Shell.Current.GoToAsync("//Home");
         }
         else
