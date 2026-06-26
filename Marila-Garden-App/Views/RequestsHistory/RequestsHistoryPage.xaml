@@ -5,48 +5,56 @@
              BackgroundColor="{StaticResource Background}"
              Shell.NavBarIsVisible="False">
 
-    <ScrollView>
-        <VerticalStackLayout
-                Padding="24"
-                Spacing="24">
+    <Grid Padding="24" RowDefinitions="Auto,Auto,Auto,*" RowSpacing="20">
 
-            <Grid ColumnDefinitions="Auto,*,Auto"
-                  Margin="0,20,0,0"
-                  ColumnSpacing="14">
+        <Grid Grid.Row="0"
+              ColumnDefinitions="Auto,*,Auto"
+              Margin="0,20,0,0"
+              ColumnSpacing="14">
 
-                <ImageButton
-                   Source="menu.png"
-                   Clicked="OnMenuClicked" />
+            <ImageButton
+                Source="menu.png"
+                Clicked="OnMenuClicked" />
 
-                <VerticalStackLayout
-                  Spacing="4"
-                  Grid.Column="1">
-                    <Label Text="¡Hola!"
-                           Style="{StaticResource SubtitleLabel}" />
+            <VerticalStackLayout
+                Spacing="4"
+                Grid.Column="1">
 
-                    <Label x:Name="UserNameLabel"
-                           Text="Usuario"
-                           Style="{StaticResource SectionTitleLabel}" />
-                </VerticalStackLayout>
-                <Image Source="marila_garden_logo.png"
-                       WidthRequest="130"
-                       HorizontalOptions="End"
-                       Aspect="AspectFit" 
-                       Grid.Column="2"/>
-            </Grid>
+                <Label Text="¡Hola!"
+                       Style="{StaticResource SubtitleLabel}" />
+
+                <Label x:Name="UserNameLabel"
+                       Text="Usuario"
+                       Style="{StaticResource SectionTitleLabel}" />
+            </VerticalStackLayout>
+
+            <Image Source="marila_garden_logo.png"
+                   WidthRequest="130"
+                   HorizontalOptions="End"
+                   Aspect="AspectFit"
+                   Grid.Column="2" />
+        </Grid>
+
+        <VerticalStackLayout Grid.Row="1" Spacing="8">
 
             <Label
                 Text="Historial de solicitudes"
-                Style="{StaticResource TitleLabel}"
-                Margin="0,20,0,0" />
+                Style="{StaticResource TitleLabel}" />
 
             <Label
-                Text="Aquí podrás ver, modificar o eliminar las solicitudes de servicios creadas."
+                Text="Consulta las solicitudes de servicios registradas."
                 Style="{StaticResource SubtitleLabel}" />
 
-            <Border
-                Style="{StaticResource CardBorder}"
-                Padding="22">
+        </VerticalStackLayout>
+
+        <VerticalStackLayout
+            Grid.Row="2"
+            Spacing="10"
+            x:Name="EmptyStateLayout"
+            IsVisible="False">
+
+            <Border Style="{StaticResource CardBorder}"
+                    Padding="22">
 
                 <Border.StrokeShape>
                     <RoundRectangle CornerRadius="24" />
@@ -65,17 +73,73 @@
                         HorizontalTextAlignment="Center" />
 
                 </VerticalStackLayout>
+
                 <Border.Shadow>
-                <Shadow
-                    Brush="Black"
-                    Offset="0,2"
-                    Radius="10"
-                    Opacity="0.1" />
+                    <Shadow
+                        Brush="Black"
+                        Offset="0,2"
+                        Radius="10"
+                        Opacity="0.1" />
                 </Border.Shadow>
-
             </Border>
-
         </VerticalStackLayout>
-    </ScrollView>
 
+        <CollectionView
+            Grid.Row="3"
+            x:Name="RequestsCollectionView"
+            SelectionMode="None">
+
+            <CollectionView.ItemTemplate>
+                <DataTemplate>
+                    <Border
+                        Style="{StaticResource CardBorder}"
+                        Padding="18"
+                        Margin="0,0,0,14">
+
+                        <Border.StrokeShape>
+                            <RoundRectangle CornerRadius="26" />
+                        </Border.StrokeShape>
+
+                        <VerticalStackLayout Spacing="8">
+
+                            <Grid ColumnDefinitions="*,Auto">
+                                <Label
+                                    Text="{Binding ServiceType}"
+                                    Style="{StaticResource SectionTitleLabel}" />
+
+                                <Border
+                                    Grid.Column="1"
+                                    BackgroundColor="#EAF7E3"
+                                    StrokeThickness="0"
+                                    Padding="10,4">
+
+                                    <Border.StrokeShape>
+                                        <RoundRectangle CornerRadius="12" />
+                                    </Border.StrokeShape>
+
+                                    <Label
+                                        Text="{Binding Status}"
+                                        FontSize="12"
+                                        TextColor="{StaticResource PrimaryDark}"
+                                        FontAttributes="Bold" />
+                                </Border>
+                            </Grid>
+
+                            <Label
+                                Text="{Binding DesiredDate, StringFormat='Fecha deseada: {0:dd/MM/yyyy}'}"
+                                Style="{StaticResource SubtitleLabel}" />
+
+                            <Label
+                                Text="{Binding Comments}"
+                                Style="{StaticResource SubtitleLabel}" />
+
+                        </VerticalStackLayout>
+
+                    </Border>
+                </DataTemplate>
+            </CollectionView.ItemTemplate>
+
+        </CollectionView>
+
+    </Grid>
 </ContentPage>

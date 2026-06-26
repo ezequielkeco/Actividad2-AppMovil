@@ -66,7 +66,7 @@
                         FontSize="38"/>
 
                 <Label
-                        Text="Diseño de Jardines"
+                        Text="Diseño de Jardín"
                         HorizontalTextAlignment="Center"
                         Style="{StaticResource SectionTitleLabel}"/>
 
@@ -104,7 +104,7 @@
                         FontSize="38"/>
 
                 <Label
-                        Text="Poda Profesional"
+                        Text="Mantenimiento"
                         HorizontalTextAlignment="Center"
                         Style="{StaticResource SectionTitleLabel}"/>
 
@@ -142,7 +142,7 @@
                         FontSize="38"/>
 
                 <Label
-                        Text="Instalación de Plantas"
+                        Text="Plantación"
                         HorizontalTextAlignment="Center"
                         Style="{StaticResource SectionTitleLabel}"/>
 
@@ -175,12 +175,12 @@
             <VerticalStackLayout Spacing="10">
 
                 <Label
-                        Text="🌿"
+                        Text="🌳"
                         HorizontalTextAlignment="Center"
                         FontSize="38"/>
 
                 <Label
-                        Text="Mantenimiento Integral"
+                        Text="Poda profesional"
                         HorizontalTextAlignment="Center"
                         Style="{StaticResource SectionTitleLabel}"/>
 

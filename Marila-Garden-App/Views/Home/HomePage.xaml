@@ -92,7 +92,7 @@
                         <Label Text="🌱"
                                FontSize="35"
                                HorizontalTextAlignment="Center"/>
-                        <Label Text="Diseño de jardines"
+                        <Label Text="Diseño de jardín"
                                HorizontalTextAlignment="Center"
                                Style="{StaticResource FieldLabel}" />
                         <Label Text="Espacios naturales personalizados."
@@ -149,7 +149,7 @@
                         <Label Text="🪴"
                                FontSize="35"
                                HorizontalTextAlignment="Center"/>
-                        <Label Text="Instalación"
+                        <Label Text="Plantación"
                                HorizontalTextAlignment="Center"
                                Style="{StaticResource FieldLabel}" />
                         <Label Text="Plantas, maceteros y detalles."
@@ -178,7 +178,7 @@
                         <Label Text="🌳"
                                HorizontalTextAlignment="Center"
                                FontSize="35" />
-                        <Label Text="Poda"
+                        <Label Text="Poda profesional"
                                HorizontalTextAlignment="Center"
                                Style="{StaticResource FieldLabel}" />
                         <Label Text="Control, salud y estética vegetal."
