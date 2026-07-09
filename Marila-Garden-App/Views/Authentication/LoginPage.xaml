@@ -63,8 +63,16 @@
                             x:Name="UserNameEntry"
                             Placeholder="Nombre de usuario"
                             Keyboard="Text"
+                            Text="{Binding UserName, Mode=TwoWay}"
                             Style="{StaticResource InputEntry}" />
                     </Border>
+
+                    <Label
+                        Text="{Binding UserNameError}"
+                        TextColor="{StaticResource Alert}"
+                        FontSize="12"
+                        Margin="6,-10,0,0"
+                        LineBreakMode="WordWrap" />
 
                     <Label
                         Text="Contraseña"
@@ -84,14 +92,22 @@
                             x:Name="PasswordEntry"
                             Placeholder="Ingresa tu contraseña"
                             IsPassword="True"
+                            Text="{Binding Password, Mode=TwoWay}"
                             Style="{StaticResource InputEntry}" />
                     </Border>
+
+                    <Label
+                         Text="{Binding PasswordError}"
+                         TextColor="{StaticResource Alert}"
+                         FontSize="12"
+                         Margin="6,-10,0,0"
+                         LineBreakMode="WordWrap" />
 
                     <Button
                         Text="Iniciar sesión"
                         Style="{StaticResource PrimaryButton}"
                         Margin="0,12,0,0"
-                        Clicked="OnLoginClicked" />
+                        Command="{Binding LoginCommand}" />
 
                     <Label
                         Text="¿No tienes cuenta? Crea una gratis"
