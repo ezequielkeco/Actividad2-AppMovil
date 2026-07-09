@@ -43,6 +43,36 @@ namespace Marila_Garden_App.ViewModels
         [ObservableProperty]
         private string successMessage = string.Empty;
 
+        partial void OnFullNameChanged(string value)
+        {
+            FullNameError = string.Empty;
+            SuccessMessage = string.Empty;
+        }
+
+        partial void OnPhoneChanged(string value)
+        {
+            PhoneError = string.Empty;
+            SuccessMessage = string.Empty;
+        }
+
+        partial void OnSelectedServiceTypeChanged(string value)
+        {
+            ServiceTypeError = string.Empty;
+            SuccessMessage = string.Empty;
+        }
+
+        partial void OnSelectedDateChanged(DateTime value)
+        {
+            DateError = string.Empty;
+            SuccessMessage = string.Empty;
+        }
+
+        partial void OnCommentsChanged(string value)
+        {
+            CommentsError = string.Empty;
+            SuccessMessage = string.Empty;
+        }
+
         public List<string> ServiceTypes { get; } = new()
         {
             "Diseño de jardín",
@@ -61,51 +91,73 @@ namespace Marila_Garden_App.ViewModels
 
             var request = new ServiceRequest
             {
-                FullName = fullName.Trim(),
-                Phone = phone.Trim(),
-                ServiceType = selectedServiceType,
-                DesiredDate = selectedDate,
-                Comments = comments.Trim()
+                FullName = FullName.Trim(),
+                Phone = Phone.Trim(),
+                ServiceType = SelectedServiceType,
+                DesiredDate = SelectedDate,
+                Comments = Comments.Trim()
             };
 
             ServiceRequestMemoryService.Add(request);
 
-            successMessage = "Solicitud registrada con éxito.";
-
             ClearForm();
+
+            SuccessMessage = "✅ Solicitud registrada correctamente.";
+
+            _ = HideSuccessMessageAsync();
         }
 
         private bool ValidateForm()
         {
             bool isValid = true;
 
-            if (string.IsNullOrWhiteSpace(fullName))
+            if (string.IsNullOrWhiteSpace(FullName))
             {
-                fullNameError = "El nombre completo es obligatorio.";
+                FullNameError = "El nombre completo es obligatorio.";
+                isValid = false;
+            }
+            else if (FullName.Trim().Length < 5)
+            {
+                FullNameError = "El nombre debe tener al menos 5 caracteres.";
+                isValid = false;
+            }
+            else if (FullName.Any(char.IsDigit))
+            {
+                FullNameError = "El nombre no debe contener números.";
                 isValid = false;
             }
 
-            if (string.IsNullOrWhiteSpace(phone))
+            if (string.IsNullOrWhiteSpace(Phone))
             {
-                phoneError = "El teléfono es obligatorio.";
+                PhoneError = "El teléfono es obligatorio.";
+                isValid = false;
+            }
+            else
+            {
+                string cleanPhone = new string(Phone.Where(char.IsDigit).ToArray());
+
+                if (cleanPhone.Length != 10)
+                {
+                    PhoneError = "El teléfono debe tener 10 dígitos.";
+                    isValid = false;
+                }
+            }
+
+            if (string.IsNullOrWhiteSpace(SelectedServiceType))
+            {
+                ServiceTypeError = "Debes seleccionar un tipo de servicio.";
                 isValid = false;
             }
 
-            if (string.IsNullOrWhiteSpace(selectedServiceType))
+            if (SelectedDate.Date < DateTime.Today)
             {
-                serviceTypeError = "Debes seleccionar un tipo de servicio.";
+                DateError = "La fecha no puede ser anterior al día de hoy.";
                 isValid = false;
             }
 
-            if (selectedDate.Date < DateTime.Today)
+            if (!string.IsNullOrWhiteSpace(Comments) && Comments.Length > 300)
             {
-                dateError = "La fecha no puede ser anterior al día de hoy.";
-                isValid = false;
-            }
-
-            if (!string.IsNullOrWhiteSpace(comments) && comments.Length > 300)
-            {
-                commentsError = "Los comentarios no deben superar los 300 caracteres.";
+                CommentsError = "Los comentarios no deben superar los 300 caracteres.";
                 isValid = false;
             }
 
@@ -114,21 +166,38 @@ namespace Marila_Garden_App.ViewModels
 
         private void ClearMessages()
         {
-            fullNameError = string.Empty;
-            phoneError = string.Empty;
-            serviceTypeError = string.Empty;
-            dateError = string.Empty;
-            commentsError = string.Empty;
-            successMessage = string.Empty;
+            FullNameError = string.Empty;
+            PhoneError = string.Empty;
+            ServiceTypeError = string.Empty;
+            DateError = string.Empty;
+            CommentsError = string.Empty;
+            SuccessMessage = string.Empty;
         }
 
         private void ClearForm()
         {
-            fullName = string.Empty;
-            phone = string.Empty;
-            selectedServiceType = string.Empty;
-            selectedDate = DateTime.Today;
-            comments = string.Empty;
+            FullName = string.Empty;
+            Phone = string.Empty;
+            SelectedServiceType = string.Empty;
+            SelectedDate = DateTime.Today;
+            Comments = string.Empty;
+        }
+
+        private async Task HideSuccessMessageAsync()
+        {
+            await Task.Delay(3000);
+
+            MainThread.BeginInvokeOnMainThread(() =>
+            {
+                SuccessMessage = string.Empty;
+            });
+        }
+
+        public bool HasSuccessMessage => !string.IsNullOrWhiteSpace(SuccessMessage);
+
+        partial void OnSuccessMessageChanged(string value)
+        {
+            OnPropertyChanged(nameof(HasSuccessMessage));
         }
     }
 }
