@@ -1,6 +1,7 @@
 ﻿using Microsoft.Extensions.Logging;
 using Microsoft.Maui.Handlers;
 using Marila_Garden_App.ViewModels;
+using Marila_Garden_App.Services;
 
 namespace Marila_Garden_App
 {
@@ -44,6 +45,9 @@ namespace Marila_Garden_App
 #endif
             });
 
+            builder.Services.AddSingleton<DatabaseService>();
+
+            builder.Services.AddTransient<RequestsHistoryViewModel>();
             builder.Services.AddTransient<LoginViewModel>();
             builder.Services.AddTransient<RequestViewModel>();
 

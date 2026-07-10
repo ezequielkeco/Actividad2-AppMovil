@@ -1,15 +1,20 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-using CommunityToolkit.Mvvm.ComponentModel;
+﻿using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
 using Marila_Garden_App.Models;
 using Marila_Garden_App.Services;
+using Microsoft.Maui.ApplicationModel;
 
 namespace Marila_Garden_App.ViewModels
 {
     public partial class RequestViewModel : ObservableObject
     {
+        private readonly DatabaseService _databaseService;
+
+        public RequestViewModel(DatabaseService databaseService)
+        {
+            _databaseService = databaseService;
+        }
+
         [ObservableProperty]
         private string fullName = string.Empty;
 
@@ -43,6 +48,16 @@ namespace Marila_Garden_App.ViewModels
         [ObservableProperty]
         private string successMessage = string.Empty;
 
+        public bool HasSuccessMessage => !string.IsNullOrWhiteSpace(SuccessMessage);
+
+        public List<string> ServiceTypes { get; } = new()
+        {
+            "Diseño de jardín",
+            "Mantenimiento",
+            "Poda profesional",
+            "Plantación"
+        };
+
         partial void OnFullNameChanged(string value)
         {
             FullNameError = string.Empty;
@@ -73,16 +88,13 @@ namespace Marila_Garden_App.ViewModels
             SuccessMessage = string.Empty;
         }
 
-        public List<string> ServiceTypes { get; } = new()
+        partial void OnSuccessMessageChanged(string value)
         {
-            "Diseño de jardín",
-            "Mantenimiento",
-            "Poda profesional",
-            "Plantación"
-        };
+            OnPropertyChanged(nameof(HasSuccessMessage));
+        }
 
         [RelayCommand]
-        private void SaveRequest()
+        private async Task SaveRequest()
         {
             ClearMessages();
 
@@ -98,7 +110,7 @@ namespace Marila_Garden_App.ViewModels
                 Comments = Comments.Trim()
             };
 
-            ServiceRequestMemoryService.Add(request);
+            await _databaseService.AddRequestAsync(request);
 
             ClearForm();
 
@@ -191,13 +203,6 @@ namespace Marila_Garden_App.ViewModels
             {
                 SuccessMessage = string.Empty;
             });
-        }
-
-        public bool HasSuccessMessage => !string.IsNullOrWhiteSpace(SuccessMessage);
-
-        partial void OnSuccessMessageChanged(string value)
-        {
-            OnPropertyChanged(nameof(HasSuccessMessage));
         }
     }
 }

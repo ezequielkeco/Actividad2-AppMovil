@@ -51,7 +51,7 @@
             Grid.Row="2"
             Spacing="10"
             x:Name="EmptyStateLayout"
-            IsVisible="False">
+            IsVisible="{Binding IsEmpty}">
 
             <Border Style="{StaticResource CardBorder}"
                     Padding="22">
@@ -87,6 +87,7 @@
         <CollectionView
             Grid.Row="3"
             x:Name="RequestsCollectionView"
+            ItemsSource="{Binding Requests}"
             SelectionMode="None">
 
             <CollectionView.ItemTemplate>

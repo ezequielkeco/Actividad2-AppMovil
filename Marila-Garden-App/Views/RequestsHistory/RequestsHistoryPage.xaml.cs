@@ -1,31 +1,35 @@
 using Marila_Garden_App.Helpers;
-using Marila_Garden_App.Services;
+using Marila_Garden_App.ViewModels;
+using Microsoft.Extensions.DependencyInjection;
 
 namespace Marila_Garden_App.Views.RequestsHistory;
 
 public partial class RequestsHistoryPage : ContentPage
 {
+    private readonly RequestsHistoryViewModel _viewModel;
+
     public RequestsHistoryPage()
     {
         InitializeComponent();
+
+        _viewModel = App.Current!
+            .Handler!
+            .MauiContext!
+            .Services
+            .GetRequiredService<RequestsHistoryViewModel>();
+
+        BindingContext = _viewModel;
     }
-    protected override void OnAppearing()
+
+    protected override async void OnAppearing()
     {
         base.OnAppearing();
 
         UserNameLabel.Text = SessionHelper.UserName;
 
-        LoadRequests();
+        await _viewModel.LoadRequestsCommand.ExecuteAsync(null);
     }
-    private void LoadRequests()
-    {
-        var requests = ServiceRequestMemoryService.GetAll();
 
-        RequestsCollectionView.ItemsSource = requests;
-
-        EmptyStateLayout.IsVisible = requests.Count == 0;
-        RequestsCollectionView.IsVisible = requests.Count > 0;
-    }
     private void OnMenuClicked(object sender, EventArgs e)
     {
         Shell.Current.FlyoutIsPresented = true;

@@ -2,6 +2,7 @@ using Marila_Garden_App.Helpers;
 using Marila_Garden_App.Models;
 using Marila_Garden_App.Services;
 using Marila_Garden_App.ViewModels;
+using Microsoft.Extensions.DependencyInjection;
 
 namespace Marila_Garden_App.Views.Request;
 
@@ -11,7 +12,7 @@ public partial class RequestPage : ContentPage
     {
         InitializeComponent();
 
-        BindingContext = new RequestViewModel();
+        BindingContext = App.Current!.Handler!.MauiContext!.Services.GetService<RequestViewModel>();
 
         DesiredDatePicker.MinimumDate = DateTime.Today;
         DesiredDatePicker.Date = DateTime.Today;
