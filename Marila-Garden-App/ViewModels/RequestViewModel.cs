@@ -59,6 +59,9 @@ namespace Marila_Garden_App.ViewModels
         [ObservableProperty]
         private string submitButtonText = "Enviar solicitud";
 
+        [ObservableProperty]
+        private bool hasUnsavedChanges = false;
+
         public string SelectedDateDisplay =>
             SelectedDate.ToString("dd/MM/yyyy");
 
@@ -76,24 +79,28 @@ namespace Marila_Garden_App.ViewModels
         {
             FullNameError = string.Empty;
             SuccessMessage = string.Empty;
+            HasUnsavedChanges = true;
         }
 
         partial void OnPhoneChanged(string value)
         {
             PhoneError = string.Empty;
             SuccessMessage = string.Empty;
+            HasUnsavedChanges = true;
         }
 
         partial void OnSelectedServiceTypeChanged(string value)
         {
             ServiceTypeError = string.Empty;
             SuccessMessage = string.Empty;
+            HasUnsavedChanges = true;
         }
 
         partial void OnSelectedDateChanged(DateTime value)
         {
             DateError = string.Empty;
             SuccessMessage = string.Empty;
+            HasUnsavedChanges = true;
 
             OnPropertyChanged(nameof(SelectedDateDisplay));
         }
@@ -102,6 +109,7 @@ namespace Marila_Garden_App.ViewModels
         {
             CommentsError = string.Empty;
             SuccessMessage = string.Empty;
+            HasUnsavedChanges = true;
         }
 
         partial void OnSuccessMessageChanged(string value)
@@ -132,6 +140,8 @@ namespace Marila_Garden_App.ViewModels
             SelectedServiceType = request.ServiceType;
             SelectedDate = request.DesiredDate;
             Comments = request.Comments;
+
+            HasUnsavedChanges = false;
         }
 
         public void ResetToCreateMode()
@@ -144,6 +154,8 @@ namespace Marila_Garden_App.ViewModels
 
             ClearMessages();
             ClearForm();
+
+            HasUnsavedChanges = false;
         }
 
         [RelayCommand]
@@ -171,6 +183,7 @@ namespace Marila_Garden_App.ViewModels
 
                 ResetToCreateMode();
 
+                HasUnsavedChanges = false;
                 SuccessMessage = "✅ Solicitud actualizada correctamente.";
 
                 await Task.Delay(1000);
@@ -183,16 +196,11 @@ namespace Marila_Garden_App.ViewModels
 
                 ClearForm();
 
+                HasUnsavedChanges = false;
                 SuccessMessage = "✅ Solicitud registrada correctamente.";
+
+                _ = HideSuccessMessageAsync();
             }
-
-            _ = HideSuccessMessageAsync();
-
-            ClearForm();
-
-            SuccessMessage = "✅ Solicitud registrada correctamente.";
-
-            _ = HideSuccessMessageAsync();
         }
 
         [RelayCommand]
@@ -219,6 +227,7 @@ namespace Marila_Garden_App.ViewModels
             await _databaseService.DeleteRequestAsync(request);
 
             ResetToCreateMode();
+            HasUnsavedChanges = false;
 
             await Shell.Current.GoToAsync("//RequestsHistory");
         }

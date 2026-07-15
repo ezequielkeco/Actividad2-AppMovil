@@ -27,6 +27,7 @@
                     <Label x:Name="UserNameLabel"
                            Text="Usuario"
                            Style="{StaticResource SectionTitleLabel}" />
+                    
                 </VerticalStackLayout>
                 <Image Source="marila_garden_logo.png"
                        WidthRequest="130"
@@ -40,6 +41,34 @@
                 HorizontalTextAlignment="Center"
                 Style="{StaticResource TitleLabel}"
                 Margin="0,20,0,0" />
+
+            <Border
+                BackgroundColor="#EAF7E3"
+                StrokeThickness="0"
+                Padding="12,8"
+                HorizontalOptions="Center"
+                IsVisible="{Binding IsEditMode}">
+
+                <Border.StrokeShape>
+                    <RoundRectangle CornerRadius="14" />
+                </Border.StrokeShape>
+
+                <HorizontalStackLayout Spacing="8">
+
+                    <Label
+                        Text="📝"
+                        FontSize="16"
+                        TextColor="{StaticResource PrimaryDark}" />
+
+                    <Label
+                        Text="Editando solicitud"
+                        FontSize="16"
+                        FontAttributes="Bold"
+                        TextColor="{StaticResource PrimaryDark}" />
+
+                </HorizontalStackLayout>
+
+            </Border>
 
             <Label
                 Text="Completa la información para coordinar una evaluación personalizada de tu jardín."
