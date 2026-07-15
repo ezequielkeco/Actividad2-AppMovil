@@ -195,6 +195,34 @@ namespace Marila_Garden_App.ViewModels
             _ = HideSuccessMessageAsync();
         }
 
+        [RelayCommand]
+        private async Task DeleteRequest()
+        {
+            if (!IsEditMode || _editingRequestId <= 0)
+                return;
+
+            bool confirmed = await Shell.Current.DisplayAlertAsync(
+                "Eliminar solicitud",
+                "¿Estás seguro de que deseas eliminar esta solicitud? Esta acción no se puede deshacer.",
+                "Eliminar",
+                "Cancelar");
+
+            if (!confirmed)
+                return;
+
+            ServiceRequest? request =
+                await _databaseService.GetRequestByIdAsync(_editingRequestId);
+
+            if (request is null)
+                return;
+
+            await _databaseService.DeleteRequestAsync(request);
+
+            ResetToCreateMode();
+
+            await Shell.Current.GoToAsync("//RequestsHistory");
+        }
+
         private bool ValidateForm()
         {
             bool isValid = true;

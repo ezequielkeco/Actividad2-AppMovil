@@ -95,25 +95,29 @@
                 <DataTemplate>
                     <Border
                         Style="{StaticResource CardBorder}"
-                        Padding="18"
+                        Padding="20"
                         Margin="0,0,0,14">
 
                         <Border.StrokeShape>
                             <RoundRectangle CornerRadius="26" />
                         </Border.StrokeShape>
 
-                        <VerticalStackLayout Spacing="8">
+                        <VerticalStackLayout>
 
-                            <Grid ColumnDefinitions="*,Auto">
+                            <Grid ColumnDefinitions="*,Auto"
+                                  ColumnSpacing="10">
+
                                 <Label
                                     Text="{Binding ServiceType}"
-                                    Style="{StaticResource SectionTitleLabel}" />
+                                    Style="{StaticResource SectionTitleLabel}"
+                                    VerticalOptions="Center"/>
 
                                 <Border
                                     Grid.Column="1"
                                     BackgroundColor="#EAF7E3"
                                     StrokeThickness="0"
-                                    Padding="10,4">
+                                    Padding="10,4"
+                                    VerticalOptions="Center">
 
                                     <Border.StrokeShape>
                                         <RoundRectangle CornerRadius="12" />
@@ -121,22 +125,44 @@
 
                                     <Label
                                         Text="{Binding Status}"
-                                        FontSize="12"
+                                        FontSize="18"
                                         TextColor="{StaticResource PrimaryDark}"
                                         FontAttributes="Bold" />
                                 </Border>
                             </Grid>
 
-                            <Label
-                                Text="{Binding DesiredDate, StringFormat='Fecha deseada: {0:dd/MM/yyyy}'}"
+                            <Grid ColumnDefinitions="*,Auto"
+                                  ColumnSpacing="10">
+
+                                <Label
+                                Text="{Binding DesiredDate,
+                                      StringFormat='Fecha programada:'}"
+                                Margin="0,8,0,0"
                                 Style="{StaticResource SubtitleLabel}" />
 
-                            <Label
+                                <Label
+                                Text="{Binding DesiredDate,
+                                      StringFormat='{0:dd/MM/yyyy}'}"
+                                Margin="0,40,0,0"
+                                TextColor="{StaticResource PrimaryDark}"
+                                FontAttributes="Bold"
+                                Style="{StaticResource SubtitleLabel}" />
+
+                                <Label
                                 Text="{Binding Comments}"
                                 Style="{StaticResource SubtitleLabel}" />
 
+                                <ImageButton
+                                Source="delete.png"
+                                WidthRequest="60"
+                                HeightRequest="60"
+                                HorizontalOptions="End"
+                                Margin="10,5"
+                                Command="{Binding Source={RelativeSource AncestorType={x:Type ContentPage}},
+                                                  Path=BindingContext.DeleteRequestCommand}"
+                                CommandParameter="{Binding}" />
+                            </Grid>
                         </VerticalStackLayout>
-
                     </Border>
                 </DataTemplate>
             </CollectionView.ItemTemplate>

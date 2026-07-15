@@ -48,5 +48,27 @@ namespace Marila_Garden_App.ViewModels
                 $"//Request?requestId={request.Id}"
             );
         }
+
+        [RelayCommand]
+        private async Task DeleteRequest(ServiceRequest request)
+        {
+            if (request is null)
+                return;
+
+            bool confirmed = await Shell.Current.DisplayAlertAsync(
+                "Eliminar solicitud",
+                $"¿Deseas eliminar la solicitud de {request.ServiceType}?",
+                "Eliminar",
+                "Cancelar");
+
+            if (!confirmed)
+                return;
+
+            await _databaseService.DeleteRequestAsync(request);
+
+            Requests.Remove(request);
+
+            IsEmpty = Requests.Count == 0;
+        }
     }
 }

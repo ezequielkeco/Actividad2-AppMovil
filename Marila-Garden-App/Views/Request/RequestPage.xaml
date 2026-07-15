@@ -214,6 +214,17 @@
                         Margin="0,10,0,0"
                         Command="{Binding SaveRequestCommand}" />
 
+                    <Button
+                        Text="Eliminar solicitud"
+                        BackgroundColor="{StaticResource Alert}"
+                        TextColor="{StaticResource White}"
+                        FontAttributes="Bold"
+                        CornerRadius="18"
+                        HeightRequest="54"
+                        Margin="0,8,0,0"
+                        IsVisible="{Binding IsEditMode}"
+                        Command="{Binding DeleteRequestCommand}" />
+
                     <Border
                         BackgroundColor="#EAF7E3"
                         StrokeThickness="0"
