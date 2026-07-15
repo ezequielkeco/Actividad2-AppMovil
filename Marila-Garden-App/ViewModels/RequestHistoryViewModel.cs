@@ -37,5 +37,16 @@ namespace Marila_Garden_App.ViewModels
 
             IsEmpty = Requests.Count == 0;
         }
+
+        [RelayCommand]
+        private async Task EditRequest(ServiceRequest request)
+        {
+            if (request is null)
+                return;
+
+            await Shell.Current.GoToAsync(
+                $"//Request?requestId={request.Id}"
+            );
+        }
     }
 }

@@ -6,7 +6,7 @@ using Microsoft.Extensions.DependencyInjection;
 
 namespace Marila_Garden_App.Views.Request;
 
-public partial class RequestPage : ContentPage
+public partial class RequestPage : ContentPage, IQueryAttributable
 {
     public RequestPage()
     {
@@ -63,6 +63,19 @@ public partial class RequestPage : ContentPage
         if (BindingContext is RequestViewModel viewModel)
         {
             viewModel.SelectedDate = selectedDate;
+        }
+    }
+
+    public async void ApplyQueryAttributes(
+    IDictionary<string, object> query)
+    {
+        if (BindingContext is not RequestViewModel viewModel)
+            return;
+
+        if (query.TryGetValue("requestId", out object? value) &&
+            int.TryParse(value?.ToString(), out int requestId))
+        {
+            await viewModel.LoadRequestForEditAsync(requestId);
         }
     }
 }

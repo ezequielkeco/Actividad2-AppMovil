@@ -15,6 +15,8 @@ namespace Marila_Garden_App.ViewModels
             _databaseService = databaseService;
         }
 
+        private int _editingRequestId;
+
         [ObservableProperty]
         private string fullName = string.Empty;
 
@@ -48,6 +50,18 @@ namespace Marila_Garden_App.ViewModels
         [ObservableProperty]
         private string successMessage = string.Empty;
 
+        [ObservableProperty]
+        private bool isEditMode;
+
+        [ObservableProperty]
+        private string pageTitle = "Nueva solicitud";
+
+        [ObservableProperty]
+        private string submitButtonText = "Enviar solicitud";
+
+        public string SelectedDateDisplay =>
+            SelectedDate.ToString("dd/MM/yyyy");
+
         public bool HasSuccessMessage => !string.IsNullOrWhiteSpace(SuccessMessage);
 
         public List<string> ServiceTypes { get; } = new()
@@ -80,6 +94,8 @@ namespace Marila_Garden_App.ViewModels
         {
             DateError = string.Empty;
             SuccessMessage = string.Empty;
+
+            OnPropertyChanged(nameof(SelectedDateDisplay));
         }
 
         partial void OnCommentsChanged(string value)
@@ -91,6 +107,43 @@ namespace Marila_Garden_App.ViewModels
         partial void OnSuccessMessageChanged(string value)
         {
             OnPropertyChanged(nameof(HasSuccessMessage));
+        }
+
+        public async Task LoadRequestForEditAsync(int requestId)
+        {
+            ClearMessages();
+
+            ServiceRequest? request =
+                await _databaseService.GetRequestByIdAsync(requestId);
+
+            if (request is null)
+            {
+                ResetToCreateMode();
+                return;
+            }
+
+            _editingRequestId = request.Id;
+            IsEditMode = true;
+            PageTitle = "Editar solicitud";
+            SubmitButtonText = "Guardar cambios";
+
+            FullName = request.FullName;
+            Phone = request.Phone;
+            SelectedServiceType = request.ServiceType;
+            SelectedDate = request.DesiredDate;
+            Comments = request.Comments;
+        }
+
+        public void ResetToCreateMode()
+        {
+            _editingRequestId = 0;
+
+            IsEditMode = false;
+            PageTitle = "Nueva solicitud";
+            SubmitButtonText = "Enviar solicitud";
+
+            ClearMessages();
+            ClearForm();
         }
 
         [RelayCommand]
@@ -110,7 +163,30 @@ namespace Marila_Garden_App.ViewModels
                 Comments = Comments.Trim()
             };
 
-            await _databaseService.AddRequestAsync(request);
+            if (IsEditMode)
+            {
+                request.Id = _editingRequestId;
+
+                await _databaseService.UpdateRequestAsync(request);
+
+                ResetToCreateMode();
+
+                SuccessMessage = "✅ Solicitud actualizada correctamente.";
+
+                await Task.Delay(1000);
+
+                await Shell.Current.GoToAsync("//RequestsHistory");
+            }
+            else
+            {
+                await _databaseService.AddRequestAsync(request);
+
+                ClearForm();
+
+                SuccessMessage = "✅ Solicitud registrada correctamente.";
+            }
+
+            _ = HideSuccessMessageAsync();
 
             ClearForm();
 

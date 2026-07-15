@@ -88,7 +88,8 @@
             Grid.Row="3"
             x:Name="RequestsCollectionView"
             ItemsSource="{Binding Requests}"
-            SelectionMode="None">
+            SelectionMode="Single"
+            SelectionChanged="RequestsCollectionView_SelectionChanged">
 
             <CollectionView.ItemTemplate>
                 <DataTemplate>

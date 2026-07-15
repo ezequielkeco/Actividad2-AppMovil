@@ -36,7 +36,7 @@
             </Grid>
 
             <Label
-                Text="Solicitar servicio"
+                Text="{Binding PageTitle}"
                 HorizontalTextAlignment="Center"
                 Style="{StaticResource TitleLabel}"
                 Margin="0,20,0,0" />
@@ -161,6 +161,7 @@
                                 x:Name="DesiredDatePicker"
                                 Grid.ColumnSpan="3"
                                 Opacity="0.01"
+                                Date="{Binding SelectedDate, Mode=TwoWay}"
                                 DateSelected="DesiredDatePicker_DateSelected"
                                 PropertyChanged="DesiredDatePicker_PropertyChanged" />
 
@@ -179,7 +180,7 @@
 
                     <Label
                         x:Name="SelectedDateLabel"
-                        Text="Fecha seleccionada: Hoy"
+                        Text="{Binding SelectedDateDisplay}"
                         Style="{StaticResource SubtitleLabel}"
                         Margin="4,0,0,10"
                         TextColor="{StaticResource PrimaryDark}" />
@@ -208,7 +209,7 @@
                         Margin="6,-10,0,0" />
 
                     <Button
-                        Text="Enviar solicitud"
+                        Text="{Binding SubmitButtonText}"
                         Style="{StaticResource PrimaryButton}"
                         Margin="0,10,0,0"
                         Command="{Binding SaveRequestCommand}" />
