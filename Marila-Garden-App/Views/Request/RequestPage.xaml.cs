@@ -8,6 +8,8 @@ namespace Marila_Garden_App.Views.Request;
 
 public partial class RequestPage : ContentPage, IQueryAttributable
 {
+    private bool _openedForEdit;
+
     public RequestPage()
     {
         InitializeComponent();
@@ -26,6 +28,19 @@ public partial class RequestPage : ContentPage, IQueryAttributable
         base.OnAppearing();
 
         UserNameLabel.Text = SessionHelper.UserName;
+
+        if (!_openedForEdit &&
+        BindingContext is RequestViewModel viewModel)
+        {
+            viewModel.ResetToCreateMode();
+        }
+    }
+
+    protected override void OnDisappearing()
+    {
+        base.OnDisappearing();
+
+        _openedForEdit = false;
     }
 
     private void OnMenuClicked(object sender, EventArgs e)
@@ -75,7 +90,14 @@ public partial class RequestPage : ContentPage, IQueryAttributable
         if (query.TryGetValue("requestId", out object? value) &&
             int.TryParse(value?.ToString(), out int requestId))
         {
+            _openedForEdit = true;
+
             await viewModel.LoadRequestForEditAsync(requestId);
+        }
+        else
+        {
+            _openedForEdit = false;
+            viewModel.ResetToCreateMode();
         }
     }
 }
