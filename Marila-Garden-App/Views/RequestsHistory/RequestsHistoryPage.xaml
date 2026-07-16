@@ -127,7 +127,7 @@
 
                                     <Label
                                         Text="{Binding Status}"
-                                        FontSize="18"
+                                        FontSize="16"
                                         TextColor="{StaticResource PrimaryDark}"
                                         FontAttributes="Bold" />
                                 </Border>
@@ -160,7 +160,7 @@
                                     WidthRequest="55"
                                     HeightRequest="55"
                                     HorizontalOptions="End"
-                                    Margin="10,5"
+                                    Margin="20,5"
                                     CommandParameter="{Binding}"
                                     Clicked="OnDeleteRequestClicked" />
                             </Grid>
