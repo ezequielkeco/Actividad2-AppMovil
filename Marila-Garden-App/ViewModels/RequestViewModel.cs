@@ -161,6 +161,25 @@ namespace Marila_Garden_App.ViewModels
             HasUnsavedChanges = false;
         }
 
+        public async Task<bool> ConfirmDiscardChangesAsync()
+        {
+            if (!HasUnsavedChanges)
+                return true;
+
+            bool confirmed = await _dialogService.ConfirmAsync(
+                "Descartar cambios",
+                "Los cambios no se han guardado. ¿Deseas salir sin guardar?",
+                "Salir",
+                "Continuar editando");
+
+            if (confirmed)
+            {
+                HasUnsavedChanges = false;
+            }
+
+            return confirmed;
+        }
+
         [RelayCommand]
         private async Task SaveRequest()
         {

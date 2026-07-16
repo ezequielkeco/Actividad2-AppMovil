@@ -8,6 +8,54 @@ namespace Marila_Garden_App.Views.Request;
 
 public partial class RequestPage : ContentPage, IQueryAttributable
 {
+    private bool _isProcessingBackNavigation;
+
+    protected override bool OnBackButtonPressed()
+    {
+        if (_isProcessingBackNavigation)
+            return true;
+
+        _ = HandleBackNavigationAsync();
+
+        return true;
+    }
+
+    private async Task HandleBackNavigationAsync()
+    {
+        if (_isProcessingBackNavigation)
+            return;
+
+        _isProcessingBackNavigation = true;
+
+        try
+        {
+            if (BindingContext is not RequestViewModel viewModel)
+                return;
+
+            bool canLeave = await viewModel.ConfirmDiscardChangesAsync();
+
+            if (!canLeave)
+                return;
+
+            bool wasEditing = viewModel.IsEditMode;
+
+            viewModel.ResetToCreateMode();
+
+            if (wasEditing)
+            {
+                await Shell.Current.GoToAsync("//RequestsHistory");
+            }
+            else
+            {
+                await Shell.Current.GoToAsync("//Home");
+            }
+        }
+        finally
+        {
+            _isProcessingBackNavigation = false;
+        }
+    }
+
     private bool _openedForEdit;
 
     public RequestPage()
