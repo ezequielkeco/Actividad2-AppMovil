@@ -18,9 +18,12 @@ namespace Marila_Garden_App.ViewModels
         [ObservableProperty]
         private bool isEmpty;
 
-        public RequestsHistoryViewModel(DatabaseService databaseService)
+        public RequestsHistoryViewModel(
+               DatabaseService databaseService,
+               IDialogService dialogService)
         {
             _databaseService = databaseService;
+            _dialogService = dialogService;
         }
 
         [RelayCommand]
@@ -50,18 +53,23 @@ namespace Marila_Garden_App.ViewModels
         }
 
         [RelayCommand]
-        private async Task DeleteRequest(ServiceRequest request)
+        public async Task<bool> ConfirmDeleteRequestAsync(ServiceRequest request)
         {
             if (request is null)
-                return;
+                return false;
 
-            bool confirmed = await Shell.Current.DisplayAlertAsync(
+            return await _dialogService.ConfirmAsync(
                 "Eliminar solicitud",
                 $"¿Deseas eliminar la solicitud de {request.ServiceType}?",
                 "Eliminar",
                 "Cancelar");
+        }
 
-            if (!confirmed)
+        private readonly IDialogService _dialogService;
+
+        public async Task DeleteConfirmedRequestAsync(ServiceRequest request)
+        {
+            if (request is null)
                 return;
 
             await _databaseService.DeleteRequestAsync(request);

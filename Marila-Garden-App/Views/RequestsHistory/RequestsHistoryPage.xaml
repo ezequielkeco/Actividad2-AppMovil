@@ -35,7 +35,8 @@
                    Grid.Column="2" />
         </Grid>
 
-        <VerticalStackLayout Grid.Row="1" Spacing="8">
+        <VerticalStackLayout Grid.Row="1"
+                             Spacing="8">
 
             <Label
                 Text="Historial de solicitudes"
@@ -94,6 +95,7 @@
             <CollectionView.ItemTemplate>
                 <DataTemplate>
                     <Border
+                        x:Name="RequestCard"
                         Style="{StaticResource CardBorder}"
                         Padding="20"
                         Margin="0,0,0,14">
@@ -153,14 +155,14 @@
                                 Style="{StaticResource SubtitleLabel}" />
 
                                 <ImageButton
-                                Source="delete.png"
-                                WidthRequest="60"
-                                HeightRequest="60"
-                                HorizontalOptions="End"
-                                Margin="10,5"
-                                Command="{Binding Source={RelativeSource AncestorType={x:Type ContentPage}},
-                                                  Path=BindingContext.DeleteRequestCommand}"
-                                CommandParameter="{Binding}" />
+                                    Grid.Column="1"
+                                    Source="delete.png"
+                                    WidthRequest="55"
+                                    HeightRequest="55"
+                                    HorizontalOptions="End"
+                                    Margin="10,5"
+                                    CommandParameter="{Binding}"
+                                    Clicked="OnDeleteRequestClicked" />
                             </Grid>
                         </VerticalStackLayout>
                     </Border>
