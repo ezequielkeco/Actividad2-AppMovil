@@ -46,6 +46,7 @@ namespace Marila_Garden_App
             });
 
             builder.Services.AddSingleton<DatabaseService>();
+            builder.Services.AddSingleton<IDialogService, DialogService>();
 
             builder.Services.AddTransient<RequestsHistoryViewModel>();
             builder.Services.AddTransient<LoginViewModel>();

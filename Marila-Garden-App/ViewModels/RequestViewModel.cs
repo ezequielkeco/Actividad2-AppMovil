@@ -10,9 +10,12 @@ namespace Marila_Garden_App.ViewModels
     {
         private readonly DatabaseService _databaseService;
 
-        public RequestViewModel(DatabaseService databaseService)
+        public RequestViewModel(
+               DatabaseService databaseService,
+               IDialogService dialogService)
         {
             _databaseService = databaseService;
+            _dialogService = dialogService;
         }
 
         private int _editingRequestId;
@@ -209,7 +212,7 @@ namespace Marila_Garden_App.ViewModels
             if (!IsEditMode || _editingRequestId <= 0)
                 return;
 
-            bool confirmed = await Shell.Current.DisplayAlertAsync(
+            bool confirmed = await _dialogService.ConfirmAsync(
                 "Eliminar solicitud",
                 "¿Estás seguro de que deseas eliminar esta solicitud? Esta acción no se puede deshacer.",
                 "Eliminar",
@@ -317,5 +320,7 @@ namespace Marila_Garden_App.ViewModels
                 SuccessMessage = string.Empty;
             });
         }
+
+        private readonly IDialogService _dialogService;
     }
 }
