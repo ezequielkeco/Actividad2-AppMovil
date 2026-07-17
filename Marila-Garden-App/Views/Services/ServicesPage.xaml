@@ -7,11 +7,11 @@
 
     <ScrollView>
         <VerticalStackLayout
-                    Padding="24"
-                    Spacing="24">
+                Padding="20"
+                Spacing="20">
 
             <Grid ColumnDefinitions="Auto,*,Auto"
-                  Margin="0,20,0,0"
+                  Margin="0,10,0,0"
                   ColumnSpacing="14">
 
                 <ImageButton
@@ -19,17 +19,22 @@
                     Clicked="OnMenuClicked" />
 
                 <VerticalStackLayout
-                    Spacing="4"
                     Grid.Column="1">
-                    <Label Text="¡Hola!"
-                           Style="{StaticResource SubtitleLabel}" />
+
+                    <Label
+                        Margin="0,8,0,0"
+                        Text="¡Hola!"
+                        Style="{StaticResource SubtitleLabel}" />
 
                     <Label x:Name="UserNameLabel"
+                           FontSize="18"
                            Text="Usuario"
                            Style="{StaticResource SectionTitleLabel}" />
+                    
                 </VerticalStackLayout>
+                
                 <Image Source="marila_garden_logo.png"
-                       WidthRequest="130"
+                       WidthRequest="110"
                        HorizontalOptions="End"
                        Aspect="AspectFit" 
                        Grid.Column="2"/>
@@ -38,13 +43,13 @@
             <Label
                 Text="Nuestros Servicios"
                 HorizontalTextAlignment="Center"
-                Style="{StaticResource TitleLabel}"
+                Style="{StaticResource SectionTitleLabel}"
                 Margin="0,20,0,0" />
 
             <Label
                 Text="Soluciones personalizadas para crear y mantener espacios verdes únicos."
                 HorizontalTextAlignment="Center"
-                Padding="15,0"
+                Padding="20,0"
                 Style="{StaticResource SubtitleLabel}" />
 
             <!-- Servicio - Diseño de Jardines -->
@@ -52,6 +57,7 @@
             <Border
                 BackgroundColor="White"
                 Stroke="#E5E7EB"
+                Margin="0,10,0,-10"
                 Padding="20">
 
             <Border.StrokeShape>
@@ -89,7 +95,9 @@
             <!-- Servicio - Poda Profesional -->
 
             <Border
-                Style="{StaticResource CardBorder}"
+                BackgroundColor="White"
+                Stroke="#E5E7EB"
+                Margin="0,0,0,-10"
                 Padding="20">
 
             <Border.StrokeShape>
@@ -126,8 +134,10 @@
 
             <!-- Servicio - Instalación de Plantas -->
 
-        <Border
-                Style="{StaticResource CardBorder}"
+            <Border
+                BackgroundColor="White"
+                Stroke="#E5E7EB"
+                Margin="0,0,0,-10"
                 Padding="20">
 
             <Border.StrokeShape>
@@ -164,8 +174,10 @@
 
             <!-- Servicio - Mantenimiento Integral -->
 
-        <Border
-                Style="{StaticResource CardBorder}"
+            <Border
+                BackgroundColor="White"
+                Stroke="#E5E7EB"
+                Margin="0,0,0,-10"
                 Padding="20">
 
             <Border.StrokeShape>

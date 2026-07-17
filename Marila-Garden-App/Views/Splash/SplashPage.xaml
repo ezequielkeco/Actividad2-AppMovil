@@ -15,7 +15,7 @@
 
             <Image
                 Source="marila_garden_logo.png"
-                WidthRequest="260"
+                WidthRequest="200"
                 Aspect="AspectFit" />
 
             <ActivityIndicator

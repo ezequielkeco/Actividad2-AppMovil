@@ -4,101 +4,111 @@
              x:Class="Marila_Garden_App.Views.RequestsHistory.RequestsHistoryPage"
              BackgroundColor="{StaticResource Background}"
              Shell.NavBarIsVisible="False">
-
-    <Grid Padding="24" RowDefinitions="Auto,Auto,Auto,*" RowSpacing="20">
-
-        <Grid Grid.Row="0"
-              ColumnDefinitions="Auto,*,Auto"
-              Margin="0,20,0,0"
-              ColumnSpacing="14">
-
-            <ImageButton
-                Source="menu.png"
-                Clicked="OnMenuClicked" />
-
-            <VerticalStackLayout
-                Spacing="4"
-                Grid.Column="1">
-
-                <Label Text="¡Hola!"
-                       Style="{StaticResource SubtitleLabel}" />
-
-                <Label x:Name="UserNameLabel"
-                       Text="Usuario"
-                       Style="{StaticResource SectionTitleLabel}" />
-            </VerticalStackLayout>
-
-            <Image Source="marila_garden_logo.png"
-                   WidthRequest="130"
-                   HorizontalOptions="End"
-                   Aspect="AspectFit"
-                   Grid.Column="2" />
-        </Grid>
-
-        <VerticalStackLayout Grid.Row="1"
-                             Spacing="8">
-
-            <Label
-                Text="Historial de solicitudes"
-                Style="{StaticResource TitleLabel}" />
-
-            <Label
-                Text="Consulta las solicitudes de servicios registradas."
-                Style="{StaticResource SubtitleLabel}" />
-
-        </VerticalStackLayout>
-
+    
+    <ScrollView>
         <VerticalStackLayout
-            Grid.Row="2"
-            Spacing="10"
-            x:Name="EmptyStateLayout"
-            IsVisible="{Binding IsEmpty}">
+                Padding="20"
+                Spacing="20">
 
-            <Border Style="{StaticResource CardBorder}"
-                    Padding="22">
+           <Grid ColumnDefinitions="Auto,*,Auto"
+                 Margin="0,10,0,0"
+                 ColumnSpacing="14">
 
-                <Border.StrokeShape>
-                    <RoundRectangle CornerRadius="24" />
-                </Border.StrokeShape>
+                <ImageButton
+                    Source="menu.png"
+                    Clicked="OnMenuClicked" />
 
-                <VerticalStackLayout Spacing="10">
-
-                    <Label
-                        Text="Aún no hay solicitudes registradas"
-                        Style="{StaticResource SectionTitleLabel}"
-                        HorizontalTextAlignment="Center" />
+                <VerticalStackLayout
+                    Grid.Column="1">
 
                     <Label
-                        Text="Cuando crees una solicitud de servicio, aparecerá en esta pantalla."
-                        Style="{StaticResource SubtitleLabel}"
-                        HorizontalTextAlignment="Center" />
+                        Margin="0,8,0,0"
+                        Text="¡Hola!"
+                        Style="{StaticResource SubtitleLabel}" />
+
+                    <Label x:Name="UserNameLabel"
+                           Text="Usuario"
+                           FontSize="18"
+                           Style="{StaticResource SectionTitleLabel}" />
+                </VerticalStackLayout>
+
+                <Image Source="marila_garden_logo.png"
+                       WidthRequest="110"
+                       HorizontalOptions="End"
+                       Aspect="AspectFit"
+                       Grid.Column="2" />
+           </Grid>
+
+           <VerticalStackLayout Grid.Row="1"
+                                 Spacing="5">
+
+                <Label
+                    Text="Historial de solicitudes"
+                    HorizontalTextAlignment="Center"
+                    Style="{StaticResource SectionTitleLabel}"
+                    Margin="0,20,0,0"/>
+
+                <Label
+                    Text="Aquí se muestran las solicitudes de servicios registradas"
+                    HorizontalTextAlignment="Center"
+                    Padding="10,0"
+                    Style="{StaticResource SubtitleLabel}" />
 
                 </VerticalStackLayout>
 
-                <Border.Shadow>
-                    <Shadow
-                        Brush="Black"
-                        Offset="0,2"
-                        Radius="10"
-                        Opacity="0.1" />
-                </Border.Shadow>
-            </Border>
-        </VerticalStackLayout>
+           <VerticalStackLayout
+                Grid.Row="2"
+                Spacing="10"
+                x:Name="EmptyStateLayout"
+                IsVisible="{Binding IsEmpty}">
 
-        <CollectionView
-            Grid.Row="3"
-            x:Name="RequestsCollectionView"
-            ItemsSource="{Binding Requests}"
-            SelectionMode="Single"
-            SelectionChanged="RequestsCollectionView_SelectionChanged">
+                <Border Style="{StaticResource CardBorder}"
+                        Padding="15">
 
-            <CollectionView.ItemTemplate>
-                <DataTemplate>
-                    <Border
-                        x:Name="RequestCard"
-                        Style="{StaticResource CardBorder}"
-                        Padding="20"
-                        Margin="0,0,0,14">
+                    <Border.StrokeShape>
+                        <RoundRectangle CornerRadius="24" />
+                    </Border.StrokeShape>
+
+                    <VerticalStackLayout Spacing="5">
+
+                        <Label
+                            Text="Aún no hay solicitudes registradas"
+                            Style="{StaticResource SectionTitleLabel}"
+                            FontSize="22"
+                            HorizontalTextAlignment="Center" />
+
+                        <Label
+                            Text="Cuando crees una solicitud de servicio, aparecerá en esta pantalla."
+                            Style="{StaticResource SubtitleLabel}"
+                            Padding="10"
+                            HorizontalTextAlignment="Center" />
+
+                    </VerticalStackLayout>
+
+                    <Border.Shadow>
+                        <Shadow
+                            Brush="Black"
+                            Offset="0,2"
+                            Radius="10"
+                            Opacity="0.1" />
+                    </Border.Shadow>
+                </Border>
+           </VerticalStackLayout>
+
+           <CollectionView
+                Grid.Row="2"
+                x:Name="RequestsCollectionView"
+                ItemsSource="{Binding Requests}"
+                SelectionMode="Single"
+                SelectionChanged="RequestsCollectionView_SelectionChanged">
+
+              <CollectionView.ItemTemplate>
+                  <DataTemplate>
+                      <Border
+                          x:Name="RequestCard"
+                          Style="{StaticResource CardBorder}"
+                          Padding="20"
+                          Margin="0,0,0,10">
 
                         <Border.StrokeShape>
                             <RoundRectangle CornerRadius="26" />
@@ -107,69 +117,72 @@
                         <VerticalStackLayout>
 
                             <Grid ColumnDefinitions="*,Auto"
-                                  ColumnSpacing="10">
+                                  ColumnSpacing="5">
 
-                                <Label
-                                    Text="{Binding ServiceType}"
-                                    Style="{StaticResource SectionTitleLabel}"
-                                    VerticalOptions="Center"/>
+                               <Label
+                                  Text="{Binding ServiceType}"
+                                  Style="{StaticResource SectionTitleLabel}"
+                                  FontSize="22"
+                                  VerticalOptions="Center"/>
 
-                                <Border
-                                    Grid.Column="1"
-                                    BackgroundColor="#EAF7E3"
-                                    StrokeThickness="0"
-                                    Padding="10,4"
-                                    VerticalOptions="Center">
+                               <Border
+                                  Grid.Column="1"
+                                  BackgroundColor="#EAF7E3"
+                                  StrokeThickness="0"
+                                  Padding="10,4"
+                                  VerticalOptions="Center">
 
-                                    <Border.StrokeShape>
-                                        <RoundRectangle CornerRadius="12" />
-                                    </Border.StrokeShape>
+                                  <Border.StrokeShape>
+                                      <RoundRectangle CornerRadius="12" />
+                                  </Border.StrokeShape>
 
-                                    <Label
-                                        Text="{Binding Status}"
-                                        FontSize="16"
-                                        TextColor="{StaticResource PrimaryDark}"
-                                        FontAttributes="Bold" />
-                                </Border>
+                                  <Label
+                                      Text="{Binding Status}"
+                                      FontSize="16"
+                                      TextColor="{StaticResource PrimaryDark}"
+                                      FontAttributes="Bold" />
+                                   
+                               </Border>
                             </Grid>
 
                             <Grid ColumnDefinitions="*,Auto"
                                   ColumnSpacing="10">
 
-                                <Label
-                                Text="{Binding DesiredDate,
-                                      StringFormat='Fecha programada:'}"
-                                Margin="0,8,0,0"
-                                Style="{StaticResource SubtitleLabel}" />
+                               <Label
+                                  Text="{Binding DesiredDate,
+                                  StringFormat='Fecha programada:'}"
+                                  Margin="0,8,0,0"
+                                  Style="{StaticResource SubtitleLabel}" />
 
-                                <Label
-                                Text="{Binding DesiredDate,
-                                      StringFormat='{0:dd/MM/yyyy}'}"
-                                Margin="0,40,0,0"
-                                TextColor="{StaticResource PrimaryDark}"
-                                FontAttributes="Bold"
-                                Style="{StaticResource SubtitleLabel}" />
+                               <Label
+                                  Text="{Binding DesiredDate,
+                                        StringFormat='{0:dd/MM/yyyy}'}"
+                                  Margin="0,40,0,0"
+                                  TextColor="{StaticResource PrimaryDark}"
+                                  FontAttributes="Bold"
+                                  Style="{StaticResource SubtitleLabel}" />
 
-                                <Label
-                                Text="{Binding Comments}"
-                                Style="{StaticResource SubtitleLabel}" />
+                               <Label
+                                  Text="{Binding Comments}"
+                                  Style="{StaticResource SubtitleLabel}" />
 
-                                <ImageButton
-                                    Grid.Column="1"
-                                    Source="delete.png"
-                                    WidthRequest="55"
-                                    HeightRequest="55"
-                                    HorizontalOptions="End"
-                                    Margin="20,5"
-                                    CommandParameter="{Binding}"
-                                    Clicked="OnDeleteRequestClicked" />
+                               <ImageButton
+                                  Grid.Column="1"
+                                  Source="delete.png"
+                                  WidthRequest="50"
+                                  HeightRequest="50"
+                                  HorizontalOptions="End"
+                                  Margin="20,5"
+                                  CommandParameter="{Binding}"
+                                  Clicked="OnDeleteRequestClicked" />
                             </Grid>
                         </VerticalStackLayout>
-                    </Border>
-                </DataTemplate>
-            </CollectionView.ItemTemplate>
+                      </Border>
+                  </DataTemplate>
+              </CollectionView.ItemTemplate>
 
-        </CollectionView>
+           </CollectionView>
 
-    </Grid>
+        </VerticalStackLayout>
+    </ScrollView>
 </ContentPage>
