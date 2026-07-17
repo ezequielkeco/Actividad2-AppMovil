@@ -6,6 +6,9 @@ using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
 using Marila_Garden_App.Models;
 using Marila_Garden_App.Services;
+using CommunityToolkit.Mvvm.Messaging;
+using Marila_Garden_App.Messages;
+using Microsoft.Maui.ApplicationModel;
 
 namespace Marila_Garden_App.ViewModels
 {
@@ -24,6 +27,60 @@ namespace Marila_Garden_App.ViewModels
         {
             _databaseService = databaseService;
             _dialogService = dialogService;
+
+            WeakReferenceMessenger.Default.Register<
+                ServiceRequestCreatedMessage>(
+                this,
+                (_, message) =>
+                {
+                    MainThread.BeginInvokeOnMainThread(() =>
+                    {
+                        Requests.Insert(0, message.Request);
+                        IsEmpty = false;
+                    });
+                });
+
+            WeakReferenceMessenger.Default.Register<
+                ServiceRequestUpdatedMessage>(
+                this,
+                (_, message) =>
+                {
+                    MainThread.BeginInvokeOnMainThread(() =>
+                    {
+                        ServiceRequest? existing =
+                            Requests.FirstOrDefault(
+                                item => item.Id == message.Request.Id);
+
+                        if (existing is null)
+                        {
+                            Requests.Insert(0, message.Request);
+                            IsEmpty = false;
+                            return;
+                        }
+
+                        int index = Requests.IndexOf(existing);
+
+                        Requests[index] = message.Request;
+                    });
+                });
+
+            WeakReferenceMessenger.Default.Register<
+                ServiceRequestDeletedMessage>(
+                this,
+                (_, message) =>
+                {
+                    MainThread.BeginInvokeOnMainThread(() =>
+                    {
+                        ServiceRequest? existing =
+                            Requests.FirstOrDefault(
+                                item => item.Id == message.RequestId);
+
+                        if (existing is not null)
+                            Requests.Remove(existing);
+
+                        IsEmpty = Requests.Count == 0;
+                    });
+                });
         }
 
         [RelayCommand]

@@ -1,5 +1,7 @@
 ﻿using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
+using CommunityToolkit.Mvvm.Messaging;
+using Marila_Garden_App.Messages;
 using Marila_Garden_App.Models;
 using Marila_Garden_App.Services;
 using Microsoft.Maui.ApplicationModel;
@@ -9,16 +11,17 @@ namespace Marila_Garden_App.ViewModels
     public partial class RequestViewModel : ObservableObject
     {
         private readonly DatabaseService _databaseService;
+        private readonly IDialogService _dialogService;
+
+        private int _editingRequestId;
 
         public RequestViewModel(
-               DatabaseService databaseService,
-               IDialogService dialogService)
+            DatabaseService databaseService,
+            IDialogService dialogService)
         {
             _databaseService = databaseService;
             _dialogService = dialogService;
         }
-
-        private int _editingRequestId;
 
         [ObservableProperty]
         private string fullName = string.Empty;
@@ -63,12 +66,13 @@ namespace Marila_Garden_App.ViewModels
         private string submitButtonText = "Enviar solicitud";
 
         [ObservableProperty]
-        private bool hasUnsavedChanges = false;
+        private bool hasUnsavedChanges;
 
         public string SelectedDateDisplay =>
             SelectedDate.ToString("dd/MM/yyyy");
 
-        public bool HasSuccessMessage => !string.IsNullOrWhiteSpace(SuccessMessage);
+        public bool HasSuccessMessage =>
+            !string.IsNullOrWhiteSpace(SuccessMessage);
 
         public List<string> ServiceTypes { get; } = new()
         {
@@ -134,6 +138,7 @@ namespace Marila_Garden_App.ViewModels
             }
 
             _editingRequestId = request.Id;
+
             IsEditMode = true;
             PageTitle = "Editar solicitud";
             SubmitButtonText = "Guardar cambios";
@@ -188,6 +193,17 @@ namespace Marila_Garden_App.ViewModels
             if (!ValidateForm())
                 return;
 
+            if (IsEditMode)
+            {
+                await UpdateExistingRequestAsync();
+                return;
+            }
+
+            await CreateNewRequestAsync();
+        }
+
+        private async Task CreateNewRequestAsync()
+        {
             var request = new ServiceRequest
             {
                 FullName = FullName.Trim(),
@@ -197,32 +213,46 @@ namespace Marila_Garden_App.ViewModels
                 Comments = Comments.Trim()
             };
 
-            if (IsEditMode)
-            {
-                request.Id = _editingRequestId;
+            await _databaseService.AddRequestAsync(request);
 
-                await _databaseService.UpdateRequestAsync(request);
+            WeakReferenceMessenger.Default.Send(
+                new ServiceRequestCreatedMessage(request));
 
-                ResetToCreateMode();
+            ClearForm();
 
-                HasUnsavedChanges = false;
-                SuccessMessage = "✅ Solicitud actualizada correctamente.";
+            HasUnsavedChanges = false;
+            SuccessMessage = "✅ Solicitud registrada correctamente.";
 
-                await Task.Delay(1000);
+            _ = HideSuccessMessageAsync();
+        }
 
-                await Shell.Current.GoToAsync("//RequestsHistory");
-            }
-            else
-            {
-                await _databaseService.AddRequestAsync(request);
+        private async Task UpdateExistingRequestAsync()
+        {
+            ServiceRequest? existingRequest =
+                await _databaseService.GetRequestByIdAsync(_editingRequestId);
 
-                ClearForm();
+            if (existingRequest is null)
+                return;
 
-                HasUnsavedChanges = false;
-                SuccessMessage = "✅ Solicitud registrada correctamente.";
+            existingRequest.FullName = FullName.Trim();
+            existingRequest.Phone = Phone.Trim();
+            existingRequest.ServiceType = SelectedServiceType;
+            existingRequest.DesiredDate = SelectedDate;
+            existingRequest.Comments = Comments.Trim();
 
-                _ = HideSuccessMessageAsync();
-            }
+            await _databaseService.UpdateRequestAsync(existingRequest);
+
+            WeakReferenceMessenger.Default.Send(
+                new ServiceRequestUpdatedMessage(existingRequest));
+
+            ResetToCreateMode();
+
+            HasUnsavedChanges = false;
+            SuccessMessage = "✅ Solicitud actualizada correctamente.";
+
+            await Task.Delay(1000);
+
+            await Shell.Current.GoToAsync("//RequestsHistory");
         }
 
         [RelayCommand]
@@ -248,7 +278,11 @@ namespace Marila_Garden_App.ViewModels
 
             await _databaseService.DeleteRequestAsync(request);
 
+            WeakReferenceMessenger.Default.Send(
+                new ServiceRequestDeletedMessage(request.Id));
+
             ResetToCreateMode();
+
             HasUnsavedChanges = false;
 
             await Shell.Current.GoToAsync("//RequestsHistory");
@@ -281,7 +315,8 @@ namespace Marila_Garden_App.ViewModels
             }
             else
             {
-                string cleanPhone = new string(Phone.Where(char.IsDigit).ToArray());
+                string cleanPhone = new string(
+                    Phone.Where(char.IsDigit).ToArray());
 
                 if (cleanPhone.Length != 10)
                 {
@@ -292,19 +327,26 @@ namespace Marila_Garden_App.ViewModels
 
             if (string.IsNullOrWhiteSpace(SelectedServiceType))
             {
-                ServiceTypeError = "Debes seleccionar un tipo de servicio.";
+                ServiceTypeError =
+                    "Debes seleccionar un tipo de servicio.";
+
                 isValid = false;
             }
 
             if (SelectedDate.Date < DateTime.Today)
             {
-                DateError = "La fecha no puede ser anterior al día de hoy.";
+                DateError =
+                    "La fecha no puede ser anterior al día de hoy.";
+
                 isValid = false;
             }
 
-            if (!string.IsNullOrWhiteSpace(Comments) && Comments.Length > 300)
+            if (!string.IsNullOrWhiteSpace(Comments) &&
+                Comments.Length > 300)
             {
-                CommentsError = "Los comentarios no deben superar los 300 caracteres.";
+                CommentsError =
+                    "Los comentarios no deben superar los 300 caracteres.";
+
                 isValid = false;
             }
 
@@ -339,7 +381,5 @@ namespace Marila_Garden_App.ViewModels
                 SuccessMessage = string.Empty;
             });
         }
-
-        private readonly IDialogService _dialogService;
     }
 }
