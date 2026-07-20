@@ -5,76 +5,60 @@ using Marila_Garden_App.Messages;
 using Marila_Garden_App.Models;
 using Marila_Garden_App.Services;
 using Microsoft.Maui.ApplicationModel;
+using Marila_Garden_App.ViewModels.Base;
 
-namespace Marila_Garden_App.ViewModels
+public partial class RequestViewModel : FormViewModelBase
 {
-    public partial class RequestViewModel : ObservableObject
+    private readonly DatabaseService _databaseService;
+
+    private int _editingRequestId;
+
+    public RequestViewModel(
+        DatabaseService databaseService,
+        IDialogService dialogService)
+        : base(dialogService)
     {
-        private readonly DatabaseService _databaseService;
-        private readonly IDialogService _dialogService;
+        _databaseService = databaseService;
 
-        private int _editingRequestId;
+        ConfigureCreateMode(
+            "Nueva solicitud",
+            "Enviar solicitud");
+    }
 
-        public RequestViewModel(
-            DatabaseService databaseService,
-            IDialogService dialogService)
-        {
-            _databaseService = databaseService;
-            _dialogService = dialogService;
-        }
+    [ObservableProperty]
+    private string fullName = string.Empty;
 
-        [ObservableProperty]
-        private string fullName = string.Empty;
+    [ObservableProperty]
+    private string phone = string.Empty;
 
-        [ObservableProperty]
-        private string phone = string.Empty;
+    [ObservableProperty]
+    private string selectedServiceType = string.Empty;
 
-        [ObservableProperty]
-        private string selectedServiceType = string.Empty;
+    [ObservableProperty]
+    private DateTime selectedDate = DateTime.Today;
 
-        [ObservableProperty]
-        private DateTime selectedDate = DateTime.Today;
+    [ObservableProperty]
+    private string comments = string.Empty;
 
-        [ObservableProperty]
-        private string comments = string.Empty;
+    [ObservableProperty]
+    private string fullNameError = string.Empty;
 
-        [ObservableProperty]
-        private string fullNameError = string.Empty;
+    [ObservableProperty]
+    private string phoneError = string.Empty;
 
-        [ObservableProperty]
-        private string phoneError = string.Empty;
+    [ObservableProperty]
+    private string serviceTypeError = string.Empty;
 
-        [ObservableProperty]
-        private string serviceTypeError = string.Empty;
+    [ObservableProperty]
+    private string dateError = string.Empty;
 
-        [ObservableProperty]
-        private string dateError = string.Empty;
+    [ObservableProperty]
+    private string commentsError = string.Empty;
 
-        [ObservableProperty]
-        private string commentsError = string.Empty;
+    public string SelectedDateDisplay =>
+        SelectedDate.ToString("dd/MM/yyyy");
 
-        [ObservableProperty]
-        private string successMessage = string.Empty;
-
-        [ObservableProperty]
-        private bool isEditMode;
-
-        [ObservableProperty]
-        private string pageTitle = "Nueva solicitud";
-
-        [ObservableProperty]
-        private string submitButtonText = "Enviar solicitud";
-
-        [ObservableProperty]
-        private bool hasUnsavedChanges;
-
-        public string SelectedDateDisplay =>
-            SelectedDate.ToString("dd/MM/yyyy");
-
-        public bool HasSuccessMessage =>
-            !string.IsNullOrWhiteSpace(SuccessMessage);
-
-        public List<string> ServiceTypes { get; } = new()
+    public List<string> ServiceTypes { get; } = new()
         {
             "Diseño de jardín",
             "Mantenimiento",
@@ -82,304 +66,269 @@ namespace Marila_Garden_App.ViewModels
             "Plantación"
         };
 
-        partial void OnFullNameChanged(string value)
+    partial void OnFullNameChanged(string value)
+    {
+        FullNameError = string.Empty;
+        SuccessMessage = string.Empty;
+        HasUnsavedChanges = true;
+    }
+
+    partial void OnPhoneChanged(string value)
+    {
+        PhoneError = string.Empty;
+        SuccessMessage = string.Empty;
+        HasUnsavedChanges = true;
+    }
+
+    partial void OnSelectedServiceTypeChanged(string value)
+    {
+        ServiceTypeError = string.Empty;
+        SuccessMessage = string.Empty;
+        HasUnsavedChanges = true;
+    }
+
+    partial void OnSelectedDateChanged(DateTime value)
+    {
+        DateError = string.Empty;
+        SuccessMessage = string.Empty;
+        HasUnsavedChanges = true;
+
+        OnPropertyChanged(nameof(SelectedDateDisplay));
+    }
+
+    partial void OnCommentsChanged(string value)
+    {
+        CommentsError = string.Empty;
+        SuccessMessage = string.Empty;
+        HasUnsavedChanges = true;
+    }
+
+    public async Task LoadRequestForEditAsync(int requestId)
+    {
+        ClearMessages();
+
+        ServiceRequest? request =
+            await _databaseService.GetRequestByIdAsync(requestId);
+
+        if (request is null)
         {
-            FullNameError = string.Empty;
-            SuccessMessage = string.Empty;
-            HasUnsavedChanges = true;
-        }
-
-        partial void OnPhoneChanged(string value)
-        {
-            PhoneError = string.Empty;
-            SuccessMessage = string.Empty;
-            HasUnsavedChanges = true;
-        }
-
-        partial void OnSelectedServiceTypeChanged(string value)
-        {
-            ServiceTypeError = string.Empty;
-            SuccessMessage = string.Empty;
-            HasUnsavedChanges = true;
-        }
-
-        partial void OnSelectedDateChanged(DateTime value)
-        {
-            DateError = string.Empty;
-            SuccessMessage = string.Empty;
-            HasUnsavedChanges = true;
-
-            OnPropertyChanged(nameof(SelectedDateDisplay));
-        }
-
-        partial void OnCommentsChanged(string value)
-        {
-            CommentsError = string.Empty;
-            SuccessMessage = string.Empty;
-            HasUnsavedChanges = true;
-        }
-
-        partial void OnSuccessMessageChanged(string value)
-        {
-            OnPropertyChanged(nameof(HasSuccessMessage));
-        }
-
-        public async Task LoadRequestForEditAsync(int requestId)
-        {
-            ClearMessages();
-
-            ServiceRequest? request =
-                await _databaseService.GetRequestByIdAsync(requestId);
-
-            if (request is null)
-            {
-                ResetToCreateMode();
-                return;
-            }
-
-            _editingRequestId = request.Id;
-
-            IsEditMode = true;
-            PageTitle = "Editar solicitud";
-            SubmitButtonText = "Guardar cambios";
-
-            FullName = request.FullName;
-            Phone = request.Phone;
-            SelectedServiceType = request.ServiceType;
-            SelectedDate = request.DesiredDate;
-            Comments = request.Comments;
-
-            HasUnsavedChanges = false;
-        }
-
-        public void ResetToCreateMode()
-        {
-            _editingRequestId = 0;
-
-            IsEditMode = false;
-            PageTitle = "Nueva solicitud";
-            SubmitButtonText = "Enviar solicitud";
-
-            ClearMessages();
-            ClearForm();
-
-            HasUnsavedChanges = false;
-        }
-
-        public async Task<bool> ConfirmDiscardChangesAsync()
-        {
-            if (!HasUnsavedChanges)
-                return true;
-
-            bool confirmed = await _dialogService.ConfirmAsync(
-                "Descartar cambios",
-                "Los cambios no se han guardado. ¿Deseas salir sin guardar?",
-                "Salir",
-                "Continuar editando");
-
-            if (confirmed)
-            {
-                HasUnsavedChanges = false;
-            }
-
-            return confirmed;
-        }
-
-        [RelayCommand]
-        private async Task SaveRequest()
-        {
-            ClearMessages();
-
-            if (!ValidateForm())
-                return;
-
-            if (IsEditMode)
-            {
-                await UpdateExistingRequestAsync();
-                return;
-            }
-
-            await CreateNewRequestAsync();
-        }
-
-        private async Task CreateNewRequestAsync()
-        {
-            var request = new ServiceRequest
-            {
-                FullName = FullName.Trim(),
-                Phone = Phone.Trim(),
-                ServiceType = SelectedServiceType,
-                DesiredDate = SelectedDate,
-                Comments = Comments.Trim()
-            };
-
-            await _databaseService.AddRequestAsync(request);
-
-            WeakReferenceMessenger.Default.Send(
-                new ServiceRequestCreatedMessage(request));
-
-            ClearForm();
-
-            HasUnsavedChanges = false;
-            SuccessMessage = "✅ Solicitud registrada correctamente.";
-
-            _ = HideSuccessMessageAsync();
-        }
-
-        private async Task UpdateExistingRequestAsync()
-        {
-            ServiceRequest? existingRequest =
-                await _databaseService.GetRequestByIdAsync(_editingRequestId);
-
-            if (existingRequest is null)
-                return;
-
-            existingRequest.FullName = FullName.Trim();
-            existingRequest.Phone = Phone.Trim();
-            existingRequest.ServiceType = SelectedServiceType;
-            existingRequest.DesiredDate = SelectedDate;
-            existingRequest.Comments = Comments.Trim();
-
-            await _databaseService.UpdateRequestAsync(existingRequest);
-
-            WeakReferenceMessenger.Default.Send(
-                new ServiceRequestUpdatedMessage(existingRequest));
-
             ResetToCreateMode();
-
-            HasUnsavedChanges = false;
-            SuccessMessage = "✅ Solicitud actualizada correctamente.";
-
-            await Task.Delay(1000);
-
-            await Shell.Current.GoToAsync("//RequestsHistory");
+            return;
         }
 
-        [RelayCommand]
-        private async Task DeleteRequest()
+        _editingRequestId = request.Id;
+
+        ConfigureEditMode(
+            "Editar solicitud",
+            "Guardar cambios");
+
+        FullName = request.FullName;
+        Phone = request.Phone;
+        SelectedServiceType = request.ServiceType;
+        SelectedDate = request.DesiredDate;
+        Comments = request.Comments;
+
+        HasUnsavedChanges = false;
+    }
+
+    public void ResetToCreateMode()
+    {
+        _editingRequestId = 0;
+
+        ConfigureCreateMode(
+            "Nueva solicitud",
+            "Enviar solicitud");
+
+        ClearMessages();
+        ClearForm();
+
+        HasUnsavedChanges = false;
+    }
+
+    [RelayCommand]
+    private async Task SaveRequest()
+    {
+        ClearMessages();
+
+        if (!ValidateForm())
+            return;
+
+        if (IsEditMode)
         {
-            if (!IsEditMode || _editingRequestId <= 0)
-                return;
-
-            bool confirmed = await _dialogService.ConfirmAsync(
-                "Eliminar solicitud",
-                "¿Estás seguro de que deseas eliminar esta solicitud? Esta acción no se puede deshacer.",
-                "Eliminar",
-                "Cancelar");
-
-            if (!confirmed)
-                return;
-
-            ServiceRequest? request =
-                await _databaseService.GetRequestByIdAsync(_editingRequestId);
-
-            if (request is null)
-                return;
-
-            await _databaseService.DeleteRequestAsync(request);
-
-            WeakReferenceMessenger.Default.Send(
-                new ServiceRequestDeletedMessage(request.Id));
-
-            ResetToCreateMode();
-
-            HasUnsavedChanges = false;
-
-            await Shell.Current.GoToAsync("//RequestsHistory");
+            await UpdateExistingRequestAsync();
+            return;
         }
 
-        private bool ValidateForm()
+        await CreateNewRequestAsync();
+    }
+
+    private async Task CreateNewRequestAsync()
+    {
+        var request = new ServiceRequest
         {
-            bool isValid = true;
+            FullName = FullName.Trim(),
+            Phone = Phone.Trim(),
+            ServiceType = SelectedServiceType,
+            DesiredDate = SelectedDate,
+            Comments = Comments.Trim()
+        };
 
-            if (string.IsNullOrWhiteSpace(FullName))
-            {
-                FullNameError = "El nombre completo es obligatorio.";
-                isValid = false;
-            }
-            else if (FullName.Trim().Length < 5)
-            {
-                FullNameError = "El nombre debe tener al menos 5 caracteres.";
-                isValid = false;
-            }
-            else if (FullName.Any(char.IsDigit))
-            {
-                FullNameError = "El nombre no debe contener números.";
-                isValid = false;
-            }
+        await _databaseService.AddRequestAsync(request);
 
-            if (string.IsNullOrWhiteSpace(Phone))
-            {
-                PhoneError = "El teléfono es obligatorio.";
-                isValid = false;
-            }
-            else
-            {
-                string cleanPhone = new string(
-                    Phone.Where(char.IsDigit).ToArray());
+        WeakReferenceMessenger.Default.Send(
+            new ServiceRequestCreatedMessage(request));
 
-                if (cleanPhone.Length != 10)
-                {
-                    PhoneError = "El teléfono debe tener 10 dígitos.";
-                    isValid = false;
-                }
-            }
+        ClearForm();
 
-            if (string.IsNullOrWhiteSpace(SelectedServiceType))
-            {
-                ServiceTypeError =
-                    "Debes seleccionar un tipo de servicio.";
+        HasUnsavedChanges = false;
+        SuccessMessage = "✅ Solicitud registrada correctamente.";
 
-                isValid = false;
-            }
+        _ = HideSuccessMessageAsync();
+    }
 
-            if (SelectedDate.Date < DateTime.Today)
-            {
-                DateError =
-                    "La fecha no puede ser anterior al día de hoy.";
+    private async Task UpdateExistingRequestAsync()
+    {
+        ServiceRequest? existingRequest =
+            await _databaseService.GetRequestByIdAsync(_editingRequestId);
 
-                isValid = false;
-            }
+        if (existingRequest is null)
+            return;
 
-            if (!string.IsNullOrWhiteSpace(Comments) &&
-                Comments.Length > 300)
-            {
-                CommentsError =
-                    "Los comentarios no deben superar los 300 caracteres.";
+        existingRequest.FullName = FullName.Trim();
+        existingRequest.Phone = Phone.Trim();
+        existingRequest.ServiceType = SelectedServiceType;
+        existingRequest.DesiredDate = SelectedDate;
+        existingRequest.Comments = Comments.Trim();
 
-                isValid = false;
-            }
+        await _databaseService.UpdateRequestAsync(existingRequest);
 
-            return isValid;
-        }
+        WeakReferenceMessenger.Default.Send(
+            new ServiceRequestUpdatedMessage(existingRequest));
 
-        private void ClearMessages()
+        ResetToCreateMode();
+
+        HasUnsavedChanges = false;
+        SuccessMessage = "✅ Solicitud actualizada correctamente.";
+
+        await Task.Delay(1000);
+
+        await Shell.Current.GoToAsync("//RequestsHistory");
+    }
+
+    [RelayCommand]
+    private async Task DeleteRequest()
+    {
+        if (!IsEditMode || _editingRequestId <= 0)
+            return;
+
+        bool confirmed = await ConfirmAsync(
+            "Eliminar solicitud",
+            "¿Estás seguro de que deseas eliminar esta solicitud? Esta acción no se puede deshacer.",
+            "Eliminar",
+            "Cancelar");
+
+        if (!confirmed)
+            return;
+
+        ServiceRequest? request =
+            await _databaseService.GetRequestByIdAsync(_editingRequestId);
+
+        if (request is null)
+            return;
+
+        await _databaseService.DeleteRequestAsync(request);
+
+        WeakReferenceMessenger.Default.Send(
+            new ServiceRequestDeletedMessage(request.Id));
+
+        ResetToCreateMode();
+
+        HasUnsavedChanges = false;
+
+        await Shell.Current.GoToAsync("//RequestsHistory");
+    }
+
+    private bool ValidateForm()
+    {
+        bool isValid = true;
+
+        if (string.IsNullOrWhiteSpace(FullName))
         {
-            FullNameError = string.Empty;
-            PhoneError = string.Empty;
-            ServiceTypeError = string.Empty;
-            DateError = string.Empty;
-            CommentsError = string.Empty;
-            SuccessMessage = string.Empty;
+            FullNameError = "El nombre completo es obligatorio.";
+            isValid = false;
+        }
+        else if (FullName.Trim().Length < 5)
+        {
+            FullNameError = "El nombre debe tener al menos 5 caracteres.";
+            isValid = false;
+        }
+        else if (FullName.Any(char.IsDigit))
+        {
+            FullNameError = "El nombre no debe contener números.";
+            isValid = false;
         }
 
-        private void ClearForm()
+        if (string.IsNullOrWhiteSpace(Phone))
         {
-            FullName = string.Empty;
-            Phone = string.Empty;
-            SelectedServiceType = string.Empty;
-            SelectedDate = DateTime.Today;
-            Comments = string.Empty;
+            PhoneError = "El teléfono es obligatorio.";
+            isValid = false;
         }
-
-        private async Task HideSuccessMessageAsync()
+        else
         {
-            await Task.Delay(3000);
+            string cleanPhone = new string(
+                Phone.Where(char.IsDigit).ToArray());
 
-            MainThread.BeginInvokeOnMainThread(() =>
+            if (cleanPhone.Length != 10)
             {
-                SuccessMessage = string.Empty;
-            });
+                PhoneError = "El teléfono debe tener 10 dígitos.";
+                isValid = false;
+            }
         }
+
+        if (string.IsNullOrWhiteSpace(SelectedServiceType))
+        {
+            ServiceTypeError =
+                "Debes seleccionar un tipo de servicio.";
+
+            isValid = false;
+        }
+
+        if (SelectedDate.Date < DateTime.Today)
+        {
+            DateError =
+                "La fecha no puede ser anterior al día de hoy.";
+
+            isValid = false;
+        }
+
+        if (!string.IsNullOrWhiteSpace(Comments) &&
+            Comments.Length > 300)
+        {
+            CommentsError =
+                "Los comentarios no deben superar los 300 caracteres.";
+
+            isValid = false;
+        }
+
+        return isValid;
+    }
+
+    private void ClearMessages()
+    {
+        FullNameError = string.Empty;
+        PhoneError = string.Empty;
+        ServiceTypeError = string.Empty;
+        DateError = string.Empty;
+        CommentsError = string.Empty;
+        SuccessMessage = string.Empty;
+    }
+
+    private void ClearForm()
+    {
+        FullName = string.Empty;
+        Phone = string.Empty;
+        SelectedServiceType = string.Empty;
+        SelectedDate = DateTime.Today;
+        Comments = string.Empty;
     }
 }
