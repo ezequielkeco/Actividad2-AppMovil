@@ -10,15 +10,18 @@ using Marila_Garden_App.ViewModels.Base;
 public partial class RequestViewModel : FormViewModelBase
 {
     private readonly DatabaseService _databaseService;
+    private readonly INavigationService _navigationService;
 
     private int _editingRequestId;
 
     public RequestViewModel(
         DatabaseService databaseService,
-        IDialogService dialogService)
+        IDialogService dialogService,
+        INavigationService navigationService)
         : base(dialogService)
     {
         _databaseService = databaseService;
+        _navigationService = navigationService;
 
         ConfigureCreateMode(
             "Nueva solicitud",
@@ -212,7 +215,7 @@ public partial class RequestViewModel : FormViewModelBase
 
         await Task.Delay(1000);
 
-        await Shell.Current.GoToAsync("//RequestsHistory");
+        await _navigationService.GoToAsync("//RequestsHistory");
     }
 
     [RelayCommand]
@@ -241,11 +244,13 @@ public partial class RequestViewModel : FormViewModelBase
         WeakReferenceMessenger.Default.Send(
             new ServiceRequestDeletedMessage(request.Id));
 
+        HasUnsavedChanges = false;
+
         ResetToCreateMode();
 
         HasUnsavedChanges = false;
 
-        await Shell.Current.GoToAsync("//RequestsHistory");
+        await _navigationService.GoToAsync("//RequestsHistory");
     }
 
     private bool ValidateForm()
