@@ -1,17 +1,28 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-using CommunityToolkit.Mvvm.ComponentModel;
+﻿using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
 using Marila_Garden_App.Helpers;
+using Marila_Garden_App.Services;
+using Marila_Garden_App.Views.Authentication;
+using Marila_Garden_App.Models;
+using System;
+using System.Collections.Generic;
+using System.Text;
 
 
 namespace Marila_Garden_App.ViewModels
 {
     public partial class LoginViewModel : ObservableObject
     {
-        private const string ValidUserName = "Ezequiel";
-        private const string ValidPassword = "123456";
+        private readonly DatabaseService _databaseService;
+        private readonly INavigationService _navigationService;
+
+        public LoginViewModel(
+            DatabaseService databaseService,
+            INavigationService navigationService)
+        {
+            _databaseService = databaseService;
+            _navigationService = navigationService;
+        }
 
         [ObservableProperty]
         private string userName = string.Empty;
@@ -64,24 +75,44 @@ namespace Marila_Garden_App.ViewModels
             if (!isValid)
                 return;
 
-            if (UserName.Trim() == ValidUserName &&
-                Password.Trim() == ValidPassword)
+            var user =
+                await _databaseService.GetUserByUserNameOrEmailAsync(UserName);
+
+            if (user is null)
             {
-                SessionHelper.IsLoggedIn = true;
-                SessionHelper.UserName = UserName.Trim();
+                UserNameError =
+                    "No existe una cuenta con ese usuario o correo electrónico.";
 
-                Shell.Current.FlyoutBehavior = FlyoutBehavior.Flyout;
-
-                await Shell.Current.GoToAsync("//Home");
+                return;
             }
-            else
+
+            bool passwordCorrect =
+                PasswordHasher.Verify(
+                    Password,
+                    user.PasswordHash);
+
+            if (!passwordCorrect)
             {
-                if (UserName.Trim() != ValidUserName)
-                    UserNameError = "El nombre de usuario no es válido.";
+                PasswordError =
+                    "La contraseña es incorrecta.";
 
-                if (Password.Trim() != ValidPassword)
-                    PasswordError = "La contraseña no es válida.";
+                return;
             }
+
+            SessionHelper.IsLoggedIn = true;
+            SessionHelper.UserName = user.FullName;
+
+            Shell.Current.FlyoutBehavior =
+                FlyoutBehavior.Flyout;
+
+            await _navigationService.GoToAsync("//Home");
+        }
+
+        [RelayCommand]
+        private async Task GoToRegister()
+        {
+            await _navigationService.GoToAsync(
+                nameof(RegisterPage));
         }
     }
 }

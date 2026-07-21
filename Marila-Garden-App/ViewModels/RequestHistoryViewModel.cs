@@ -1,13 +1,10 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-using System.Collections.ObjectModel;
+﻿using System.Collections.ObjectModel;
 using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
-using Marila_Garden_App.Models;
-using Marila_Garden_App.Services;
 using CommunityToolkit.Mvvm.Messaging;
 using Marila_Garden_App.Messages;
+using Marila_Garden_App.Models;
+using Marila_Garden_App.Services;
 using Microsoft.Maui.ApplicationModel;
 
 namespace Marila_Garden_App.ViewModels
@@ -15,6 +12,8 @@ namespace Marila_Garden_App.ViewModels
     public partial class RequestsHistoryViewModel : ObservableObject
     {
         private readonly DatabaseService _databaseService;
+        private readonly IDialogService _dialogService;
+        private readonly INavigationService _navigationService;
 
         public ObservableCollection<ServiceRequest> Requests { get; } = new();
 
@@ -22,11 +21,13 @@ namespace Marila_Garden_App.ViewModels
         private bool isEmpty;
 
         public RequestsHistoryViewModel(
-               DatabaseService databaseService,
-               IDialogService dialogService)
+            DatabaseService databaseService,
+            IDialogService dialogService,
+            INavigationService navigationService)
         {
             _databaseService = databaseService;
             _dialogService = dialogService;
+            _navigationService = navigationService;
 
             WeakReferenceMessenger.Default.Register<
                 ServiceRequestCreatedMessage>(
@@ -104,13 +105,13 @@ namespace Marila_Garden_App.ViewModels
             if (request is null)
                 return;
 
-            await Shell.Current.GoToAsync(
-                $"//Request?requestId={request.Id}"
-            );
+            await _navigationService.GoToAsync(
+                $"//Request?requestId={request.Id}");
         }
 
         [RelayCommand]
-        public async Task<bool> ConfirmDeleteRequestAsync(ServiceRequest request)
+        public async Task<bool> ConfirmDeleteRequestAsync(
+            ServiceRequest request)
         {
             if (request is null)
                 return false;
@@ -122,9 +123,8 @@ namespace Marila_Garden_App.ViewModels
                 "Cancelar");
         }
 
-        private readonly IDialogService _dialogService;
-
-        public async Task DeleteConfirmedRequestAsync(ServiceRequest request)
+        public async Task DeleteConfirmedRequestAsync(
+            ServiceRequest request)
         {
             if (request is null)
                 return;

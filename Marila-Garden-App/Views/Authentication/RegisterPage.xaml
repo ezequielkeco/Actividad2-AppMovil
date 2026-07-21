@@ -1,0 +1,274 @@
+<?xml version="1.0" encoding="utf-8" ?>
+
+<ContentPage
+    x:Class="Marila_Garden_App.Views.Authentication.RegisterPage"
+    xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    BackgroundColor="{StaticResource Background}"
+    Shell.NavBarIsVisible="False">
+
+    <ScrollView>
+
+        <VerticalStackLayout
+            Padding="20"
+            Spacing="20">
+
+            <Grid
+                Margin="0,10,0,0"
+                ColumnDefinitions="*">
+
+                <Image
+                    Source="marila_garden_logo.png"
+                    WidthRequest="130"
+                    HeightRequest="70"
+                    HorizontalOptions="Center"
+                    Aspect="AspectFit" />
+
+            </Grid>
+
+            <Label
+                Text="Crear cuenta"
+                HorizontalTextAlignment="Center"
+                Style="{StaticResource SectionTitleLabel}"
+                Margin="0,10,0,0" />
+
+            <Label
+                Text="Completa la siguiente información para crear tu cuenta y comenzar a gestionar tus solicitudes."
+                HorizontalTextAlignment="Center"
+                Padding="15,0"
+                Style="{StaticResource SubtitleLabel}" />
+
+            <Border
+                Style="{StaticResource FormBorder}">
+
+                <Border.StrokeShape>
+                    <RoundRectangle CornerRadius="26" />
+                </Border.StrokeShape>
+
+                <VerticalStackLayout Spacing="10">
+
+                    <Label
+                        Text="Nombre completo"
+                        Style="{StaticResource FieldLabel}" />
+
+                    <Border
+                        BackgroundColor="{StaticResource Background}"
+                        Stroke="#E5E7EB"
+                        Padding="14,4">
+
+                        <Border.StrokeShape>
+                            <RoundRectangle CornerRadius="16" />
+                        </Border.StrokeShape>
+
+                        <Entry
+                            Text="{Binding FullName, Mode=TwoWay}"
+                            Placeholder="Ej. María Pérez"
+                            ReturnType="Next"
+                            Style="{StaticResource InputEntry}" />
+
+                    </Border>
+
+                    <Label
+                        Text="{Binding FullNameError}"
+                        TextColor="{StaticResource Alert}"
+                        FontSize="14"
+                        HorizontalTextAlignment="Center"
+                        Margin="6,-5,0,0" />
+
+                    <Label
+                        Text="Nombre de usuario"
+                        Style="{StaticResource FieldLabel}" />
+
+                    <Border
+                        BackgroundColor="{StaticResource Background}"
+                        Stroke="#E5E7EB"
+                        Padding="14,4">
+
+                        <Border.StrokeShape>
+                            <RoundRectangle CornerRadius="16" />
+                        </Border.StrokeShape>
+
+                        <Entry
+                            Text="{Binding UserName, Mode=TwoWay}"
+                            Placeholder="Crea un nombre de usuario"
+                            ReturnType="Next"
+                            Style="{StaticResource InputEntry}" />
+
+                    </Border>
+
+                    <Label
+                        Text="{Binding UserNameError}"
+                        TextColor="{StaticResource Alert}"
+                        FontSize="14"
+                        HorizontalTextAlignment="Center"
+                        Margin="6,-5,0,0" />
+
+                    <Label
+                        Text="Correo electrónico"
+                        Style="{StaticResource FieldLabel}" />
+
+                    <Border
+                        BackgroundColor="{StaticResource Background}"
+                        Stroke="#E5E7EB"
+                        Padding="14,4">
+
+                        <Border.StrokeShape>
+                            <RoundRectangle CornerRadius="16" />
+                        </Border.StrokeShape>
+
+                        <Entry
+                            Text="{Binding Email, Mode=TwoWay}"
+                            Placeholder="correo@ejemplo.com"
+                            Keyboard="Email"
+                            ReturnType="Next"
+                            Style="{StaticResource InputEntry}" />
+
+                    </Border>
+
+                    <Label
+                        Text="{Binding EmailError}"
+                        TextColor="{StaticResource Alert}"
+                        FontSize="14"
+                        HorizontalTextAlignment="Center"
+                        Margin="6,-5,0,0" />
+
+                    <Label
+                        Text="Contraseña"
+                        Style="{StaticResource FieldLabel}" />
+
+                    <Border
+                        BackgroundColor="{StaticResource Background}"
+                        Stroke="#E5E7EB"
+                        Padding="14,4">
+
+                        <Border.StrokeShape>
+                            <RoundRectangle CornerRadius="16" />
+                        </Border.StrokeShape>
+
+                        <Entry
+                            Text="{Binding Password, Mode=TwoWay}"
+                            Placeholder="Mínimo 6 caracteres"
+                            IsPassword="True"
+                            ReturnType="Next"
+                            Style="{StaticResource InputEntry}" />
+
+                    </Border>
+
+                    <Label
+                        Text="{Binding PasswordError}"
+                        TextColor="{StaticResource Alert}"
+                        FontSize="14"
+                        HorizontalTextAlignment="Center"
+                        Margin="6,-5,0,0" />
+
+                    <Label
+                        Text="Confirmar contraseña"
+                        Style="{StaticResource FieldLabel}" />
+
+                    <Border
+                        BackgroundColor="{StaticResource Background}"
+                        Stroke="#E5E7EB"
+                        Padding="14,4">
+
+                        <Border.StrokeShape>
+                            <RoundRectangle CornerRadius="16" />
+                        </Border.StrokeShape>
+
+                        <Entry
+                            Text="{Binding ConfirmPassword, Mode=TwoWay}"
+                            Placeholder="Repite tu contraseña"
+                            IsPassword="True"
+                            ReturnType="Done"
+                            Style="{StaticResource InputEntry}" />
+
+                    </Border>
+
+                    <Label
+                        Text="{Binding ConfirmPasswordError}"
+                        TextColor="{StaticResource Alert}"
+                        FontSize="14"
+                        HorizontalTextAlignment="Center"
+                        Margin="6,-5,0,0" />
+
+                    <Border
+                        BackgroundColor="#FDECEC"
+                        StrokeThickness="0"
+                        Padding="14,12"
+                        Margin="0,10,0,0"
+                        IsVisible="{Binding HasGeneralError}">
+
+                        <Border.StrokeShape>
+                            <RoundRectangle CornerRadius="14" />
+                        </Border.StrokeShape>
+
+                        <HorizontalStackLayout
+                            Spacing="10"
+                            HorizontalOptions="Center">
+
+                            <Label
+                                Text="⚠"
+                                FontSize="18"
+                                TextColor="{StaticResource Alert}"
+                                VerticalOptions="Center" />
+
+                            <Label
+                                Text="{Binding GeneralError}"
+                                TextColor="{StaticResource Alert}"
+                                FontSize="13"
+                                FontAttributes="Bold"
+                                VerticalOptions="Center" />
+
+                        </HorizontalStackLayout>
+
+                    </Border>
+
+                    <Button
+                        Text="Crear cuenta"
+                        Style="{StaticResource PrimaryButton}"
+                        Command="{Binding RegisterCommand}"
+                        Margin="0,10,0,0" />
+
+                    <ActivityIndicator
+                        IsRunning="{Binding IsBusy}"
+                        IsVisible="{Binding IsBusy}"
+                        Color="{StaticResource PrimaryDark}"
+                        HorizontalOptions="Center"
+                        Margin="0,5,0,0" />
+
+                    <VerticalStackLayout
+                        Spacing="0"
+                        Margin="0,10,0,0">
+
+                        <Label
+                            Text="¿Ya tienes una cuenta?"
+                            HorizontalTextAlignment="Center"
+                            Style="{StaticResource SubtitleLabel}" />
+
+                        <Button
+                            Text="Iniciar sesión"
+                            BackgroundColor="Transparent"
+                            TextColor="{StaticResource PrimaryDark}"
+                            FontAttributes="Bold"
+                            FontSize="15"
+                            HeightRequest="46"
+                            Clicked="OnBackToLoginClicked" />
+
+                    </VerticalStackLayout>
+
+                </VerticalStackLayout>
+
+                <Border.Shadow>
+                    <Shadow
+                        Brush="Black"
+                        Offset="0,2"
+                        Radius="10"
+                        Opacity="0.1" />
+                </Border.Shadow>
+
+            </Border>
+
+        </VerticalStackLayout>
+
+    </ScrollView>
+
+</ContentPage>

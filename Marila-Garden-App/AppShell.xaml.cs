@@ -1,5 +1,6 @@
 ﻿using Marila_Garden_App.Helpers;
 using Marila_Garden_App.ViewModels;
+using Marila_Garden_App.Views.Authentication;
 using Marila_Garden_App.Views.Request;
 
 namespace Marila_Garden_App
@@ -9,6 +10,10 @@ namespace Marila_Garden_App
         public AppShell()
         {
             InitializeComponent();
+
+            Routing.RegisterRoute(
+                nameof(RegisterPage),
+                typeof(RegisterPage));
         }
 
         protected override async void OnNavigating(ShellNavigatingEventArgs args)

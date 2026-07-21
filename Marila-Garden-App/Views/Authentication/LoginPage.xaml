@@ -45,7 +45,7 @@
                 <VerticalStackLayout Spacing="10">
 
                     <Label
-                        Text="Nombre de usuario"
+                        Text="Usuario o correo electrónico"
                         Style="{StaticResource FieldLabel}" />
 
                     <Border
@@ -60,7 +60,7 @@
 
                         <Entry
                             x:Name="UserNameEntry"
-                            Placeholder="Nombre de usuario"
+                            Placeholder="Usuario o correo electrónico"
                             Keyboard="Text"
                             Text="{Binding UserName, Mode=TwoWay}"
                             Style="{StaticResource InputEntry}" />
@@ -110,12 +110,12 @@
                         Margin="0,5,0,0"
                         Command="{Binding LoginCommand}" />
 
-                    <Label
+                    <Button
                         Text="¿No tienes cuenta? Crea una gratis"
-                        TextDecorations="Underline"
+                        BackgroundColor="Transparent"
+                        Command="{Binding GoToRegisterCommand}"
                         Style="{StaticResource SubtitleLabel}"
-                        Margin="0,5,0,0"
-                        HorizontalTextAlignment="Center"/>
+                        Margin="0,5,0,0"/>
 
                     <Label
                         Text="¿Olvidaste tu usuario y/o contraseña? Recupera el acceso"
