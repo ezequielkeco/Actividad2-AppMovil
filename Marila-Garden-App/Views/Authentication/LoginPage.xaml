@@ -1,4 +1,5 @@
 <?xml version="1.0" encoding="utf-8" ?>
+    
 <ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="Marila_Garden_App.Views.Authentication.LoginPage"
@@ -42,14 +43,13 @@
                     <RoundRectangle CornerRadius="28" />
                 </Border.StrokeShape>
 
-                <VerticalStackLayout Spacing="10">
+                <VerticalStackLayout Spacing="8">
 
                     <Label
                         Text="Usuario o correo electrónico"
                         Style="{StaticResource FieldLabel}" />
 
                     <Border
-                        BackgroundColor="#F7F8F5"
                         Stroke="#E5E7EB"
                         StrokeThickness="1"
                         Padding="14,4">
@@ -60,9 +60,9 @@
 
                         <Entry
                             x:Name="UserNameEntry"
-                            Placeholder="Usuario o correo electrónico"
-                            Keyboard="Text"
                             Text="{Binding UserName, Mode=TwoWay}"
+                            Placeholder="Usuario o correo electrónico"
+                            ReturnType="Next"
                             Style="{StaticResource InputEntry}" />
                     </Border>
 
@@ -71,8 +71,7 @@
                         TextColor="{StaticResource Alert}"
                         FontSize="14"
                         HorizontalTextAlignment="Center"
-                        Margin="6,-10,0,0"
-                        LineBreakMode="WordWrap" />
+                        Margin="6,-10,0,0" />
 
                     <Label
                         Text="Contraseña"
@@ -110,19 +109,19 @@
                         Margin="0,5,0,0"
                         Command="{Binding LoginCommand}" />
 
-                    <Button
-                        Text="¿No tienes cuenta? Crea una gratis"
-                        BackgroundColor="Transparent"
-                        Command="{Binding GoToRegisterCommand}"
-                        Style="{StaticResource SubtitleLabel}"
-                        Margin="0,5,0,0"/>
-
                     <Label
-                        Text="¿Olvidaste tu usuario y/o contraseña? Recupera el acceso"
-                        TextDecorations="Underline"
-                        LineHeight="1.2"
-                        Style="{StaticResource SubtitleLabel}"
-                        HorizontalTextAlignment="Center"/>
+                        Text="¿No tienes una cuenta?"
+                        HorizontalTextAlignment="Center"
+                        Margin="0,10,0,0"
+                        Style="{StaticResource SubtitleLabel}" />
+
+                    <Button
+                        Text="Crea una gratis"
+                        BackgroundColor="Transparent"
+                        FontAttributes="Bold"
+                        FontSize="16"
+                        TextColor="{StaticResource PrimaryDark}"
+                        Command="{Binding GoToRegisterCommand}" />
 
                 </VerticalStackLayout>
 
