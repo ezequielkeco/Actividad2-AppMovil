@@ -1,13 +1,15 @@
-using Marila_Garden_App.Helpers;
-using Marila_Garden_App.Models;
 using Marila_Garden_App.Services;
-using Marila_Garden_App.ViewModels;
-using Microsoft.Extensions.DependencyInjection;
 
 namespace Marila_Garden_App.Views.Request;
 
 public partial class RequestPage : ContentPage, IQueryAttributable
 {
+    private readonly ISessionService _sessionService;
+
+    public string UserName =>
+        _sessionService.CurrentUser?.FullName
+        ?? "User";
+
     private bool _isProcessingBackNavigation;
 
     protected override bool OnBackButtonPressed()
@@ -58,9 +60,13 @@ public partial class RequestPage : ContentPage, IQueryAttributable
 
     private bool _openedForEdit;
 
-    public RequestPage()
+    public RequestPage(ISessionService sessionService)
     {
         InitializeComponent();
+
+        _sessionService = sessionService;
+
+        BindingContext = this;
 
         BindingContext = App.Current!.Handler!.MauiContext!.Services.GetService<RequestViewModel>();
 
@@ -75,10 +81,8 @@ public partial class RequestPage : ContentPage, IQueryAttributable
     {
         base.OnAppearing();
 
-        UserNameLabel.Text = SessionHelper.UserName;
-
         if (!_openedForEdit &&
-        BindingContext is RequestViewModel viewModel)
+            BindingContext is RequestViewModel viewModel)
         {
             viewModel.ResetToCreateMode();
         }

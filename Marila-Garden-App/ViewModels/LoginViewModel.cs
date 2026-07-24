@@ -3,11 +3,6 @@ using CommunityToolkit.Mvvm.Input;
 using Marila_Garden_App.Helpers;
 using Marila_Garden_App.Services;
 using Marila_Garden_App.Views.Authentication;
-using Marila_Garden_App.Models;
-using System;
-using System.Collections.Generic;
-using System.Text;
-
 
 namespace Marila_Garden_App.ViewModels
 {
@@ -15,13 +10,16 @@ namespace Marila_Garden_App.ViewModels
     {
         private readonly DatabaseService _databaseService;
         private readonly INavigationService _navigationService;
+        private readonly ISessionService _sessionService;
 
         public LoginViewModel(
             DatabaseService databaseService,
-            INavigationService navigationService)
+            INavigationService navigationService,
+            ISessionService sessionService)
         {
             _databaseService = databaseService;
             _navigationService = navigationService;
+            _sessionService = sessionService;
         }
 
         [ObservableProperty]
@@ -99,8 +97,7 @@ namespace Marila_Garden_App.ViewModels
                 return;
             }
 
-            SessionHelper.IsLoggedIn = true;
-            SessionHelper.UserName = user.FullName;
+            _sessionService.StartSession(user);
 
             Shell.Current.FlyoutBehavior =
                 FlyoutBehavior.Flyout;

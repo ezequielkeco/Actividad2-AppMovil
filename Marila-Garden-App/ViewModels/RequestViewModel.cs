@@ -4,10 +4,9 @@ using CommunityToolkit.Mvvm.Messaging;
 using Marila_Garden_App.Messages;
 using Marila_Garden_App.Models;
 using Marila_Garden_App.Services;
-using Microsoft.Maui.ApplicationModel;
 using Marila_Garden_App.ViewModels.Base;
 
-public partial class RequestViewModel : FormViewModelBase
+public partial class RequestViewModel : AuthenticatedFormViewModelBase
 {
     private readonly DatabaseService _databaseService;
     private readonly INavigationService _navigationService;
@@ -15,10 +14,11 @@ public partial class RequestViewModel : FormViewModelBase
     private int _editingRequestId;
 
     public RequestViewModel(
-        DatabaseService databaseService,
-        IDialogService dialogService,
-        INavigationService navigationService)
-        : base(dialogService)
+           DatabaseService databaseService,
+           IDialogService dialogService,
+           INavigationService navigationService,
+           ISessionService sessionService)
+           : base(dialogService, sessionService)
     {
         _databaseService = databaseService;
         _navigationService = navigationService;

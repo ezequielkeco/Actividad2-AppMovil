@@ -26,10 +26,10 @@
                         Text="¡Hola!"
                         Style="{StaticResource SubtitleLabel}" />
 
-                    <Label x:Name="UserNameLabel"
-                           FontSize="18"
-                           Text="Usuario"
-                           Style="{StaticResource SectionTitleLabel}" />
+                    <Label
+                        FontSize="18"
+                        Text="{Binding UserName}"
+                        Style="{StaticResource SectionTitleLabel}" />
                     
                 </VerticalStackLayout>
                 <Image Source="marila_garden_logo.png"

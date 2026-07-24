@@ -5,7 +5,6 @@ using CommunityToolkit.Mvvm.Messaging;
 using Marila_Garden_App.Messages;
 using Marila_Garden_App.Models;
 using Marila_Garden_App.Services;
-using Microsoft.Maui.ApplicationModel;
 
 namespace Marila_Garden_App.ViewModels
 {
@@ -14,6 +13,10 @@ namespace Marila_Garden_App.ViewModels
         private readonly DatabaseService _databaseService;
         private readonly IDialogService _dialogService;
         private readonly INavigationService _navigationService;
+        private readonly ISessionService _sessionService;
+
+        public string UserName =>
+            _sessionService.CurrentUser?.FullName ?? "Usuario";
 
         public ObservableCollection<ServiceRequest> Requests { get; } = new();
 
@@ -21,13 +24,15 @@ namespace Marila_Garden_App.ViewModels
         private bool isEmpty;
 
         public RequestsHistoryViewModel(
-            DatabaseService databaseService,
-            IDialogService dialogService,
-            INavigationService navigationService)
+               DatabaseService databaseService,
+               IDialogService dialogService,
+               INavigationService navigationService,
+               ISessionService sessionService)
         {
             _databaseService = databaseService;
             _dialogService = dialogService;
             _navigationService = navigationService;
+            _sessionService = sessionService;
 
             WeakReferenceMessenger.Default.Register<
                 ServiceRequestCreatedMessage>(
@@ -134,6 +139,11 @@ namespace Marila_Garden_App.ViewModels
             Requests.Remove(request);
 
             IsEmpty = Requests.Count == 0;
+        }
+
+        public void RefreshSessionData()
+        {
+            OnPropertyChanged(nameof(UserName));
         }
     }
 }

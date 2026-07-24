@@ -50,6 +50,7 @@
                         Style="{StaticResource FieldLabel}" />
 
                     <Border
+                        BackgroundColor="#F7F8F5"
                         Stroke="#E5E7EB"
                         StrokeThickness="1"
                         Padding="14,4">
@@ -64,6 +65,7 @@
                             Placeholder="Usuario o correo electrónico"
                             ReturnType="Next"
                             Style="{StaticResource InputEntry}" />
+                        
                     </Border>
 
                     <Label
@@ -96,12 +98,19 @@
                     </Border>
 
                     <Label
-                         Text="{Binding PasswordError}"
-                         TextColor="{StaticResource Alert}"
-                         FontSize="14"
-                         Margin="6,-10,0,0"
-                         HorizontalTextAlignment="Center"
-                         LineBreakMode="WordWrap" />
+                        Text="{Binding PasswordError}"
+                        TextColor="{StaticResource Alert}"
+                        FontSize="14"
+                        Margin="6,-10,0,0"
+                        HorizontalTextAlignment="Center"
+                        LineBreakMode="WordWrap" />
+
+                    <Label
+                        Text="{Binding AuthenticationError}"
+                        TextColor="{StaticResource Alert}"
+                        FontSize="14"
+                        HorizontalTextAlignment="Center"
+                        LineBreakMode="WordWrap" />
 
                     <Button
                         Text="Iniciar sesión"

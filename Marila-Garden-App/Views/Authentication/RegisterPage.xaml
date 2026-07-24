@@ -50,6 +50,7 @@
                         Style="{StaticResource FieldLabel}" />
 
                     <Border
+                        BackgroundColor="#F7F8F5"
                         Stroke="#E5E7EB"
                         StrokeThickness="1"
                         Padding="14,4">
@@ -78,6 +79,7 @@
                         Style="{StaticResource FieldLabel}" />
 
                     <Border
+                        BackgroundColor="#F7F8F5"
                         Stroke="#E5E7EB"
                         StrokeThickness="1"
                         Padding="14,4">
@@ -106,6 +108,7 @@
                         Style="{StaticResource FieldLabel}" />
 
                     <Border
+                        BackgroundColor="#F7F8F5"
                         Stroke="#E5E7EB"
                         StrokeThickness="1"
                         Padding="14,4">
@@ -135,6 +138,7 @@
                         Style="{StaticResource FieldLabel}" />
 
                     <Border
+                        BackgroundColor="#F7F8F5"
                         Stroke="#E5E7EB"
                         StrokeThickness="1"
                         Padding="14,4">
@@ -164,6 +168,7 @@
                         Style="{StaticResource FieldLabel}" />
 
                     <Border
+                        BackgroundColor="#F7F8F5"
                         Stroke="#E5E7EB"
                         StrokeThickness="1"
                         Padding="14,4">

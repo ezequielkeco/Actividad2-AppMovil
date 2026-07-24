@@ -1,8 +1,5 @@
-using Marila_Garden_App.Helpers;
 using Marila_Garden_App.Models;
 using Marila_Garden_App.ViewModels;
-using Microsoft.Extensions.DependencyInjection;
-using System.Linq;
 
 namespace Marila_Garden_App.Views.RequestsHistory;
 
@@ -23,13 +20,14 @@ public partial class RequestsHistoryPage : ContentPage
         BindingContext = _viewModel;
     }
 
-    protected override async void OnAppearing()
+    protected override void OnAppearing()
     {
         base.OnAppearing();
 
-        UserNameLabel.Text = SessionHelper.UserName;
-
-        await _viewModel.LoadRequestsCommand.ExecuteAsync(null);
+        if (BindingContext is RequestsHistoryViewModel viewModel)
+        {
+            viewModel.RefreshSessionData();
+        }
     }
 
     private void OnMenuClicked(object sender, EventArgs e)
