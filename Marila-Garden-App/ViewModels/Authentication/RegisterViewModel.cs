@@ -8,7 +8,7 @@ using System.Collections.Generic;
 using System.Net.Mail;
 using System.Text;
 
-namespace Marila_Garden_App.ViewModels
+namespace Marila_Garden_App.ViewModels.Authentication
 {
     public partial class RegisterViewModel : ObservableObject
     {

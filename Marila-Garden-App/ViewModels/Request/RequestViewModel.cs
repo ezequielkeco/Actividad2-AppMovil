@@ -6,6 +6,8 @@ using Marila_Garden_App.Models;
 using Marila_Garden_App.Services;
 using Marila_Garden_App.ViewModels.Base;
 
+namespace Marila_Garden_App.ViewModels.Request;
+
 public partial class RequestViewModel : AuthenticatedFormViewModelBase
 {
     private readonly DatabaseService _databaseService;

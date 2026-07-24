@@ -100,8 +100,11 @@
                 Grid.Row="2"
                 x:Name="RequestsCollectionView"
                 ItemsSource="{Binding Requests}"
+                SelectedItem="{Binding SelectedRequest, Mode=TwoWay}"
                 SelectionMode="Single"
-                SelectionChanged="RequestsCollectionView_SelectionChanged">
+                SelectionChangedCommand="{Binding EditRequestCommand}"
+                SelectionChangedCommandParameter="{Binding SelectedItem,
+                    Source={x:Reference RequestsCollectionView}}">
 
               <CollectionView.ItemTemplate>
                   <DataTemplate>

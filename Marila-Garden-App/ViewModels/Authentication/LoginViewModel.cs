@@ -4,7 +4,7 @@ using Marila_Garden_App.Helpers;
 using Marila_Garden_App.Services;
 using Marila_Garden_App.Views.Authentication;
 
-namespace Marila_Garden_App.ViewModels
+namespace Marila_Garden_App.ViewModels.Authentication
 {
     public partial class LoginViewModel : ObservableObject
     {

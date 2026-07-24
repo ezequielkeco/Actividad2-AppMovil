@@ -1,23 +1,15 @@
 using Marila_Garden_App.Models;
-using Marila_Garden_App.ViewModels;
+using Marila_Garden_App.ViewModels.RequestsHistory;
 
 namespace Marila_Garden_App.Views.RequestsHistory;
 
 public partial class RequestsHistoryPage : ContentPage
 {
-    private readonly RequestsHistoryViewModel _viewModel;
-
-    public RequestsHistoryPage()
+    public RequestsHistoryPage(RequestsHistoryViewModel viewModel)
     {
         InitializeComponent();
 
-        _viewModel = App.Current!
-            .Handler!
-            .MauiContext!
-            .Services
-            .GetRequiredService<RequestsHistoryViewModel>();
-
-        BindingContext = _viewModel;
+        BindingContext = viewModel;
     }
 
     protected override void OnAppearing()
@@ -27,7 +19,10 @@ public partial class RequestsHistoryPage : ContentPage
         if (BindingContext is RequestsHistoryViewModel viewModel)
         {
             viewModel.RefreshSessionData();
+            viewModel.SelectedRequest = null;
         }
+
+        RequestsCollectionView.SelectedItem = null;
     }
 
     private void OnMenuClicked(object sender, EventArgs e)

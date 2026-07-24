@@ -1,4 +1,4 @@
-using Marila_Garden_App.ViewModels;
+using Marila_Garden_App.ViewModels.Authentication;
 
 namespace Marila_Garden_App.Views.Authentication;
 

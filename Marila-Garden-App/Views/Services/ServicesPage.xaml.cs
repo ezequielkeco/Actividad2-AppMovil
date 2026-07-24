@@ -1,25 +1,23 @@
+using Marila_Garden_App.ViewModels.Services;
 using Marila_Garden_App.Services;
 
 namespace Marila_Garden_App.Views.Services;
 
 public partial class ServicesPage : ContentPage
 {
-    private readonly ISessionService _sessionService;
-    public string UserName =>
-        _sessionService.CurrentUser?.FullName
-        ?? "Usuario";
-	public ServicesPage(ISessionService sessionService)
+    private readonly ServicesViewModel _viewModel;
+	public ServicesPage(ServicesViewModel viewModel)
 	{
 		InitializeComponent();
 
-        _sessionService = sessionService;
-        BindingContext = this;
+        _viewModel = viewModel;
+        BindingContext = viewModel;
 	}
     protected override void OnAppearing()
     {
         base.OnAppearing();
 
-        OnPropertyChanged(nameof(UserName));
+        _viewModel.RefreshSessionData();
     }
     private void OnMenuClicked(
         object sender,

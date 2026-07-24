@@ -1,15 +1,18 @@
-﻿using Marila_Garden_App.Helpers;
-using Marila_Garden_App.ViewModels;
-using Marila_Garden_App.Views.Authentication;
+﻿using Marila_Garden_App.Views.Authentication;
 using Marila_Garden_App.Views.Request;
+using Marila_Garden_App.ViewModels.Request;
+using Marila_Garden_App.Services;
 
 namespace Marila_Garden_App
 {
     public partial class AppShell : Shell
     {
-        public AppShell()
+        private readonly ISessionService _sessionService;
+        public AppShell(ISessionService sessionService)
         {
             InitializeComponent();
+
+            _sessionService = sessionService;
 
             Routing.RegisterRoute(
                 nameof(RegisterPage),
@@ -70,8 +73,7 @@ namespace Marila_Garden_App
 
         private async void OnLogoutClicked(object sender, EventArgs e)
         {
-            SessionHelper.IsLoggedIn = false;
-            SessionHelper.UserName = string.Empty;
+            _sessionService.EndSession();
 
             FlyoutBehavior = FlyoutBehavior.Disabled;
             FlyoutIsPresented = false;

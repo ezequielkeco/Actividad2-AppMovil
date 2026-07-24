@@ -1,14 +1,9 @@
-using Marila_Garden_App.Services;
+using Marila_Garden_App.ViewModels.Request;
 
 namespace Marila_Garden_App.Views.Request;
 
 public partial class RequestPage : ContentPage, IQueryAttributable
 {
-    private readonly ISessionService _sessionService;
-
-    public string UserName =>
-        _sessionService.CurrentUser?.FullName
-        ?? "User";
 
     private bool _isProcessingBackNavigation;
 
@@ -60,15 +55,11 @@ public partial class RequestPage : ContentPage, IQueryAttributable
 
     private bool _openedForEdit;
 
-    public RequestPage(ISessionService sessionService)
+    public RequestPage(RequestViewModel viewModel)
     {
         InitializeComponent();
 
-        _sessionService = sessionService;
-
-        BindingContext = this;
-
-        BindingContext = App.Current!.Handler!.MauiContext!.Services.GetService<RequestViewModel>();
+        BindingContext = viewModel;
 
         DesiredDatePicker.MinimumDate = DateTime.Today;
         DesiredDatePicker.Date = DateTime.Today;
