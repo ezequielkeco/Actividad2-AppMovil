@@ -66,28 +66,27 @@
 
             <VerticalStackLayout Spacing="10">
 
-                <Label
-                        Text="🌱"
-                        HorizontalTextAlignment="Center"
-                        FontSize="38"/>
+                <Image Source="desing_service_icon_app.png"
+                               WidthRequest="100"
+                               HorizontalOptions="Center" />
 
                 <Label
-                        Text="Diseño de Jardín"
-                        HorizontalTextAlignment="Center"
-                        Style="{StaticResource SectionTitleLabel}"/>
+                    Text="Diseño de Jardín"
+                    HorizontalTextAlignment="Center"
+                    Style="{StaticResource SectionTitleLabel}"/>
 
                 <Label
-                        Text="Diseñamos jardines personalizados que armonizan con el espacio y las necesidades del cliente."
-                        HorizontalTextAlignment="Center"
-                        Style="{StaticResource SubtitleLabel}"/>
+                    Text="Diseñamos jardines personalizados que armonizan con el espacio y las necesidades del cliente"
+                    HorizontalTextAlignment="Center"
+                    Style="{StaticResource SubtitleLabel}"/>
 
             </VerticalStackLayout>
             <Border.Shadow>
                 <Shadow
-                        Brush="Black"
-                        Offset="0,2"
-                        Radius="10"
-                        Opacity="0.1" />
+                    Brush="Black"
+                    Offset="0,2"
+                    Radius="10"
+                    Opacity="0.1" />
                 </Border.Shadow>
 
             </Border>
@@ -106,28 +105,27 @@
 
             <VerticalStackLayout Spacing="10">
 
-                <Label
-                        Text="✂️"
-                        HorizontalTextAlignment="Center"
-                        FontSize="38"/>
+                <Image Source="mantenimiento_service_icon_app.png"
+                       WidthRequest="100"
+                       HorizontalOptions="Center" />
 
                 <Label
-                        Text="Mantenimiento"
-                        HorizontalTextAlignment="Center"
-                        Style="{StaticResource SectionTitleLabel}"/>
+                    Text="Mantenimiento"
+                    HorizontalTextAlignment="Center"
+                    Style="{StaticResource SectionTitleLabel}"/>
 
                 <Label
-                        Text="Mantenimiento y control del crecimiento para conservar la salud y estética de las plantas."
-                        HorizontalTextAlignment="Center"
-                        Style="{StaticResource SubtitleLabel}"/>
+                    Text="Mantenimiento y control del crecimiento para conservar la salud y estética de las plantas"
+                    HorizontalTextAlignment="Center"
+                    Style="{StaticResource SubtitleLabel}"/>
 
             </VerticalStackLayout>
             <Border.Shadow>
                 <Shadow
-                        Brush="Black"
-                        Offset="0,2"
-                        Radius="10"
-                        Opacity="0.1" />
+                    Brush="Black"
+                    Offset="0,2"
+                    Radius="10"
+                    Opacity="0.1" />
                 </Border.Shadow>
 
             </Border>
@@ -146,28 +144,27 @@
 
             <VerticalStackLayout Spacing="10">
 
-                <Label
-                        Text="🪴"
-                        HorizontalTextAlignment="Center"
-                        FontSize="38"/>
+                <Image Source="plantacion_service_icon_app.png"
+                       WidthRequest="100"
+                       HorizontalOptions="Center" />
 
                 <Label
-                        Text="Plantación"
-                        HorizontalTextAlignment="Center"
-                        Style="{StaticResource SectionTitleLabel}"/>
+                    Text="Plantación"
+                    HorizontalTextAlignment="Center"
+                    Style="{StaticResource SectionTitleLabel}"/>
 
                 <Label
-                        Text="Selección e instalación de especies adecuadas para interiores y exteriores."
-                        HorizontalTextAlignment="Center"
-                        Style="{StaticResource SubtitleLabel}"/>
+                    Text="Selección e instalación de especies adecuadas para interiores y exteriores"
+                    HorizontalTextAlignment="Center"
+                    Style="{StaticResource SubtitleLabel}"/>
 
             </VerticalStackLayout>
             <Border.Shadow>
                 <Shadow
-                        Brush="Black"
-                        Offset="0,2"
-                        Radius="10"
-                        Opacity="0.1" />
+                    Brush="Black"
+                    Offset="0,2"
+                    Radius="10"
+                    Opacity="0.1" />
             </Border.Shadow>
 
         </Border>
@@ -186,28 +183,27 @@
 
             <VerticalStackLayout Spacing="10">
 
-                <Label
-                        Text="🌳"
-                        HorizontalTextAlignment="Center"
-                        FontSize="38"/>
+                <Image Source="poda_service_icon_app.png"
+                       WidthRequest="100"
+                       HorizontalOptions="Center" />
 
                 <Label
-                        Text="Poda profesional"
-                        HorizontalTextAlignment="Center"
-                        Style="{StaticResource SectionTitleLabel}"/>
+                    Text="Poda profesional"
+                    HorizontalTextAlignment="Center"
+                    Style="{StaticResource SectionTitleLabel}"/>
 
                 <Label
-                        Text="Programas de mantenimiento periódico para jardines residenciales y comerciales."
-                        HorizontalTextAlignment="Center"
-                        Style="{StaticResource SubtitleLabel}"/>
+                    Text="Programas de mantenimiento periódico para jardines residenciales y comerciales"
+                    HorizontalTextAlignment="Center"
+                    Style="{StaticResource SubtitleLabel}"/>
 
             </VerticalStackLayout>
             <Border.Shadow>
                 <Shadow
-                        Brush="Black"
-                        Offset="0,2"
-                        Radius="10"
-                        Opacity="0.1" />
+                    Brush="Black"
+                    Offset="0,2"
+                    Radius="10"
+                    Opacity="0.1" />
             </Border.Shadow>
 
         </Border>

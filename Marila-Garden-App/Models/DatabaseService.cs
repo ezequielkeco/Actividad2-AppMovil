@@ -105,6 +105,17 @@ namespace Marila_Garden_App.Services
                 .ToListAsync();
         }
 
+        public async Task<List<ServiceRequest>> GetRequestsByUserAsync(int userId)
+        {
+            await InitAsync();
+
+            return await _database!
+                .Table<ServiceRequest>()
+                .Where(request => request.UserId == userId)
+                .OrderByDescending(request => request.CreatedAt)
+                .ToListAsync();
+        }
+
         public async Task<ServiceRequest?> GetRequestByIdAsync(int id)
         {
             await InitAsync();

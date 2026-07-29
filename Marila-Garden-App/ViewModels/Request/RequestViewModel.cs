@@ -115,9 +115,25 @@ public partial class RequestViewModel : AuthenticatedFormViewModelBase
         ServiceRequest? request =
             await _databaseService.GetRequestByIdAsync(requestId);
 
-        if (request is null)
+        User? currentUser = SessionService.CurrentUser;
+
+        if (request is null || currentUser is null)
         {
             ResetToCreateMode();
+            return;
+        }
+
+        if (request.UserId != currentUser.Id)
+        {
+            await ShowAlertAsync(
+                "Acceso no autorizado",
+                "No tienes permisos para acceder a esta solicitud.",
+                "Aceptar");
+
+            ResetToCreateMode();
+
+            await _navigationService.GoToAsync("//RequestsHistory");
+
             return;
         }
 
@@ -171,6 +187,8 @@ public partial class RequestViewModel : AuthenticatedFormViewModelBase
     {
         var request = new ServiceRequest
         {
+            UserId = SessionService.CurrentUser!.Id,
+
             FullName = FullName.Trim(),
             Phone = Phone.Trim(),
             ServiceType = SelectedServiceType,
@@ -196,8 +214,24 @@ public partial class RequestViewModel : AuthenticatedFormViewModelBase
         ServiceRequest? existingRequest =
             await _databaseService.GetRequestByIdAsync(_editingRequestId);
 
-        if (existingRequest is null)
+        User? currentUser = SessionService.CurrentUser;
+
+        if (existingRequest is null || currentUser is null)
             return;
+
+        if (existingRequest.UserId != currentUser.Id)
+        {
+            await ShowAlertAsync(
+                "Acceso no autorizado",
+                "No tienes permisos para modificar esta solicitud.",
+                "Aceptar");
+
+            ResetToCreateMode();
+
+            await _navigationService.GoToAsync("//RequestsHistory");
+
+            return;
+        }
 
         existingRequest.FullName = FullName.Trim();
         existingRequest.Phone = Phone.Trim();
@@ -238,8 +272,24 @@ public partial class RequestViewModel : AuthenticatedFormViewModelBase
         ServiceRequest? request =
             await _databaseService.GetRequestByIdAsync(_editingRequestId);
 
-        if (request is null)
+        User? currentUser = SessionService.CurrentUser;
+
+        if (request is null || currentUser is null)
             return;
+
+        if (request.UserId != currentUser.Id)
+        {
+            await ShowAlertAsync(
+                "Acceso no autorizado",
+                "No tienes permisos para eliminar esta solicitud.",
+                "Aceptar");
+
+            ResetToCreateMode();
+
+            await _navigationService.GoToAsync("//RequestsHistory");
+
+            return;
+        }
 
         await _databaseService.DeleteRequestAsync(request);
 

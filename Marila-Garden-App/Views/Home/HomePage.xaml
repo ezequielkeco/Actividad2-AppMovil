@@ -72,9 +72,11 @@
                            LineHeight="1.2" />
 
                     <Button Text="Solicitar servicio"
+                            Command="{Binding RequestServiceCommand}"
                             Style="{StaticResource PrimaryButton}"
                             HeightRequest="48"
                             Margin="0,10,0,0" />
+                    
                 </VerticalStackLayout>
             </Border>
 
@@ -95,16 +97,16 @@
                     </Border.StrokeShape>
                     
                     <VerticalStackLayout Spacing="8">
-                        
-                        <Label Text="🌱"
-                               FontSize="35"
-                               HorizontalTextAlignment="Center"/>
-                        
+
+                        <Image Source="desing_service_icon_app.png"
+                               WidthRequest="80"
+                               HorizontalOptions="Center" />
+
                         <Label Text="Diseño de jardín"
                                HorizontalTextAlignment="Center"
                                Style="{StaticResource FieldLabel}" />
                         
-                        <Label Text="Espacios naturales personalizados."
+                        <Label Text="Espacios naturales personalizados"
                                FontSize="15"
                                HorizontalTextAlignment="Center"
                                TextColor="{StaticResource PrimaryText}" />
@@ -128,15 +130,16 @@
                     </Border.StrokeShape>
                     
                     <VerticalStackLayout Spacing="8">
-                        <Label Text="✂️"
-                               FontSize="35"
-                               HorizontalTextAlignment="Center"/>
-                        
+
+                        <Image Source="mantenimiento_service_icon_app.png"
+                               WidthRequest="80"
+                               HorizontalOptions="Center" />
+
                         <Label Text="Mantenimiento"
                                HorizontalTextAlignment="Center"
                                Style="{StaticResource FieldLabel}" />
                         
-                        <Label Text="Cuidado responsable y continuo."
+                        <Label Text="Cuidado responsable y continuo"
                                HorizontalTextAlignment="Center"
                                FontSize="15" TextColor="{StaticResource PrimaryText}" />
                     
@@ -159,15 +162,16 @@
                     </Border.StrokeShape>
                     
                     <VerticalStackLayout Spacing="8">
-                        <Label Text="🪴"
-                               FontSize="35"
-                               HorizontalTextAlignment="Center"/>
-                        
+
+                        <Image Source="plantacion_service_icon_app.png"
+                               WidthRequest="80"
+                               HorizontalOptions="Center" />
+
                         <Label Text="Plantación"
                                HorizontalTextAlignment="Center"
                                Style="{StaticResource FieldLabel}" />
                         
-                        <Label Text="Plantas, maceteros y detalles."
+                        <Label Text="Plantas, maceteros y detalles"
                                HorizontalTextAlignment="Center"
                                FontSize="15" TextColor="{StaticResource PrimaryText}" />
                     
@@ -191,15 +195,17 @@
                     </Border.StrokeShape>
                     
                     <VerticalStackLayout Spacing="8">
-                        <Label Text="🌳"
-                               HorizontalTextAlignment="Center"
-                               FontSize="35" />
-                        
+
+
+                        <Image Source="poda_service_icon_app.png"
+                               WidthRequest="80"
+                               HorizontalOptions="Center" />
+
                         <Label Text="Poda"
                                HorizontalTextAlignment="Center"
                                Style="{StaticResource FieldLabel}" />
                         
-                        <Label Text="Control, salud y estética vegetal."
+                        <Label Text="Control, salud y estética vegetal"
                                HorizontalTextAlignment="Center"
                                TextColor="{StaticResource PrimaryText}" />
                     

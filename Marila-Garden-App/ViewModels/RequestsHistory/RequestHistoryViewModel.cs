@@ -97,7 +97,16 @@ public partial class RequestsHistoryViewModel : ObservableObject
     {
         Requests.Clear();
 
-        var requests = await _databaseService.GetRequestsAsync();
+        User? currentUser = _sessionService.CurrentUser;
+
+        if (currentUser is null)
+        {
+            IsEmpty = true;
+            return;
+        }
+
+        var requests =
+            await _databaseService.GetRequestsByUserAsync(currentUser.Id);
 
         foreach (var request in requests)
         {

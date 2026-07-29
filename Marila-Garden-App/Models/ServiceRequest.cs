@@ -10,6 +10,9 @@ namespace Marila_Garden_App.Models
         [PrimaryKey, AutoIncrement]
         public int Id { get; set; }
 
+        [Indexed]
+        public int UserId { get; set; }
+
         [NotNull]
         public string FullName { get; set; } = string.Empty;
 

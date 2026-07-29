@@ -29,6 +29,17 @@ namespace Marila_Garden_App.ViewModels.Base
                 cancel);
         }
 
+        protected Task ShowAlertAsync(
+        string title,
+        string message,
+        string cancel = "Aceptar")
+        {
+            return _dialogService.ShowAlertAsync(
+                title,
+                message,
+                cancel);
+        }
+
         [ObservableProperty]
         private bool isEditMode;
 

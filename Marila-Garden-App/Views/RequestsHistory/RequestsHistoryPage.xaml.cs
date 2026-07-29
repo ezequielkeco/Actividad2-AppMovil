@@ -12,7 +12,7 @@ public partial class RequestsHistoryPage : ContentPage
         BindingContext = viewModel;
     }
 
-    protected override void OnAppearing()
+    protected override async void OnAppearing()
     {
         base.OnAppearing();
 
@@ -20,6 +20,8 @@ public partial class RequestsHistoryPage : ContentPage
         {
             viewModel.RefreshSessionData();
             viewModel.SelectedRequest = null;
+
+            await viewModel.LoadRequestsCommand.ExecuteAsync(null);
         }
 
         RequestsCollectionView.SelectedItem = null;
