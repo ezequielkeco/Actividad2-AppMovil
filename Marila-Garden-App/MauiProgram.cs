@@ -67,10 +67,12 @@ namespace Marila_Garden_App
             builder.Services.AddTransient<RegisterViewModel>();
             builder.Services.AddTransient<HomeViewModel>();
             builder.Services.AddTransient<ServicesViewModel>();
+            builder.Services.AddTransient<ServiceDetailViewModel>();
             builder.Services.AddTransient<LoginPage>();
             builder.Services.AddTransient<RegisterPage>();
             builder.Services.AddTransient<HomePage>();
             builder.Services.AddTransient<ServicesPage>();
+            builder.Services.AddTransient<ServiceDetailPage>();
             builder.Services.AddTransient<RequestsHistoryPage>();
 
             return builder.Build();

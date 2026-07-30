@@ -2,6 +2,8 @@
 <ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="Marila_Garden_App.Views.Home.HomePage"
+             xmlns:models="clr-namespace:Marila_Garden_App.Models"
+             x:Name="HomePageRoot"
              BackgroundColor="{StaticResource Background}"
              Shell.NavBarIsVisible="False">
 
@@ -82,144 +84,73 @@
 
             <Label Text="Servicios destacados"
                    HorizontalTextAlignment="Center"
+                   Margin="0,14,0,-10"
                    Style="{StaticResource SectionTitleLabel}" />
 
-            <Grid ColumnDefinitions="*,*"
-                  RowDefinitions="Auto,Auto"
-                  ColumnSpacing="5"
-                  RowSpacing="5">
+            <Label
+                Text="Selecciona la tarjeta del servicio deseado
+                      para ampliar toda la información"
+                HorizontalTextAlignment="Center"
+                Style="{StaticResource SubtitleLabel}" />
 
-                <Border Style="{StaticResource CardBorder}"
-                        Padding="10,15">
-                    
-                    <Border.StrokeShape>
-                        <RoundRectangle CornerRadius="22" />
-                    </Border.StrokeShape>
-                    
-                    <VerticalStackLayout Spacing="8">
+            <CollectionView
+                    ItemsSource="{Binding Services}"
+                    SelectionMode="None"
+                    VerticalScrollBarVisibility="Never">
 
-                        <Image Source="desing_service_icon_app.png"
-                               WidthRequest="80"
-                               HorizontalOptions="Center" />
+                <CollectionView.ItemsLayout>
+                    <GridItemsLayout
+                        Orientation="Vertical"
+                        Span="2"
+                        HorizontalItemSpacing="12"
+                        VerticalItemSpacing="12" />
+                </CollectionView.ItemsLayout>
 
-                        <Label Text="Diseño de jardín"
-                               HorizontalTextAlignment="Center"
-                               Style="{StaticResource FieldLabel}" />
-                        
-                        <Label Text="Espacios naturales personalizados"
-                               FontSize="15"
-                               HorizontalTextAlignment="Center"
-                               TextColor="{StaticResource PrimaryText}" />
-                    
-                    </VerticalStackLayout>
-                    <Border.Shadow>
-                        <Shadow
-                            Brush="Black"
-                            Offset="0,2"
-                            Radius="10"
-                            Opacity="0.1" />
-                    </Border.Shadow>
-                </Border>
+                <CollectionView.ItemTemplate>
+                    <DataTemplate x:DataType="models:ServiceInfo">
 
-                <Border Grid.Column="1"
-                        Style="{StaticResource CardBorder}"
-                        Padding="5,15">
-                    
-                    <Border.StrokeShape>
-                        <RoundRectangle CornerRadius="22" />
-                    </Border.StrokeShape>
-                    
-                    <VerticalStackLayout Spacing="8">
+                        <Border
+                            Padding="16"
+                            Style="{StaticResource CardBorder}"
+                            StrokeThickness="1"
+                            StrokeShape="RoundRectangle 20">
 
-                        <Image Source="mantenimiento_service_icon_app.png"
-                               WidthRequest="80"
-                               HorizontalOptions="Center" />
+                            <Border.GestureRecognizers>
+                                <TapGestureRecognizer
+                                    Command="{Binding BindingContext.OpenServiceDetailCommand,
+                                             Source={x:Reference HomePageRoot}}"
+                                    CommandParameter="{Binding .}" />
+                            </Border.GestureRecognizers>
 
-                        <Label Text="Mantenimiento"
-                               HorizontalTextAlignment="Center"
-                               Style="{StaticResource FieldLabel}" />
-                        
-                        <Label Text="Cuidado responsable y continuo"
-                               HorizontalTextAlignment="Center"
-                               FontSize="15" TextColor="{StaticResource PrimaryText}" />
-                    
-                    </VerticalStackLayout>
-                    <Border.Shadow>
-                        <Shadow
-                            Brush="Black"
-                            Offset="0,2"
-                            Radius="10"
-                            Opacity="0.1" />
-                    </Border.Shadow>
-                </Border>
+                            <VerticalStackLayout
+                                Spacing="10"
+                                HorizontalOptions="Center">
 
-                <Border Grid.Row="1"
-                        Style="{StaticResource CardBorder}"
-                        Padding="10,15">
-                    
-                    <Border.StrokeShape>
-                        <RoundRectangle CornerRadius="22" />
-                    </Border.StrokeShape>
-                    
-                    <VerticalStackLayout Spacing="8">
+                                <Image
+                                    Source="{Binding Icon}"
+                                    WidthRequest="80"
+                                    HorizontalOptions="Center" />
 
-                        <Image Source="plantacion_service_icon_app.png"
-                               WidthRequest="80"
-                               HorizontalOptions="Center" />
+                                <Label
+                                    Text="{Binding Name}"
+                                    Style="{StaticResource FieldLabel}"
+                                    HorizontalTextAlignment="Center" />
 
-                        <Label Text="Plantación"
-                               HorizontalTextAlignment="Center"
-                               Style="{StaticResource FieldLabel}" />
-                        
-                        <Label Text="Plantas, maceteros y detalles"
-                               HorizontalTextAlignment="Center"
-                               FontSize="15" TextColor="{StaticResource PrimaryText}" />
-                    
-                    </VerticalStackLayout>
-                    <Border.Shadow>
-                        <Shadow
-                            Brush="Black"
-                            Offset="0,2"
-                            Radius="10"
-                            Opacity="0.1" />
-                    </Border.Shadow>
-                </Border>
+                                <Label
+                                    Text="{Binding ShortDescription}"
+                                    FontSize="10"
+                                    TextColor="{StaticResource TextSecondary}"
+                                    HorizontalTextAlignment="Center"/>
 
-                <Border Grid.Row="1"
-                        Grid.Column="1"
-                        Style="{StaticResource CardBorder}"
-                        Padding="10,15">
-                    
-                    <Border.StrokeShape>
-                        <RoundRectangle CornerRadius="22" />
-                    </Border.StrokeShape>
-                    
-                    <VerticalStackLayout Spacing="8">
+                            </VerticalStackLayout>
 
+                        </Border>
 
-                        <Image Source="poda_service_icon_app.png"
-                               WidthRequest="80"
-                               HorizontalOptions="Center" />
+                    </DataTemplate>
 
-                        <Label Text="Poda"
-                               HorizontalTextAlignment="Center"
-                               Style="{StaticResource FieldLabel}" />
-                        
-                        <Label Text="Control, salud y estética vegetal"
-                               HorizontalTextAlignment="Center"
-                               TextColor="{StaticResource PrimaryText}" />
-                    
-                    </VerticalStackLayout>
-                    <Border.Shadow>
-                        <Shadow
-                            Brush="Black"
-                            Offset="0,2"
-                            Radius="10"
-                            Opacity="0.1" />
-                    </Border.Shadow>
-                </Border>
+                </CollectionView.ItemTemplate>
 
-            </Grid>
+            </CollectionView>
 
         </VerticalStackLayout>
     </ScrollView>

@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="utf-8" ?>
+
+<ContentPage
+    x:Class="Marila_Garden_App.Views.Services.ServiceDetailPage"
+    xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:viewModels="clr-namespace:Marila_Garden_App.ViewModels.Services"
+    x:DataType="viewModels:ServiceDetailViewModel"
+    Shell.NavBarIsVisible="False"
+    BackgroundColor="{StaticResource Background}">
+
+    <Grid
+        Padding="24"
+        RowDefinitions="Auto,*">
+
+        <Label
+            Text="Detalle del servicio"
+            Style="{StaticResource Headline}"
+            VerticalOptions="Center" />
+
+        <VerticalStackLayout
+            Grid.Row="1"
+            Spacing="12"
+            VerticalOptions="Center">
+
+            <Label
+                Text="{Binding Service.Name}"
+                FontSize="26"
+                FontAttributes="Bold"
+                HorizontalTextAlignment="Center"
+                TextColor="{StaticResource TextPrimary}" />
+
+            <Label
+                Text="{Binding Service.ShortDescription}"
+                FontSize="16"
+                HorizontalTextAlignment="Center"
+                TextColor="{StaticResource TextSecondary}" />
+
+        </VerticalStackLayout>
+
+    </Grid>
+
+</ContentPage>

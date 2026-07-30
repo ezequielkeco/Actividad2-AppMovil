@@ -1,5 +1,6 @@
 ﻿using Marila_Garden_App.Views.Authentication;
 using Marila_Garden_App.Views.Request;
+using Marila_Garden_App.Views.Services;
 using Marila_Garden_App.ViewModels.Request;
 using Marila_Garden_App.Services;
 
@@ -17,6 +18,10 @@ namespace Marila_Garden_App
             Routing.RegisterRoute(
                 nameof(RegisterPage),
                 typeof(RegisterPage));
+
+            Routing.RegisterRoute(
+                nameof(ServiceDetailPage),
+                typeof(ServiceDetailPage));
         }
 
         protected override async void OnNavigating(ShellNavigatingEventArgs args)

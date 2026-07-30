@@ -1,33 +1,25 @@
-﻿using CommunityToolkit.Mvvm.ComponentModel;
-using CommunityToolkit.Mvvm.Input;
+﻿using CommunityToolkit.Mvvm.Input;
+using Marila_Garden_App.Data;
+using Marila_Garden_App.Models;
 using Marila_Garden_App.Services;
+using Marila_Garden_App.ViewModels.Base;
 
 namespace Marila_Garden_App.ViewModels.Home;
 
-public partial class HomeViewModel : ObservableObject
+public partial class HomeViewModel : AuthenticatedViewModelBase
 {
-    private readonly ISessionService _sessionService;
-    private readonly INavigationService _navigationService;
-
-    public string UserName =>
-        _sessionService.CurrentUser?.FullName
-        ?? "Usuario";
-
-    public HomeViewModel(ISessionService sessionService,
-           INavigationService navigationService)
+    public IReadOnlyList<ServiceInfo> Services { get; } =
+        ServiceCatalog.GetAll();
+    public HomeViewModel(
+        ISessionService sessionService,
+        INavigationService navigationService)
+        : base(sessionService, navigationService)
     {
-        _sessionService = sessionService;
-        _navigationService = navigationService;
-    }
-
-    public void RefreshSessionData()
-    {
-        OnPropertyChanged(nameof(UserName));
     }
 
     [RelayCommand]
     private async Task RequestService()
     {
-        await _navigationService.GoToAsync("//Request");
+        await NavigationService.GoToAsync("//Request");
     }
 }
