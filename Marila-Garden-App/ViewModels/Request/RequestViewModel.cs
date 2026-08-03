@@ -1,6 +1,7 @@
 ﻿using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
 using CommunityToolkit.Mvvm.Messaging;
+using Marila_Garden_App.Data;
 using Marila_Garden_App.Messages;
 using Marila_Garden_App.Models;
 using Marila_Garden_App.Services;
@@ -28,6 +29,21 @@ public partial class RequestViewModel : AuthenticatedFormViewModelBase
         ConfigureCreateMode(
             "Nueva solicitud",
             "Enviar solicitud");
+    }
+
+    public void PrepareForService(string serviceId)
+    {
+        ResetToCreateMode();
+
+        ServiceInfo? service =
+            ServiceCatalog.GetById(serviceId);
+
+        if (service is null)
+            return;
+
+        SelectedServiceType = service.Name;
+
+        HasUnsavedChanges = false;
     }
 
     [ObservableProperty]

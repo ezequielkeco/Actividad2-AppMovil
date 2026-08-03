@@ -19,6 +19,7 @@ public partial class ServicesPage : ContentPage
 
         _viewModel.RefreshSessionData();
     }
+  
     private void OnMenuClicked(
         object sender,
         EventArgs e)

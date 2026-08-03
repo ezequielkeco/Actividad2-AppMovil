@@ -1,3 +1,4 @@
+using Marila_Garden_App.Models;
 using Marila_Garden_App.ViewModels.Request;
 
 namespace Marila_Garden_App.Views.Request;
@@ -130,17 +131,37 @@ public partial class RequestPage : ContentPage, IQueryAttributable
         if (BindingContext is not RequestViewModel viewModel)
             return;
 
-        if (query.TryGetValue("requestId", out object? value) &&
-            int.TryParse(value?.ToString(), out int requestId))
+        if (query.TryGetValue(
+                "requestId",
+                out object? requestValue) &&
+            int.TryParse(
+                requestValue?.ToString(),
+                out int requestId))
         {
             _openedForEdit = true;
 
             await viewModel.LoadRequestForEditAsync(requestId);
+
+            return;
         }
-        else
+
+        _openedForEdit = false;
+
+        if (query.TryGetValue(
+                "serviceId",
+                out object? serviceValue))
         {
-            _openedForEdit = false;
-            viewModel.ResetToCreateMode();
+            string serviceId =
+                Uri.UnescapeDataString(
+                    serviceValue?.ToString()
+                    ?? string.Empty);
+
+            viewModel.PrepareForService(serviceId);
+
+            return;
         }
+
+        viewModel.ResetToCreateMode();
     }
+
 }

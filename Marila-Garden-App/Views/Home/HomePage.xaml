@@ -102,8 +102,8 @@
                     <GridItemsLayout
                         Orientation="Vertical"
                         Span="2"
-                        HorizontalItemSpacing="12"
-                        VerticalItemSpacing="12" />
+                        HorizontalItemSpacing="5"
+                        VerticalItemSpacing="5" />
                 </CollectionView.ItemsLayout>
 
                 <CollectionView.ItemTemplate>
@@ -123,7 +123,7 @@
                             </Border.GestureRecognizers>
 
                             <VerticalStackLayout
-                                Spacing="10"
+                                Spacing="5"
                                 HorizontalOptions="Center">
 
                                 <Image
@@ -138,9 +138,9 @@
 
                                 <Label
                                     Text="{Binding ShortDescription}"
-                                    FontSize="10"
-                                    TextColor="{StaticResource TextSecondary}"
-                                    HorizontalTextAlignment="Center"/>
+                                    FontSize="12"
+                                    HorizontalTextAlignment="Center"
+                                    TextColor="{StaticResource PrimaryText}"/>
 
                             </VerticalStackLayout>
 

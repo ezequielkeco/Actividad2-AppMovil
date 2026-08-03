@@ -38,7 +38,7 @@ public static class ServiceCatalog
             Name = "Diseño de jardín",
             Icon = "desing_service_icon_app.png",
             ShortDescription =
-                "Creamos espacios verdes personalizados, funcionales y armoniosos",
+                "Espacios naturales personalizados",
 
             Description =
                 "Diseñamos jardines adaptados al estilo de cada espacio, " +
@@ -84,7 +84,7 @@ public static class ServiceCatalog
             Name = "Mantenimiento",
             Icon = "mantenimiento_service_icon_app.png",
             ShortDescription =
-                "Cuidamos cada área del jardín para conservar su belleza y vitalidad",
+                "Cuidado responsable y continuo",
 
             Description =
                 "Ofrecemos mantenimiento periódico para preservar la salud, " +
@@ -130,7 +130,7 @@ public static class ServiceCatalog
             Name = "Plantación",
             Icon = "plantacion_service_icon_app.png",
             ShortDescription =
-                "Seleccionamos y plantamos especies adecuadas según el área",
+                "Plantas, maceteros y detalles",
 
             Description =
                 "Realizamos la plantación de especies ornamentales y naturales, " +
@@ -176,7 +176,7 @@ public static class ServiceCatalog
             Name = "Poda",
             Icon = "poda_service_icon_app.png",
             ShortDescription =
-                "Realizamos podas orientadas a la salud y estética de las plantas",
+                "Control, salud y estética vegetal",
 
             Description =
                 "Aplicamos técnicas de poda según el tipo de planta y su estado, " +

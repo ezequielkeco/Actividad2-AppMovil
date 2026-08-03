@@ -6,37 +6,350 @@
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
     xmlns:viewModels="clr-namespace:Marila_Garden_App.ViewModels.Services"
     x:DataType="viewModels:ServiceDetailViewModel"
-    Shell.NavBarIsVisible="False"
-    BackgroundColor="{StaticResource Background}">
+    x:Name="ServiceDetailPageRoot"
+    BackgroundColor="{StaticResource Background}"
+    Shell.NavBarIsVisible="False">
 
-    <Grid
-        Padding="24"
-        RowDefinitions="Auto,*">
+    <Grid>
 
-        <Label
-            Text="Detalle del servicio"
-            Style="{StaticResource Headline}"
-            VerticalOptions="Center" />
+        <ScrollView>
 
-        <VerticalStackLayout
-            Grid.Row="1"
-            Spacing="12"
-            VerticalOptions="Center">
+            <VerticalStackLayout
+                Padding="20"
+                Spacing="20">
 
-            <Label
-                Text="{Binding Service.Name}"
-                FontSize="26"
-                FontAttributes="Bold"
-                HorizontalTextAlignment="Center"
-                TextColor="{StaticResource TextPrimary}" />
+                <Grid ColumnDefinitions="Auto,*,Auto"
+                    Margin="0,10,0,0"
+                    ColumnSpacing="14">
 
-            <Label
-                Text="{Binding Service.ShortDescription}"
-                FontSize="16"
-                HorizontalTextAlignment="Center"
-                TextColor="{StaticResource TextSecondary}" />
+                    <ImageButton
+                        Source="menu.png"
+                        Clicked="OnMenuClicked" />
 
-        </VerticalStackLayout>
+                    <VerticalStackLayout
+                        Grid.Column="1">
+
+                        <Label
+                            Margin="0,8,0,0"
+                            Text="¡Hola!"
+                            Style="{StaticResource SubtitleLabel}" />
+
+                        <Label
+                            FontSize="18"
+                            Text="{Binding UserName}"
+                            Style="{StaticResource SectionTitleLabel}" />
+
+                    </VerticalStackLayout>
+
+                    <Image Source="marila_garden_logo.png"
+                       WidthRequest="110"
+                       HorizontalOptions="End"
+                       Aspect="AspectFit" 
+                       Grid.Column="2"/>
+                </Grid>
+
+                <Grid
+                    ColumnDefinitions="Auto,*,Auto"
+                    Margin="0,10,0,0"
+                    ColumnSpacing="14">
+
+                    <ImageButton
+                        Source="back.png"
+                        WidthRequest="42"
+                        HeightRequest="42"
+                        Margin="0,5,0,0"
+                        BackgroundColor="Transparent"
+                        Clicked="OnBackClicked" />
+
+                    <Label
+                        Grid.Column="1"
+                        Margin="-100,0,0,0"
+                        Text="Detalle del servicio"
+                        Style="{StaticResource SectionTitleLabel}"
+                        VerticalOptions="Center"
+                        HorizontalTextAlignment="Center" />
+
+                </Grid>
+
+                <VerticalStackLayout Spacing="8">
+
+                    <Label
+                        Text="{Binding Service.Name}"
+                        Style="{StaticResource SectionTitleLabel}"
+                        FontSize="28"
+                        HorizontalTextAlignment="Center" />
+
+                    <Label
+                        Text="{Binding Service.ShortDescription}"
+                        Style="{StaticResource SubtitleLabel}"
+                        HorizontalTextAlignment="Center"
+                        Padding="10,0" />
+
+                </VerticalStackLayout>
+
+                <Border
+                    BackgroundColor="{StaticResource Card}"
+                    Stroke="#E5E7EB"
+                    Padding="0"
+                    HeightRequest="260">
+
+                    <Border.StrokeShape>
+                        <RoundRectangle CornerRadius="24" />
+                    </Border.StrokeShape>
+
+                    <CarouselView
+                        x:Name="ServiceImagesCarousel"
+                        ItemsSource="{Binding Service.Images}"
+                        Position="{Binding SelectedImageIndex, Mode=TwoWay}"
+                        IndicatorView="ServiceImagesIndicator"
+                        Loop="False"
+                        PeekAreaInsets="0">
+
+                        <CarouselView.ItemTemplate>
+                            <DataTemplate x:DataType="x:String">
+
+                                <Grid>
+
+                                    <Image
+                                        Source="{Binding .}"
+                                        Aspect="AspectFill"
+                                        HorizontalOptions="Fill"
+                                        VerticalOptions="Fill">
+
+                                        <Image.GestureRecognizers>
+                                            <TapGestureRecognizer
+                                                Command="{Binding BindingContext.OpenImageCommand,
+                                                          Source={x:Reference ServiceDetailPageRoot}}"
+                                                CommandParameter="{Binding .}" />
+                                        </Image.GestureRecognizers>
+
+                                    </Image>
+
+                                    <BoxView
+                                        VerticalOptions="End"
+                                        HeightRequest="55"
+                                        Opacity="0.15"
+                                        Color="Black" />
+
+                                    <Label
+                                        Text="Toca la imagen para ampliar"
+                                        VerticalOptions="End"
+                                        HorizontalOptions="Center"
+                                        Margin="0,0,0,16"
+                                        FontSize="13"
+                                        TextColor="White"
+                                        FontAttributes="Bold" />
+
+                                </Grid>
+
+                            </DataTemplate>
+                        </CarouselView.ItemTemplate>
+
+                    </CarouselView>
+
+                </Border>
+
+                <IndicatorView
+                    x:Name="ServiceImagesIndicator"
+                    IndicatorColor="#D1D5DB"
+                    SelectedIndicatorColor="{StaticResource PrimaryDark}"
+                    HorizontalOptions="Center"
+                    IndicatorSize="9"
+                    Margin="0,-8,0,0" />
+
+                <Border
+                    Style="{StaticResource CardBorder}"
+                    Padding="20">
+
+                    <Border.StrokeShape>
+                        <RoundRectangle CornerRadius="24" />
+                    </Border.StrokeShape>
+
+                    <VerticalStackLayout Spacing="10">
+
+                        <Label
+                            Text="Descripción"
+                            Style="{StaticResource SectionTitleLabel}"
+                            FontSize="21" />
+
+                        <Label
+                            Text="{Binding Service.Description}"
+                            Style="{StaticResource SubtitleLabel}"
+                            LineHeight="1.3" />
+
+                    </VerticalStackLayout>
+
+                </Border>
+
+                <Border
+                    Style="{StaticResource CardBorder}"
+                    Padding="20">
+
+                    <Border.StrokeShape>
+                        <RoundRectangle CornerRadius="24" />
+                    </Border.StrokeShape>
+
+                    <VerticalStackLayout Spacing="12">
+
+                        <Label
+                            Text="¿Qué incluye?"
+                            Style="{StaticResource SectionTitleLabel}"
+                            FontSize="21" />
+
+                        <VerticalStackLayout
+                            BindableLayout.ItemsSource="{Binding Service.Includes}"
+                            Spacing="10">
+
+                            <BindableLayout.ItemTemplate>
+                                <DataTemplate x:DataType="x:String">
+
+                                    <Grid
+                                        ColumnDefinitions="Auto,*"
+                                        ColumnSpacing="10">
+
+                                        <Label
+                                            Text="✓"
+                                            FontSize="18"
+                                            FontAttributes="Bold"
+                                            TextColor="{StaticResource PrimaryDark}" />
+
+                                        <Label
+                                            Grid.Column="1"
+                                            Text="{Binding .}"
+                                            Style="{StaticResource SubtitleLabel}"
+                                            LineBreakMode="WordWrap" />
+
+                                    </Grid>
+
+                                </DataTemplate>
+                            </BindableLayout.ItemTemplate>
+
+                        </VerticalStackLayout>
+
+                    </VerticalStackLayout>
+
+                </Border>
+
+                <Border
+                    Style="{StaticResource CardBorder}"
+                    Padding="20">
+
+                    <Border.StrokeShape>
+                        <RoundRectangle CornerRadius="24" />
+                    </Border.StrokeShape>
+
+                    <VerticalStackLayout Spacing="12">
+
+                        <Label
+                            Text="Beneficios"
+                            Style="{StaticResource SectionTitleLabel}"
+                            FontSize="21" />
+
+                        <VerticalStackLayout
+                            BindableLayout.ItemsSource="{Binding Service.Benefits}"
+                            Spacing="10">
+
+                            <BindableLayout.ItemTemplate>
+                                <DataTemplate x:DataType="x:String">
+
+                                    <Grid
+                                        ColumnDefinitions="Auto,*"
+                                        ColumnSpacing="10">
+
+                                        <Label
+                                            Text="✓"
+                                            FontSize="18"
+                                            FontAttributes="Bold"
+                                            TextColor="{StaticResource PrimaryDark}" />
+
+                                        <Label
+                                            Grid.Column="1"
+                                            Text="{Binding .}"
+                                            Style="{StaticResource SubtitleLabel}"
+                                            LineBreakMode="WordWrap" />
+
+                                    </Grid>
+
+                                </DataTemplate>
+                            </BindableLayout.ItemTemplate>
+
+                        </VerticalStackLayout>
+
+                    </VerticalStackLayout>
+
+                </Border>
+
+                <Border
+                    BackgroundColor="#EAF7E3"
+                    StrokeThickness="0"
+                    Padding="18">
+
+                    <Border.StrokeShape>
+                        <RoundRectangle CornerRadius="20" />
+                    </Border.StrokeShape>
+
+                    <VerticalStackLayout Spacing="6">
+
+                        <Label
+                            Text="Duración estimada"
+                            FontSize="18"
+                            FontAttributes="Bold"
+                            TextColor="{StaticResource PrimaryDark}"
+                            HorizontalTextAlignment="Center" />
+
+                        <Label
+                            Text="{Binding Service.EstimatedDuration}"
+                            Style="{StaticResource SubtitleLabel}"
+                            HorizontalTextAlignment="Center"
+                            LineHeight="1.2" />
+
+                    </VerticalStackLayout>
+
+                </Border>
+
+                <Button
+                    Text="Solicitar este servicio"
+                    Style="{StaticResource PrimaryButton}"
+                    Command="{Binding RequestCurrentServiceCommand}"
+                    Margin="0,5,0,20" />
+
+            </VerticalStackLayout>
+
+        </ScrollView>
+
+        <Grid
+            IsVisible="{Binding IsImageViewerVisible}"
+            BackgroundColor="#E6000000"
+            ZIndex="10">
+
+            <Grid.GestureRecognizers>
+                <TapGestureRecognizer
+                    Command="{Binding CloseImageCommand}" />
+            </Grid.GestureRecognizers>
+
+            <Image
+                Source="{Binding SelectedImage}"
+                Aspect="AspectFit"
+                Margin="20"
+                HorizontalOptions="Fill"
+                VerticalOptions="Fill" />
+
+            <Button
+                Text="✕"
+                Command="{Binding CloseImageCommand}"
+                WidthRequest="48"
+                HeightRequest="48"
+                CornerRadius="24"
+                Padding="0"
+                Margin="20,30,20,0"
+                HorizontalOptions="End"
+                VerticalOptions="Start"
+                BackgroundColor="{StaticResource Primary}"
+                TextColor="White"
+                FontSize="20"
+                ZIndex="2" />
+
+        </Grid>
 
     </Grid>
 

@@ -1,7 +1,9 @@
 <?xml version="1.0" encoding="utf-8" ?>
-<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+<ContentPage x:Class="Marila_Garden_App.Views.Services.ServicesPage"
+             xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-             x:Class="Marila_Garden_App.Views.Services.ServicesPage"
+             xmlns:models="clr-namespace:Marila_Garden_App.Models"
+             x:Name="ServicesPageRoot"
              BackgroundColor="{StaticResource Background}"
              Shell.NavBarIsVisible="False">
 
@@ -51,8 +53,7 @@
                 HorizontalTextAlignment="Center"
                 Padding="20,0"
                 Style="{StaticResource SubtitleLabel}" />
-
-            <!-- Servicio - Diseño de Jardines -->
+<!--
 
             <Border
                 BackgroundColor="White"
@@ -60,29 +61,29 @@
                 Margin="0,10,0,-10"
                 Padding="20">
 
-            <Border.StrokeShape>
-                <RoundRectangle CornerRadius="24"/>
-            </Border.StrokeShape>
+                <Border.StrokeShape>
+                    <RoundRectangle CornerRadius="24"/>
+                </Border.StrokeShape>
 
-            <VerticalStackLayout Spacing="10">
+                <VerticalStackLayout Spacing="10">
 
-                <Image Source="desing_service_icon_app.png"
+                    <Image Source="desing_service_icon_app.png"
                                WidthRequest="100"
                                HorizontalOptions="Center" />
 
-                <Label
+                    <Label
                     Text="Diseño de Jardín"
                     HorizontalTextAlignment="Center"
                     Style="{StaticResource SectionTitleLabel}"/>
 
-                <Label
+                    <Label
                     Text="Diseñamos jardines personalizados que armonizan con el espacio y las necesidades del cliente"
                     HorizontalTextAlignment="Center"
                     Style="{StaticResource SubtitleLabel}"/>
 
-            </VerticalStackLayout>
-            <Border.Shadow>
-                <Shadow
+                </VerticalStackLayout>
+                <Border.Shadow>
+                    <Shadow
                     Brush="Black"
                     Offset="0,2"
                     Radius="10"
@@ -91,37 +92,35 @@
 
             </Border>
 
-            <!-- Servicio - Poda Profesional -->
-
             <Border
                 BackgroundColor="White"
                 Stroke="#E5E7EB"
                 Margin="0,0,0,-10"
                 Padding="20">
 
-            <Border.StrokeShape>
-                <RoundRectangle CornerRadius="24"/>
-            </Border.StrokeShape>
+                <Border.StrokeShape>
+                    <RoundRectangle CornerRadius="24"/>
+                </Border.StrokeShape>
 
-            <VerticalStackLayout Spacing="10">
+                <VerticalStackLayout Spacing="10">
 
-                <Image Source="mantenimiento_service_icon_app.png"
+                    <Image Source="mantenimiento_service_icon_app.png"
                        WidthRequest="100"
                        HorizontalOptions="Center" />
 
-                <Label
+                    <Label
                     Text="Mantenimiento"
                     HorizontalTextAlignment="Center"
                     Style="{StaticResource SectionTitleLabel}"/>
 
-                <Label
+                    <Label
                     Text="Mantenimiento y control del crecimiento para conservar la salud y estética de las plantas"
                     HorizontalTextAlignment="Center"
                     Style="{StaticResource SubtitleLabel}"/>
 
-            </VerticalStackLayout>
-            <Border.Shadow>
-                <Shadow
+                </VerticalStackLayout>
+                <Border.Shadow>
+                    <Shadow
                     Brush="Black"
                     Offset="0,2"
                     Radius="10"
@@ -130,46 +129,42 @@
 
             </Border>
 
-            <!-- Servicio - Instalación de Plantas -->
-
             <Border
                 BackgroundColor="White"
                 Stroke="#E5E7EB"
                 Margin="0,0,0,-10"
                 Padding="20">
 
-            <Border.StrokeShape>
-                <RoundRectangle CornerRadius="24"/>
-            </Border.StrokeShape>
+                <Border.StrokeShape>
+                    <RoundRectangle CornerRadius="24"/>
+                </Border.StrokeShape>
 
-            <VerticalStackLayout Spacing="10">
+                <VerticalStackLayout Spacing="10">
 
-                <Image Source="plantacion_service_icon_app.png"
+                    <Image Source="plantacion_service_icon_app.png"
                        WidthRequest="100"
                        HorizontalOptions="Center" />
 
-                <Label
+                    <Label
                     Text="Plantación"
                     HorizontalTextAlignment="Center"
                     Style="{StaticResource SectionTitleLabel}"/>
 
-                <Label
+                    <Label
                     Text="Selección e instalación de especies adecuadas para interiores y exteriores"
                     HorizontalTextAlignment="Center"
                     Style="{StaticResource SubtitleLabel}"/>
 
-            </VerticalStackLayout>
-            <Border.Shadow>
-                <Shadow
+                </VerticalStackLayout>
+                <Border.Shadow>
+                    <Shadow
                     Brush="Black"
                     Offset="0,2"
                     Radius="10"
                     Opacity="0.1" />
-            </Border.Shadow>
+                </Border.Shadow>
 
-        </Border>
-
-            <!-- Servicio - Mantenimiento Integral -->
+            </Border>
 
             <Border
                 BackgroundColor="White"
@@ -207,8 +202,67 @@
             </Border.Shadow>
 
         </Border>
+            
+-->
+            <CollectionView
+                ItemsSource="{Binding Services}"
+                SelectionMode="None"
+                VerticalScrollBarVisibility="Never">
 
-      </VerticalStackLayout>
+                <CollectionView.ItemsLayout>
+                    <GridItemsLayout
+                        Orientation="Vertical"
+                        VerticalItemSpacing="5" />
+                </CollectionView.ItemsLayout>
+
+                <CollectionView.ItemTemplate>
+                    <DataTemplate x:DataType="models:ServiceInfo">
+
+                        <Border
+                            Padding="16"
+                            Style="{StaticResource CardBorder}"
+                            StrokeThickness="2"
+                            StrokeShape="RoundRectangle 20">
+
+                            <Border.GestureRecognizers>
+                                <TapGestureRecognizer
+                                    Command="{Binding BindingContext.OpenServiceDetailCommand,
+                                             Source={x:Reference ServicesPageRoot}}"
+                                    CommandParameter="{Binding .}" />
+                            </Border.GestureRecognizers>
+
+                            <VerticalStackLayout
+                                Spacing="5"
+                                HorizontalOptions="Center">
+
+                                <Image
+                                    Source="{Binding Icon}"
+                                    WidthRequest="100"
+                                    HorizontalOptions="Center" />
+
+                                <Label
+                                    Text="{Binding Name}"
+                                    Style="{StaticResource FieldLabel}"
+                                    FontSize="20"
+                                    HorizontalTextAlignment="Center" />
+
+                                <Label
+                                    Text="{Binding ShortDescription}"
+                                    FontSize="16"
+                                    HorizontalTextAlignment="Center"
+                                    TextColor="{StaticResource PrimaryText}"/>
+
+                            </VerticalStackLayout>
+
+                        </Border>
+
+                    </DataTemplate>
+
+                </CollectionView.ItemTemplate>
+
+            </CollectionView>
+
+        </VerticalStackLayout>
 
     </ScrollView>
 

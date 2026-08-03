@@ -27,4 +27,25 @@ public partial class ServiceDetailPage : ContentPage
         _viewModel = viewModel;
         BindingContext = viewModel;
     }
+
+    private async void OnMenuClicked(
+        object sender,
+        EventArgs e)
+    {
+        Shell.Current.FlyoutIsPresented = true;
+    }
+
+    private async void OnBackClicked(
+        object sender,
+        EventArgs e)
+    {
+        await Shell.Current.GoToAsync("..");
+    }
+
+    protected override void OnAppearing()
+    {
+        base.OnAppearing();
+
+        _viewModel.RefreshSessionData();
+    }
 }
