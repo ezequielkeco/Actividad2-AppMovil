@@ -55,6 +55,7 @@ public partial class RequestPage : ContentPage, IQueryAttributable
     }
 
     private bool _openedForEdit;
+    private bool _openedWithService;
 
     public RequestPage(RequestViewModel viewModel)
     {
@@ -74,6 +75,7 @@ public partial class RequestPage : ContentPage, IQueryAttributable
         base.OnAppearing();
 
         if (!_openedForEdit &&
+            !_openedWithService &&
             BindingContext is RequestViewModel viewModel)
         {
             viewModel.ResetToCreateMode();
@@ -85,6 +87,7 @@ public partial class RequestPage : ContentPage, IQueryAttributable
         base.OnDisappearing();
 
         _openedForEdit = false;
+        _openedWithService = false;
     }
 
     private void OnMenuClicked(object sender, EventArgs e)
@@ -139,18 +142,20 @@ public partial class RequestPage : ContentPage, IQueryAttributable
                 out int requestId))
         {
             _openedForEdit = true;
+            _openedWithService = false;
 
             await viewModel.LoadRequestForEditAsync(requestId);
 
             return;
         }
 
-        _openedForEdit = false;
-
         if (query.TryGetValue(
                 "serviceId",
                 out object? serviceValue))
         {
+            _openedForEdit = false;
+            _openedWithService = true;
+
             string serviceId =
                 Uri.UnescapeDataString(
                     serviceValue?.ToString()
@@ -160,6 +165,9 @@ public partial class RequestPage : ContentPage, IQueryAttributable
 
             return;
         }
+
+        _openedForEdit = false;
+        _openedWithService = false;
 
         viewModel.ResetToCreateMode();
     }

@@ -173,7 +173,7 @@ public static class ServiceCatalog
         return new ServiceInfo
         {
             Id = "pruning",
-            Name = "Poda",
+            Name = "Poda profesional",
             Icon = "poda_service_icon_app.png",
             ShortDescription =
                 "Control, salud y estética vegetal",

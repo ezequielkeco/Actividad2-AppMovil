@@ -1,3 +1,4 @@
+using Marila_Garden_App.Services;
 using Marila_Garden_App.ViewModels.Services;
 
 namespace Marila_Garden_App.Views.Services;
@@ -6,6 +7,8 @@ namespace Marila_Garden_App.Views.Services;
 public partial class ServiceDetailPage : ContentPage
 {
     private readonly ServiceDetailViewModel _viewModel;
+    private readonly IAnimationService _animationService;
+    private readonly IDispatcherTimer _carouselTimer;
 
     private string serviceId = string.Empty;
 
@@ -20,15 +23,24 @@ public partial class ServiceDetailPage : ContentPage
     }
 
     public ServiceDetailPage(
-        ServiceDetailViewModel viewModel)
+        ServiceDetailViewModel viewModel, IAnimationService animationService)
     {
         InitializeComponent();
 
         _viewModel = viewModel;
+        _animationService = animationService;
+
         BindingContext = viewModel;
+
+        _carouselTimer = Dispatcher.CreateTimer();
+        _carouselTimer.Interval = TimeSpan.FromSeconds(4);
+        _carouselTimer.Tick += OnCarouselTimerTick;
+
+        ServiceImagesCarousel.PositionChanged +=
+            OnServiceImagePositionChanged;
     }
 
-    private async void OnMenuClicked(
+    private void OnMenuClicked(
         object sender,
         EventArgs e)
     {
@@ -47,5 +59,53 @@ public partial class ServiceDetailPage : ContentPage
         base.OnAppearing();
 
         _viewModel.RefreshSessionData();
+
+        if(!_carouselTimer.IsRunning)
+        {
+            _carouselTimer.Start();
+        }
+    }
+
+    protected override void OnDisappearing()
+    {
+        base.OnDisappearing();
+
+        if(_carouselTimer.IsRunning)
+            _carouselTimer.Stop();
+
+    }
+
+    private async void OnServiceImagePositionChanged(
+    object sender,
+    PositionChangedEventArgs e)
+    {
+        if (sender is not CarouselView carouselView)
+            return;
+
+        if(_carouselTimer.IsRunning)
+
+            _carouselTimer.Stop();
+            _carouselTimer.Start();
+
+    }
+
+    private async void OnCarouselTimerTick(
+    object? sender,
+    EventArgs e)
+    {
+        if (_viewModel.IsImageViewerVisible)
+            return;
+
+        int imageCount =
+            _viewModel.Service?.Images.Count ?? 0;
+
+        if (imageCount <= 1)
+            return;
+
+        int nextPosition =
+            (ServiceImagesCarousel.Position + 1)
+            % imageCount;
+
+        ServiceImagesCarousel.Position = nextPosition;
     }
 }

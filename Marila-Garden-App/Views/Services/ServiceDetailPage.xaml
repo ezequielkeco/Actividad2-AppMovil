@@ -15,7 +15,7 @@
         <ScrollView>
 
             <VerticalStackLayout
-                Padding="20"
+                Padding="20,20,20,80"
                 Spacing="20">
 
                 <Grid ColumnDefinitions="Auto,*,Auto"
@@ -57,15 +57,17 @@
                         Source="back.png"
                         WidthRequest="42"
                         HeightRequest="42"
-                        Margin="0,5,0,0"
+                        Margin="0,-10,0,0"
                         BackgroundColor="Transparent"
                         Clicked="OnBackClicked" />
 
                     <Label
                         Grid.Column="1"
-                        Margin="-100,0,0,0"
+                        Margin="-80,-10,0,0"
                         Text="Detalle del servicio"
-                        Style="{StaticResource SectionTitleLabel}"
+                        FontSize="20"
+                        FontAttributes="Bold"
+                        TextColor="{StaticResource PrimaryDark}"
                         VerticalOptions="Center"
                         HorizontalTextAlignment="Center" />
 
@@ -76,13 +78,15 @@
                     <Label
                         Text="{Binding Service.Name}"
                         Style="{StaticResource SectionTitleLabel}"
-                        FontSize="28"
+                        FontSize="26"
+                        Margin="0,-6,0,0"
                         HorizontalTextAlignment="Center" />
 
                     <Label
                         Text="{Binding Service.ShortDescription}"
                         Style="{StaticResource SubtitleLabel}"
                         HorizontalTextAlignment="Center"
+                        Margin="0,-6,0,0"
                         Padding="10,0" />
 
                 </VerticalStackLayout>
@@ -91,7 +95,8 @@
                     BackgroundColor="{StaticResource Card}"
                     Stroke="#E5E7EB"
                     Padding="0"
-                    HeightRequest="260">
+                    Margin="0,-5,0,0"
+                    HeightRequest="400">
 
                     <Border.StrokeShape>
                         <RoundRectangle CornerRadius="24" />
@@ -102,7 +107,7 @@
                         ItemsSource="{Binding Service.Images}"
                         Position="{Binding SelectedImageIndex, Mode=TwoWay}"
                         IndicatorView="ServiceImagesIndicator"
-                        Loop="False"
+                        Loop="True"
                         PeekAreaInsets="0">
 
                         <CarouselView.ItemTemplate>
@@ -128,7 +133,7 @@
                                     <BoxView
                                         VerticalOptions="End"
                                         HeightRequest="55"
-                                        Opacity="0.15"
+                                        Opacity="0.5"
                                         Color="Black" />
 
                                     <Label
@@ -136,7 +141,7 @@
                                         VerticalOptions="End"
                                         HorizontalOptions="Center"
                                         Margin="0,0,0,16"
-                                        FontSize="13"
+                                        FontSize="16"
                                         TextColor="White"
                                         FontAttributes="Bold" />
 
@@ -154,12 +159,13 @@
                     IndicatorColor="#D1D5DB"
                     SelectedIndicatorColor="{StaticResource PrimaryDark}"
                     HorizontalOptions="Center"
-                    IndicatorSize="9"
+                    IndicatorSize="10"
                     Margin="0,-8,0,0" />
 
                 <Border
                     Style="{StaticResource CardBorder}"
-                    Padding="20">
+                    Padding="20"
+                    Margin="0,10,0,-10">
 
                     <Border.StrokeShape>
                         <RoundRectangle CornerRadius="24" />
@@ -170,12 +176,14 @@
                         <Label
                             Text="Descripción"
                             Style="{StaticResource SectionTitleLabel}"
-                            FontSize="21" />
+                            FontSize="20"
+                            HorizontalTextAlignment="Center"/>
 
                         <Label
                             Text="{Binding Service.Description}"
                             Style="{StaticResource SubtitleLabel}"
-                            LineHeight="1.3" />
+                            LineHeight="1.3"
+                            HorizontalTextAlignment="Center"/>
 
                     </VerticalStackLayout>
 
@@ -183,7 +191,8 @@
 
                 <Border
                     Style="{StaticResource CardBorder}"
-                    Padding="20">
+                    Padding="20"
+                    Margin="0,0,0,-10">
 
                     <Border.StrokeShape>
                         <RoundRectangle CornerRadius="24" />
@@ -194,7 +203,8 @@
                         <Label
                             Text="¿Qué incluye?"
                             Style="{StaticResource SectionTitleLabel}"
-                            FontSize="21" />
+                            FontSize="20"
+                            HorizontalTextAlignment="Center"/>
 
                         <VerticalStackLayout
                             BindableLayout.ItemsSource="{Binding Service.Includes}"
@@ -243,7 +253,8 @@
                         <Label
                             Text="Beneficios"
                             Style="{StaticResource SectionTitleLabel}"
-                            FontSize="21" />
+                            FontSize="20"
+                            HorizontalTextAlignment="Center"/>
 
                         <VerticalStackLayout
                             BindableLayout.ItemsSource="{Binding Service.Benefits}"
@@ -307,15 +318,18 @@
 
                 </Border>
 
-                <Button
-                    Text="Solicitar este servicio"
-                    Style="{StaticResource PrimaryButton}"
-                    Command="{Binding RequestCurrentServiceCommand}"
-                    Margin="0,5,0,20" />
-
             </VerticalStackLayout>
 
         </ScrollView>
+
+        <Button
+            Text="Solicitar este servicio"
+            Style="{StaticResource PrimaryButton}"
+            Command="{Binding RequestCurrentServiceCommand}"
+            Margin="20,0,20,10"
+            HorizontalOptions="Fill"
+            VerticalOptions="End"
+            ZIndex="5" />
 
         <Grid
             IsVisible="{Binding IsImageViewerVisible}"

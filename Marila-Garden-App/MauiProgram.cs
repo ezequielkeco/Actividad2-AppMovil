@@ -60,6 +60,7 @@ namespace Marila_Garden_App
             builder.Services.AddSingleton<IDialogService, DialogService>();
             builder.Services.AddSingleton<INavigationService, NavigationService>();
             builder.Services.AddSingleton<ISessionService, SessionService>();
+            builder.Services.AddSingleton<IAnimationService, AnimationService>();
 
             builder.Services.AddTransient<LoginViewModel>();
             builder.Services.AddTransient<RequestViewModel>();

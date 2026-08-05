@@ -110,6 +110,7 @@
                     <DataTemplate x:DataType="models:ServiceInfo">
 
                         <Border
+                            x:Name="ServiceCard"
                             Padding="16"
                             Style="{StaticResource CardBorder}"
                             StrokeThickness="1"
@@ -117,9 +118,8 @@
 
                             <Border.GestureRecognizers>
                                 <TapGestureRecognizer
-                                    Command="{Binding BindingContext.OpenServiceDetailCommand,
-                                             Source={x:Reference HomePageRoot}}"
-                                    CommandParameter="{Binding .}" />
+                                    Tapped="OnServiceCardTapped"
+                                    CommandParameter="{x:Reference ServiceCard}" />
                             </Border.GestureRecognizers>
 
                             <VerticalStackLayout
