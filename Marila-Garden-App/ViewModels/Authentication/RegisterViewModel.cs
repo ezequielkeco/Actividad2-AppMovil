@@ -4,9 +4,8 @@ using Marila_Garden_App.Helpers;
 using Marila_Garden_App.Models;
 using Marila_Garden_App.Services;
 using System;
-using System.Collections.Generic;
+using System.Linq;
 using System.Net.Mail;
-using System.Text;
 
 namespace Marila_Garden_App.ViewModels.Authentication
 {
@@ -25,6 +24,9 @@ namespace Marila_Garden_App.ViewModels.Authentication
         private string email = string.Empty;
 
         [ObservableProperty]
+        private string phone = string.Empty;
+
+        [ObservableProperty]
         private string password = string.Empty;
 
         [ObservableProperty]
@@ -38,6 +40,9 @@ namespace Marila_Garden_App.ViewModels.Authentication
 
         [ObservableProperty]
         private string emailError = string.Empty;
+
+        [ObservableProperty]
+        private string phoneError = string.Empty;
 
         [ObservableProperty]
         private string passwordError = string.Empty;
@@ -85,6 +90,12 @@ namespace Marila_Garden_App.ViewModels.Authentication
             GeneralError = string.Empty;
         }
 
+        partial void OnPhoneChanged(string value)
+        {
+            PhoneError = string.Empty;
+            GeneralError = string.Empty;
+        }
+
         partial void OnPasswordChanged(string value)
         {
             PasswordError = string.Empty;
@@ -118,6 +129,10 @@ namespace Marila_Garden_App.ViewModels.Authentication
                 string normalizedEmail =
                     Email.Trim().ToLowerInvariant();
 
+                string normalizedPhone =
+                    new string(
+                        Phone.Where(char.IsDigit).ToArray());
+
                 if (await _databaseService
                     .UserNameExistsAsync(normalizedUserName))
                 {
@@ -136,11 +151,21 @@ namespace Marila_Garden_App.ViewModels.Authentication
                     return;
                 }
 
+                if (await _databaseService
+                   .PhoneExistsAsync(normalizedPhone))
+                {
+                    PhoneError =
+                        "Este número de teléfono ya está registrado.";
+
+                    return;
+                }
+
                 User user = new()
                 {
                     FullName = FullName.Trim(),
                     UserName = normalizedUserName,
                     Email = normalizedEmail,
+                    Phone = normalizedPhone,
                     PasswordHash = PasswordHasher.Hash(Password),
                     CreatedAt = DateTime.Now
                 };
@@ -206,6 +231,28 @@ namespace Marila_Garden_App.ViewModels.Authentication
                 isValid = false;
             }
 
+            if (string.IsNullOrWhiteSpace(Phone))
+            {
+                PhoneError =
+                    "El número de teléfono es obligatorio.";
+
+                isValid = false;
+            }
+            else
+            {
+                string normalizedPhone =
+                    new string(
+                        Phone.Where(char.IsDigit).ToArray());
+
+                if (normalizedPhone.Length != 10)
+                {
+                    PhoneError =
+                        "El teléfono debe tener 10 dígitos.";
+
+                    isValid = false;
+                }
+            }
+
             if (string.IsNullOrWhiteSpace(Password))
             {
                 PasswordError =
@@ -213,10 +260,39 @@ namespace Marila_Garden_App.ViewModels.Authentication
 
                 isValid = false;
             }
-            else if (Password.Length < 6)
+            else if (Password.Length < 8)
             {
                 PasswordError =
-                    "La contraseña debe tener al menos 6 caracteres.";
+                    "La contraseña debe tener al menos 8 caracteres.";
+
+                isValid = false;
+            }
+            else if (!Password.Any(char.IsUpper))
+            {
+                PasswordError =
+                    "La contraseña debe incluir al menos una letra mayúscula.";
+
+                isValid = false;
+            }
+            else if (!Password.Any(char.IsLower))
+            {
+                PasswordError =
+                    "La contraseña debe incluir al menos una letra minúscula.";
+
+                isValid = false;
+            }
+            else if (!Password.Any(char.IsDigit))
+            {
+                PasswordError =
+                    "La contraseña debe incluir al menos un número.";
+
+                isValid = false;
+            }
+            else if (!Password.Any(character =>
+                         !char.IsLetterOrDigit(character)))
+            {
+                PasswordError =
+                    "La contraseña debe incluir al menos un carácter especial.";
 
                 isValid = false;
             }
@@ -260,6 +336,7 @@ namespace Marila_Garden_App.ViewModels.Authentication
             FullNameError = string.Empty;
             UserNameError = string.Empty;
             EmailError = string.Empty;
+            PhoneError = string.Empty;
             PasswordError = string.Empty;
             ConfirmPasswordError = string.Empty;
             GeneralError = string.Empty;
@@ -270,8 +347,44 @@ namespace Marila_Garden_App.ViewModels.Authentication
             FullName = string.Empty;
             UserName = string.Empty;
             Email = string.Empty;
+            Phone = string.Empty;
             Password = string.Empty;
             ConfirmPassword = string.Empty;
+        }
+
+        [ObservableProperty]
+        private bool isPasswordVisible;
+
+        [ObservableProperty]
+        private bool isConfirmPasswordVisible;
+
+        public bool IsPasswordHidden =>
+            !IsPasswordVisible;
+
+        public bool IsConfirmPasswordHidden =>
+            !IsConfirmPasswordVisible;
+
+        partial void OnIsPasswordVisibleChanged(bool value)
+        {
+            OnPropertyChanged(nameof(IsPasswordHidden));
+        }
+
+        partial void OnIsConfirmPasswordVisibleChanged(bool value)
+        {
+            OnPropertyChanged(nameof(IsConfirmPasswordHidden));
+        }
+
+        [RelayCommand]
+        private void TogglePasswordVisibility()
+        {
+            IsPasswordVisible = !IsPasswordVisible;
+        }
+
+        [RelayCommand]
+        private void ToggleConfirmPasswordVisibility()
+        {
+            IsConfirmPasswordVisible =
+                !IsConfirmPasswordVisible;
         }
     }
 }

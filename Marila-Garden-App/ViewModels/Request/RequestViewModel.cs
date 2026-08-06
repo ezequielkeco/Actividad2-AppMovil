@@ -143,7 +143,7 @@ public partial class RequestViewModel : AuthenticatedFormViewModelBase
         {
             await ShowAlertAsync(
                 "Acceso no autorizado",
-                "No tienes permisos para acceder a esta solicitud.",
+                "No tienes permisos para acceder a esta solicitud",
                 "Aceptar");
 
             ResetToCreateMode();
@@ -220,7 +220,7 @@ public partial class RequestViewModel : AuthenticatedFormViewModelBase
         ClearForm();
 
         HasUnsavedChanges = false;
-        SuccessMessage = "✅ Solicitud registrada correctamente.";
+        SuccessMessage = "Solicitud registrada correctamente";
 
         _ = HideSuccessMessageAsync();
     }
@@ -239,7 +239,7 @@ public partial class RequestViewModel : AuthenticatedFormViewModelBase
         {
             await ShowAlertAsync(
                 "Acceso no autorizado",
-                "No tienes permisos para modificar esta solicitud.",
+                "No tienes permisos para modificar esta solicitud",
                 "Aceptar");
 
             ResetToCreateMode();
@@ -263,9 +263,9 @@ public partial class RequestViewModel : AuthenticatedFormViewModelBase
         ResetToCreateMode();
 
         HasUnsavedChanges = false;
-        SuccessMessage = "✅ Solicitud actualizada correctamente.";
+        SuccessMessage = "Solicitud actualizada correctamente";
 
-        await Task.Delay(1000);
+        await Task.Delay(3000);
 
         await _navigationService.GoToAsync("//RequestsHistory");
     }
@@ -297,7 +297,7 @@ public partial class RequestViewModel : AuthenticatedFormViewModelBase
         {
             await ShowAlertAsync(
                 "Acceso no autorizado",
-                "No tienes permisos para eliminar esta solicitud.",
+                "No tienes permisos para eliminar esta solicitud",
                 "Aceptar");
 
             ResetToCreateMode();
@@ -327,23 +327,23 @@ public partial class RequestViewModel : AuthenticatedFormViewModelBase
 
         if (string.IsNullOrWhiteSpace(FullName))
         {
-            FullNameError = "El nombre completo es obligatorio.";
+            FullNameError = "El nombre completo es obligatorio";
             isValid = false;
         }
         else if (FullName.Trim().Length < 5)
         {
-            FullNameError = "El nombre debe tener al menos 5 caracteres.";
+            FullNameError = "El nombre debe tener al menos 5 caracteres";
             isValid = false;
         }
         else if (FullName.Any(char.IsDigit))
         {
-            FullNameError = "El nombre no debe contener números.";
+            FullNameError = "El nombre no debe contener números";
             isValid = false;
         }
 
         if (string.IsNullOrWhiteSpace(Phone))
         {
-            PhoneError = "El teléfono es obligatorio.";
+            PhoneError = "El teléfono es obligatorio";
             isValid = false;
         }
         else
@@ -353,7 +353,7 @@ public partial class RequestViewModel : AuthenticatedFormViewModelBase
 
             if (cleanPhone.Length != 10)
             {
-                PhoneError = "El teléfono debe tener 10 dígitos.";
+                PhoneError = "El teléfono debe tener 10 dígitos";
                 isValid = false;
             }
         }
@@ -361,7 +361,7 @@ public partial class RequestViewModel : AuthenticatedFormViewModelBase
         if (string.IsNullOrWhiteSpace(SelectedServiceType))
         {
             ServiceTypeError =
-                "Debes seleccionar un tipo de servicio.";
+                "Debes seleccionar un tipo de servicio";
 
             isValid = false;
         }
@@ -369,7 +369,7 @@ public partial class RequestViewModel : AuthenticatedFormViewModelBase
         if (SelectedDate.Date < DateTime.Today)
         {
             DateError =
-                "La fecha no puede ser anterior al día de hoy.";
+                "La fecha no puede ser anterior al día de hoy";
 
             isValid = false;
         }
@@ -378,7 +378,7 @@ public partial class RequestViewModel : AuthenticatedFormViewModelBase
             Comments.Length > 300)
         {
             CommentsError =
-                "Los comentarios no deben superar los 300 caracteres.";
+                "Los comentarios no deben superar los 300 caracteres";
 
             isValid = false;
         }

@@ -111,5 +111,22 @@ namespace Marila_Garden_App.ViewModels.Authentication
             await _navigationService.GoToAsync(
                 nameof(RegisterPage));
         }
+
+        [ObservableProperty]
+        private bool isPasswordVisible;
+
+        public bool IsPasswordHidden =>
+            !IsPasswordVisible;
+
+        partial void OnIsPasswordVisibleChanged(bool value)
+        {
+            OnPropertyChanged(nameof(IsPasswordHidden));
+        }
+
+        [RelayCommand]
+        private void TogglePasswordVisibility()
+        {
+            IsPasswordVisible = !IsPasswordVisible;
+        }
     }
 }

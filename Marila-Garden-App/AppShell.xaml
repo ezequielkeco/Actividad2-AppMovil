@@ -3,15 +3,17 @@
     x:Class="Marila_Garden_App.AppShell"
     xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    x:Name="AppShellRoot"
 
     xmlns:splash="clr-namespace:Marila_Garden_App.Views.Splash"
+    xmlns:shared="clr-namespace:Marila_Garden_App.Views.Shared"
     xmlns:authentication="clr-namespace:Marila_Garden_App.Views.Authentication"
     xmlns:home="clr-namespace:Marila_Garden_App.Views.Home"
     xmlns:services="clr-namespace:Marila_Garden_App.Views.Services"
     xmlns:request="clr-namespace:Marila_Garden_App.Views.Request"
     xmlns:history="clr-namespace:Marila_Garden_App.Views.RequestsHistory"
     
-    Shell.TabBarBackgroundColor="#FFFFFF"
+    Shell.TabBarBackgroundColor="#F8F8F8"
     Shell.TabBarForegroundColor="#64BC1E"
     Shell.TabBarTitleColor="#64BC1E"
     Shell.TabBarUnselectedColor="#666666"
@@ -19,10 +21,15 @@
     Shell.NavBarIsVisible="False"
     
     FlyoutBehavior="Disabled"
-    FlyoutWidth="320"
+    FlyoutWidth="260"
     Shell.BackgroundColor="#24541B"
     Shell.ForegroundColor="White"
     Shell.TitleColor="White">
+
+    <Shell.FlyoutContent>
+        <shared:FlyoutHeaderView
+        x:Name="FlyoutHeader" />
+    </Shell.FlyoutContent>
 
     <ShellContent
         Route="Splash"
@@ -38,10 +45,12 @@
 
     <FlyoutItem
         Title="Marila Garden"
-        Route="Main">
+        Route="Main"
+        FlyoutItemIsVisible="False">
 
         <Tab
             Title="Inicio"
+            Icon="home.png"
             Route="HomeTab">
 
             <ShellContent
@@ -52,6 +61,7 @@
 
         <Tab
             Title="Servicios"
+            Icon="services.png"
             Route="ServicesTab">
 
             <ShellContent
@@ -61,8 +71,9 @@
         </Tab>
 
         <Tab
-            Title="Solicitar"
-            Route="RequestTab">
+           Title="Solicitar"
+           Icon="request.png"
+           Route="RequestTab">
 
             <ShellContent
                 Title="Solicitar"
@@ -72,18 +83,15 @@
 
         <Tab
              Title="Historial"
+             Icon="history.png"
              Route="HistoryTab">
 
-             <ShellContent
+            <ShellContent
                  Title="Historial"
                  Route="RequestsHistory"
                  ContentTemplate="{DataTemplate history:RequestsHistoryPage}" />
         </Tab>
 
     </FlyoutItem>
-
-    <MenuItem
-        Text="Cerrar sesión"
-        Clicked="OnLogoutClicked" />
 
 </Shell>

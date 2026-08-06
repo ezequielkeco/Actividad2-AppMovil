@@ -50,20 +50,20 @@
 
                 <Grid
                     ColumnDefinitions="Auto,*,Auto"
-                    Margin="0,10,0,0"
+                    Margin="20,10,0,0"
                     ColumnSpacing="14">
 
                     <ImageButton
                         Source="back.png"
                         WidthRequest="42"
                         HeightRequest="42"
-                        Margin="0,-10,0,0"
+                        Margin="0,-10,-120,0"
                         BackgroundColor="Transparent"
                         Clicked="OnBackClicked" />
 
                     <Label
                         Grid.Column="1"
-                        Margin="-80,-10,0,0"
+                        Margin="0,-10,0,0"
                         Text="Detalle del servicio"
                         FontSize="20"
                         FontAttributes="Bold"
@@ -291,7 +291,7 @@
                 </Border>
 
                 <Border
-                    BackgroundColor="#EAF7E3"
+                    BackgroundColor="#C2EA78"
                     StrokeThickness="0"
                     Padding="18">
 
@@ -310,8 +310,9 @@
 
                         <Label
                             Text="{Binding Service.EstimatedDuration}"
-                            Style="{StaticResource SubtitleLabel}"
+                            TextColor="{StaticResource PrimaryDark}"
                             HorizontalTextAlignment="Center"
+                            Margin="13,0,13,0"
                             LineHeight="1.2" />
 
                     </VerticalStackLayout>
@@ -324,7 +325,10 @@
 
         <Button
             Text="Solicitar este servicio"
-            Style="{StaticResource PrimaryButton}"
+            Style="{StaticResource SecondaryButton}"
+            TextColor="White"
+            FontSize="18"
+            BackgroundColor="{StaticResource PrimaryDark}"
             Command="{Binding RequestCurrentServiceCommand}"
             Margin="20,0,20,10"
             HorizontalOptions="Fill"

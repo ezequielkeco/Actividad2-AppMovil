@@ -20,6 +20,8 @@ namespace Marila_Garden_App.Models
         [NotNull, Unique]
         public string Email { get; set; } = string.Empty;
 
+        public string? Phone { get; set; }
+
         [NotNull]
         public string PasswordHash { get; set; } = string.Empty;
 

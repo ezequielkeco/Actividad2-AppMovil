@@ -12,6 +12,7 @@ using Marila_Garden_App.Views.RequestsHistory;
 using Marila_Garden_App.Views.Services;
 using Microsoft.Extensions.Logging;
 using Microsoft.Maui.Handlers;
+using Marila_Garden_App.ViewModels.Shared;
 
 namespace Marila_Garden_App
 {
@@ -61,6 +62,8 @@ namespace Marila_Garden_App
             builder.Services.AddSingleton<INavigationService, NavigationService>();
             builder.Services.AddSingleton<ISessionService, SessionService>();
             builder.Services.AddSingleton<IAnimationService, AnimationService>();
+            builder.Services.AddSingleton<INavigationHistoryService, NavigationHistoryService>();
+            builder.Services.AddSingleton<FlyoutHeaderViewModel>();
 
             builder.Services.AddTransient<LoginViewModel>();
             builder.Services.AddTransient<RequestViewModel>();

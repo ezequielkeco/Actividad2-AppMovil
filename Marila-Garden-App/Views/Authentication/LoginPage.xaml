@@ -89,12 +89,26 @@
                             <RoundRectangle CornerRadius="16" />
                         </Border.StrokeShape>
 
-                        <Entry
-                            x:Name="PasswordEntry"
-                            Placeholder="Ingresa tu contraseña"
-                            IsPassword="True"
-                            Text="{Binding Password, Mode=TwoWay}"
-                            Style="{StaticResource InputEntry}" />
+                        <Grid ColumnDefinitions="*,Auto">
+
+                            <Entry
+                                Placeholder="Ingresa tu contraseña"
+                                IsPassword="{Binding IsPasswordHidden}"
+                                Text="{Binding Password, Mode=TwoWay}"
+                                Style="{StaticResource InputEntry}" />
+
+                            <ImageButton
+                                Grid.Column="1"
+                                Source="eye.png"
+                                Command="{Binding TogglePasswordVisibilityCommand}"
+                                BackgroundColor="Transparent"
+                                WidthRequest="50"
+                                HeightRequest="50"
+                                Padding="8"
+                                VerticalOptions="Center" />
+
+                        </Grid>
+
                     </Border>
 
                     <Label

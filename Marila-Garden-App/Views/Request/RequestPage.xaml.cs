@@ -1,4 +1,5 @@
 using Marila_Garden_App.Models;
+using Marila_Garden_App.Services;
 using Marila_Garden_App.ViewModels.Request;
 
 namespace Marila_Garden_App.Views.Request;
@@ -7,6 +8,8 @@ public partial class RequestPage : ContentPage, IQueryAttributable
 {
 
     private bool _isProcessingBackNavigation;
+
+    private readonly IAnimationService _animationService;
 
     protected override bool OnBackButtonPressed()
     {
@@ -57,17 +60,60 @@ public partial class RequestPage : ContentPage, IQueryAttributable
     private bool _openedForEdit;
     private bool _openedWithService;
 
-    public RequestPage(RequestViewModel viewModel)
+    public RequestPage(RequestViewModel viewModel, IAnimationService animationService)
     {
         InitializeComponent();
 
         BindingContext = viewModel;
+        _animationService = animationService;
 
         DesiredDatePicker.MinimumDate = DateTime.Today;
         DesiredDatePicker.Date = DateTime.Today;
 
         SelectedDateFieldLabel.Text = "Selecciona una fecha";
         SelectedDateLabel.Text = "No has seleccionado una fecha";
+
+        viewModel.PropertyChanged += OnViewModelPropertyChanged;
+    }
+
+    private void OnViewModelPropertyChanged(
+    object? sender,
+    System.ComponentModel.PropertyChangedEventArgs e)
+    {
+        if (e.PropertyName != nameof(RequestViewModel.HasSuccessMessage))
+            return;
+
+        if (sender is not RequestViewModel viewModel)
+            return;
+
+        if (!viewModel.HasSuccessMessage)
+            return;
+
+        MainThread.BeginInvokeOnMainThread(
+            ShowSuccessMessageAsync);
+    }
+
+    private async void ShowSuccessMessageAsync()
+    {
+        await RequestScrollView.ScrollToAsync(
+            0,
+            0,
+            true);
+
+        SuccessMessageBorder.Opacity = 0;
+        SuccessMessageBorder.TranslationY = -12;
+
+        await Task.WhenAll(
+            SuccessMessageBorder.FadeToAsync(
+                1,
+                250,
+                Easing.CubicOut),
+
+            SuccessMessageBorder.TranslateToAsync(
+                0,
+                0,
+                250,
+                Easing.CubicOut));
     }
 
     protected override void OnAppearing()
@@ -170,6 +216,19 @@ public partial class RequestPage : ContentPage, IQueryAttributable
         _openedWithService = false;
 
         viewModel.ResetToCreateMode();
+    }
+
+    protected override void OnHandlerChanging(
+    HandlerChangingEventArgs args)
+    {
+        if (args.OldHandler is not null &&
+            BindingContext is RequestViewModel viewModel)
+        {
+            viewModel.PropertyChanged -=
+                OnViewModelPropertyChanged;
+        }
+
+        base.OnHandlerChanging(args);
     }
 
 }
