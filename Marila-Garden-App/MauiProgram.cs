@@ -8,6 +8,7 @@ using Marila_Garden_App.ViewModels.RequestsHistory;
 using Marila_Garden_App.Views.Authentication;
 using Marila_Garden_App.Views.Home;
 using Marila_Garden_App.Views.Request;
+using Marila_Garden_App.Views.Assistant;
 using Marila_Garden_App.Views.RequestsHistory;
 using Marila_Garden_App.Views.Services;
 using Microsoft.Extensions.Logging;
@@ -74,13 +75,16 @@ namespace Marila_Garden_App
             builder.Services.AddTransient<HomeViewModel>();
             builder.Services.AddTransient<ServicesViewModel>();
             builder.Services.AddTransient<ServiceDetailViewModel>();
+            builder.Services.AddTransient<ServiceAssistantViewModel>();
+            builder.Services.AddTransient<ServiceAssistantResultViewModel>();
             builder.Services.AddTransient<LoginPage>();
             builder.Services.AddTransient<RegisterPage>();
             builder.Services.AddTransient<HomePage>();
             builder.Services.AddTransient<ServicesPage>();
             builder.Services.AddTransient<ServiceDetailPage>();
             builder.Services.AddTransient<RequestsHistoryPage>();
-            builder.Services.AddTransient<ServiceAssistantViewModel>();
+            builder.Services.AddTransient<ServiceAssistantPage>();
+            builder.Services.AddTransient<ServiceAssistantResultPage>();
 
             return builder.Build();
         }

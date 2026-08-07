@@ -1,0 +1,180 @@
+<?xml version="1.0" encoding="utf-8" ?>
+
+<ContentPage
+    x:Class="Marila_Garden_App.Views.Assistant.ServiceAssistantResultPage"
+    xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:viewModels="clr-namespace:Marila_Garden_App.ViewModels.Assistant"
+    x:DataType="viewModels:ServiceAssistantResultViewModel"
+    BackgroundColor="{StaticResource Background}"
+    Shell.NavBarIsVisible="False">
+
+    <ScrollView>
+
+        <VerticalStackLayout
+            Padding="20,20,20,40"
+            Spacing="20">
+
+            <Grid
+                ColumnDefinitions="Auto,*,Auto"
+                Margin="0,10,0,0"
+                ColumnSpacing="14">
+
+                <ImageButton
+                    Source="menu.png"
+                    Clicked="OnMenuClicked" />
+
+                <VerticalStackLayout
+                    Grid.Column="1">
+
+                    <Label
+                        Margin="0,8,0,0"
+                        Text="Asistente"
+                        Style="{StaticResource SubtitleLabel}" />
+
+                    <Label
+                        Text="Tu recomendación"
+                        FontSize="18"
+                        Style="{StaticResource SectionTitleLabel}" />
+
+                </VerticalStackLayout>
+
+                <Image
+                    Grid.Column="2"
+                    Source="marila_garden_logo.png"
+                    WidthRequest="110"
+                    HorizontalOptions="End"
+                    Aspect="AspectFit" />
+
+            </Grid>
+
+            <Border
+                WidthRequest="62"
+                HeightRequest="62"
+                BackgroundColor="#EAF7E3"
+                Stroke="#64BC1E"
+                StrokeThickness="1"
+                HorizontalOptions="Center">
+
+                <Border.StrokeShape>
+                    <RoundRectangle CornerRadius="31" />
+                </Border.StrokeShape>
+
+                <Label
+                    Text="✓"
+                    FontSize="32"
+                    FontAttributes="Bold"
+                    TextColor="{StaticResource PrimaryDark}"
+                    HorizontalTextAlignment="Center"
+                    VerticalTextAlignment="Center" />
+
+            </Border>
+
+            <Label
+                Text="Nuestra recomendación"
+                FontSize="15"
+                FontAttributes="Bold"
+                TextColor="{StaticResource Primary}"
+                HorizontalTextAlignment="Center" />
+
+            <Label
+                Text="{Binding Service.Name}"
+                FontSize="28"
+                FontAttributes="Bold"
+                TextColor="{StaticResource PrimaryDark}"
+                HorizontalTextAlignment="Center" />
+
+            <Label
+                Text="Basándonos en tus respuestas, consideramos que este servicio es el que mejor se adapta a las necesidades de tu espacio."
+                Style="{StaticResource SubtitleLabel}"
+                HorizontalTextAlignment="Center"
+                LineHeight="1.25"
+                Margin="10,0" />
+
+            <Border
+                HeightRequest="260"
+                StrokeThickness="0">
+
+                <Border.StrokeShape>
+                    <RoundRectangle CornerRadius="22" />
+                </Border.StrokeShape>
+
+                <Image
+                    Source="{Binding Service.CoverImage}"
+                    Aspect="AspectFill"
+                    HorizontalOptions="Fill"
+                    VerticalOptions="Fill" />
+
+            </Border>
+
+            <Border
+                Style="{StaticResource CardBorder}"
+                Padding="20">
+
+                <Border.StrokeShape>
+                    <RoundRectangle CornerRadius="22" />
+                </Border.StrokeShape>
+
+                <VerticalStackLayout Spacing="10">
+
+                    <Label
+                        Text="¿Por qué lo recomendamos?"
+                        FontSize="20"
+                        FontAttributes="Bold"
+                        TextColor="{StaticResource PrimaryDark}"
+                        HorizontalTextAlignment="Center" />
+
+                    <Label
+                        Text="{Binding Service.ShortDescription}"
+                        Style="{StaticResource SubtitleLabel}"
+                        HorizontalTextAlignment="Center"
+                        LineHeight="1.25" />
+
+                    <Label
+                        Text="{Binding Service.Description}"
+                        FontSize="14"
+                        TextColor="{StaticResource TextSecondary}"
+                        HorizontalTextAlignment="Center"
+                        LineHeight="1.3" />
+
+                </VerticalStackLayout>
+
+            </Border>
+
+            <Border
+                BackgroundColor="#F7F8F5"
+                Stroke="#E5E7EB"
+                StrokeThickness="1"
+                Padding="16">
+
+                <Border.StrokeShape>
+                    <RoundRectangle CornerRadius="18" />
+                </Border.StrokeShape>
+
+                <Label
+                    Text="Esta recomendación es orientativa y nos ayuda a comprender mejor tus necesidades. Nuestro equipo revisará la información para ofrecerte la mejor solución para tu espacio."
+                    FontSize="13"
+                    TextColor="{StaticResource TextSecondary}"
+                    HorizontalTextAlignment="Center"
+                    LineHeight="1.25" />
+
+            </Border>
+
+            <Button
+                Text="Solicitar este servicio"
+                Style="{StaticResource PrimaryButton}"
+                Command="{Binding RequestServiceCommand}" />
+
+            <Button
+                Text="Volver a empezar"
+                Command="{Binding RestartAssistantCommand}"
+                BackgroundColor="Transparent"
+                TextColor="{StaticResource PrimaryDark}"
+                FontAttributes="Bold"
+                FontSize="16" />
+
+        </VerticalStackLayout>
+
+    </ScrollView>
+
+</ContentPage>

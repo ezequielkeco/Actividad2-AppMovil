@@ -4,6 +4,7 @@ using Marila_Garden_App.Views.Services;
 using Marila_Garden_App.ViewModels.Request;
 using Marila_Garden_App.Services;
 using Marila_Garden_App.ViewModels.Shared;
+using Marila_Garden_App.Views.Assistant;
 
 namespace Marila_Garden_App
 {
@@ -39,6 +40,14 @@ namespace Marila_Garden_App
             Routing.RegisterRoute(
                 nameof(ServiceDetailPage),
                 typeof(ServiceDetailPage));
+
+            Routing.RegisterRoute(
+                nameof(ServiceAssistantPage),
+                typeof(ServiceAssistantPage));
+
+            Routing.RegisterRoute(
+                nameof(ServiceAssistantResultPage),
+                typeof(ServiceAssistantResultPage));
         }
 
         protected override async void OnNavigating(ShellNavigatingEventArgs args)

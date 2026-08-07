@@ -82,10 +82,59 @@
                 </VerticalStackLayout>
             </Border>
 
-            <Label Text="Servicios destacados"
-                   HorizontalTextAlignment="Center"
-                   Margin="0,14,0,-10"
-                   Style="{StaticResource SectionTitleLabel}" />
+            <Border
+                Padding="18"
+                BackgroundColor="#E1E1E1"
+                
+                StrokeShape="RoundRectangle 22">
+
+                <Grid
+                    ColumnDefinitions="*"
+                    ColumnSpacing="16">
+
+                    <VerticalStackLayout Spacing="6">
+
+                        <Image
+                            Source="assistant_help.png"
+                            WidthRequest="64"
+                            HeightRequest="64"
+                            Aspect="AspectFit"
+                            VerticalOptions="Center" />
+
+                        <Label
+                            Text="¿No sabes qué servicio necesitas para
+                                  tu jardín o área verde?"
+                            FontSize="18"
+                            FontAttributes="Bold"
+                            HorizontalTextAlignment="Center"
+                            TextColor="{StaticResource PrimaryDark}" />
+
+                        <Label
+                            Text="Responde unas preguntas para preparar la
+                                 opción más adecuada para tu jardín."
+                            HorizontalTextAlignment="Center"
+                            Style="{StaticResource SubtitleLabel}"
+                            
+                            LineHeight="1.2" />
+
+                        <Button
+                            Text="Iniciar asistente"
+                            TextColor="{StaticResource PrimaryDark}"
+                            Command="{Binding OpenServiceAssistantCommand}"
+                            Style="{StaticResource PrimaryButton}"
+                            Margin="0,8,0,0" />
+
+                    </VerticalStackLayout>
+
+                </Grid>
+
+            </Border>
+
+            <Label
+                Text="Servicios destacados"
+                HorizontalTextAlignment="Center"
+                Margin="0,14,0,-10"
+                Style="{StaticResource SectionTitleLabel}" />
 
             <Label
                 Text="Selecciona la tarjeta del servicio deseado

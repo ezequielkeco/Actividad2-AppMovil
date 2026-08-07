@@ -1,0 +1,270 @@
+<?xml version="1.0" encoding="utf-8" ?>
+
+<ContentPage
+    x:Class="Marila_Garden_App.Views.Assistant.ServiceAssistantPage"
+    xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:assistantModels="clr-namespace:Marila_Garden_App.Models.Assistant"
+    xmlns:viewModels="clr-namespace:Marila_Garden_App.ViewModels.Assistant"
+    x:DataType="viewModels:ServiceAssistantViewModel"
+    x:Name="AssistantPageRoot"
+    BackgroundColor="{StaticResource Background}"
+    Shell.NavBarIsVisible="False">
+
+    <Grid>
+
+        <ScrollView>
+            <VerticalStackLayout
+                Padding="20"
+                Spacing="20">
+
+                <Grid
+                    ColumnDefinitions="Auto,*,Auto"
+                    Margin="0,10,0,0"
+                    ColumnSpacing="14">
+
+                    <ImageButton
+                        Source="menu.png"
+                        Clicked="OnMenuClicked" />
+
+                    <VerticalStackLayout
+                        Grid.Column="1">
+
+                        <Label
+                            Margin="0,8,0,0"
+                            Text="Asistente"
+                            Style="{StaticResource SubtitleLabel}" />
+
+                        <Label
+                            Text="Encuentra tu servicio"
+                            FontSize="18"
+                            Style="{StaticResource SectionTitleLabel}" />
+
+                    </VerticalStackLayout>
+
+                    <Image
+                        Grid.Column="2"
+                        Source="marila_garden_logo.png"
+                        WidthRequest="110"
+                        HorizontalOptions="End"
+                        Aspect="AspectFit" />
+
+                </Grid>
+
+                <VerticalStackLayout
+                    IsVisible="{Binding IsWelcomeVisible}"
+                    Spacing="18">
+
+                    <Image
+                        Source="assistant_help.png"
+                        WidthRequest="120"
+                        HeightRequest="120"
+                        HorizontalOptions="Center"
+                        Aspect="AspectFit" />
+
+                    <Label
+                        Text="Encuentra el servicio ideal"
+                        FontSize="26"
+                        FontAttributes="Bold"
+                        TextColor="{StaticResource PrimaryDark}"
+                        HorizontalTextAlignment="Center" />
+
+                    <Label
+                        Text="Cuéntanos brevemente qué necesitas y te ayudaremos a identificar el servicio más adecuado para tu jardín."
+                        Style="{StaticResource SubtitleLabel}"
+                        HorizontalTextAlignment="Center"
+                        LineHeight="1.3"
+                        Margin="10,0" />
+
+                    <Border
+                        BackgroundColor="#EAF7E3"
+                        StrokeThickness="0"
+                        Padding="16">
+
+                        <Border.StrokeShape>
+                            <RoundRectangle CornerRadius="18" />
+                        </Border.StrokeShape>
+
+                        <VerticalStackLayout
+                            Spacing="8">
+
+                            <Label
+                                Text="✓ Solo 4 preguntas"
+                                TextColor="{StaticResource PrimaryDark}"
+                                FontAttributes="Bold"
+                                HorizontalTextAlignment="Center" />
+
+                            <Label
+                                Text="✓ Menos de un minuto"
+                                TextColor="{StaticResource PrimaryDark}"
+                                FontAttributes="Bold"
+                                HorizontalTextAlignment="Center" />
+
+                            <Label
+                                Text="✓ Recomendación personalizada"
+                                TextColor="{StaticResource PrimaryDark}"
+                                FontAttributes="Bold"
+                                HorizontalTextAlignment="Center" />
+
+                        </VerticalStackLayout>
+
+                    </Border>
+
+                    <Button
+                        Text="Comenzar"
+                        Style="{StaticResource PrimaryButton}"
+                        Command="{Binding StartCommand}"
+                        Margin="0,10,0,0" />
+
+                    <Label
+                        Text="Puedes volver cuando quieras."
+                        FontSize="13"
+                        TextColor="{StaticResource TextSecondary}"
+                        HorizontalTextAlignment="Center" />
+
+                </VerticalStackLayout>
+
+                <VerticalStackLayout
+                    IsVisible="{Binding IsQuestionVisible}"
+                    Spacing="18">
+
+                    <Label
+                        Text="{Binding QuestionProgressText}"
+                        FontSize="14"
+                        FontAttributes="Bold"
+                        TextColor="{StaticResource PrimaryDark}"
+                        HorizontalTextAlignment="Center" />
+
+                    <ProgressBar
+                        Progress="{Binding Progress}"
+                        ProgressColor="{StaticResource Primary}"
+                        BackgroundColor="#E5E7EB"
+                        HeightRequest="6" />
+
+                    <VerticalStackLayout
+                        Spacing="8">
+
+                        <Label
+                            Text="{Binding CurrentQuestion.Title}"
+                            FontSize="24"
+                            FontAttributes="Bold"
+                            TextColor="{StaticResource PrimaryDark}"
+                            HorizontalTextAlignment="Center"
+                            LineHeight="1.1" />
+
+                        <Label
+                            Text="{Binding CurrentQuestion.Description}"
+                            Style="{StaticResource SubtitleLabel}"
+                            HorizontalTextAlignment="Center"
+                            LineHeight="1.2"
+                            Margin="10,0" />
+
+                    </VerticalStackLayout>
+
+                    <CollectionView
+                        ItemsSource="{Binding CurrentQuestion.Options}"
+                        SelectionMode="None"
+                        VerticalScrollBarVisibility="Never">
+
+                        <CollectionView.ItemTemplate>
+                            <DataTemplate x:DataType="assistantModels:AssistantOption">
+
+                                <Border
+                                    Margin="0,5"
+                                    Padding="16"
+                                    Style="{StaticResource CardBorder}"
+                                    StrokeThickness="1"
+                                    StrokeShape="RoundRectangle 18">
+
+                                    <Border.GestureRecognizers>
+                                        <TapGestureRecognizer
+                                            Command="{Binding 										BindingContext.SelectOptionCommand,
+                                                      Source={x:Reference 								AssistantPageRoot}}"
+                                            CommandParameter="{Binding .}" />
+                                    </Border.GestureRecognizers>
+
+                                    <Grid
+                                        ColumnDefinitions="Auto,*"
+                                        ColumnSpacing="14">
+
+                                        <Image
+                                            Source="{Binding Icon}"
+                                            WidthRequest="44"
+                                            HeightRequest="44"
+                                            Aspect="AspectFit"
+                                            VerticalOptions="Center" />
+
+                                        <VerticalStackLayout
+                                            Grid.Column="1"
+                                            Spacing="4">
+
+                                            <Label
+                                                Text="{Binding Title}"
+                                                FontSize="17"
+                                                FontAttributes="Bold"
+                                                TextColor="{StaticResource PrimaryDark}" />
+
+                                            <Label
+                                                Text="{Binding Description}"
+                                                FontSize="13"
+                                                TextColor="{StaticResource TextSecondary}"
+                                                LineBreakMode="WordWrap" />
+
+                                        </VerticalStackLayout>
+
+                                    </Grid>
+
+                                </Border>
+
+                            </DataTemplate>
+                        </CollectionView.ItemTemplate>
+
+                    </CollectionView>
+
+                    <Button
+                        Text="← Anterior"
+                        Command="{Binding PreviousCommand}"
+                        IsVisible="{Binding CanGoBack}"
+                        BackgroundColor="Transparent"
+                        TextColor="{StaticResource PrimaryDark}"
+                        FontAttributes="Bold"
+                        FontSize="16"
+                        HeightRequest="44" />
+
+                </VerticalStackLayout>
+
+                <VerticalStackLayout
+                    IsVisible="{Binding IsProcessing}"
+                    Spacing="16"
+                    VerticalOptions="Center"
+                    Margin="0,50,0,0">
+
+                    <ActivityIndicator
+                        IsRunning="{Binding IsProcessing}"
+                        Color="{StaticResource Primary}"
+                        WidthRequest="50"
+                        HeightRequest="50"
+                        HorizontalOptions="Center" />
+
+                    <Label
+                        Text="Analizando tus respuestas..."
+                        FontSize="22"
+                        FontAttributes="Bold"
+                        TextColor="{StaticResource PrimaryDark}"
+                        HorizontalTextAlignment="Center" />
+
+                    <Label
+                        Text="Estamos preparando el servicio que mejor se adapta a tus 				necesidades."
+                        Style="{StaticResource SubtitleLabel}"
+                        HorizontalTextAlignment="Center"
+                        LineHeight="1.2"
+                        Margin="10,0" />
+
+                </VerticalStackLayout>
+
+            </VerticalStackLayout>
+        </ScrollView>
+
+    </Grid>
+
+</ContentPage>
