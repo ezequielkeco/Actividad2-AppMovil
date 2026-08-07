@@ -8,7 +8,7 @@ public partial class ServiceDetailPage : ContentPage
 {
     private readonly ServiceDetailViewModel _viewModel;
     private readonly IAnimationService _animationService;
-    private readonly IDispatcherTimer _carouselTimer;
+    private IDispatcherTimer _carouselTimer;
 
     private string serviceId = string.Empty;
 
@@ -23,7 +23,8 @@ public partial class ServiceDetailPage : ContentPage
     }
 
     public ServiceDetailPage(
-        ServiceDetailViewModel viewModel, IAnimationService animationService)
+        ServiceDetailViewModel viewModel,
+        IAnimationService animationService)
     {
         InitializeComponent();
 
@@ -31,13 +32,10 @@ public partial class ServiceDetailPage : ContentPage
         _animationService = animationService;
 
         BindingContext = viewModel;
-
-        _carouselTimer = Dispatcher.CreateTimer();
-        _carouselTimer.Interval = TimeSpan.FromSeconds(4);
-        _carouselTimer.Tick += OnCarouselTimerTick;
-
+        
         ServiceImagesCarousel.PositionChanged +=
             OnServiceImagePositionChanged;
+
     }
 
     private void OnMenuClicked(
@@ -60,7 +58,14 @@ public partial class ServiceDetailPage : ContentPage
 
         _viewModel.RefreshSessionData();
 
-        if(!_carouselTimer.IsRunning)
+        if (_carouselTimer == null)
+        {
+            _carouselTimer = Dispatcher.CreateTimer();
+            _carouselTimer.Interval = TimeSpan.FromSeconds(4);
+            _carouselTimer.Tick += OnCarouselTimerTick;
+        }
+
+        if (!_carouselTimer.IsRunning)
         {
             _carouselTimer.Start();
         }
@@ -70,28 +75,28 @@ public partial class ServiceDetailPage : ContentPage
     {
         base.OnDisappearing();
 
-        if(_carouselTimer.IsRunning)
+        if(_carouselTimer?.IsRunning == true)
+        {
             _carouselTimer.Stop();
+        }
 
     }
 
     private async void OnServiceImagePositionChanged(
-    object sender,
-    PositionChangedEventArgs e)
+        object sender,
+        PositionChangedEventArgs e)
     {
-        if (sender is not CarouselView carouselView)
+        if (_carouselTimer?.IsRunning != true)
             return;
 
-        if(_carouselTimer.IsRunning)
-
-            _carouselTimer.Stop();
-            _carouselTimer.Start();
+        _carouselTimer.Stop();
+        _carouselTimer.Start();
 
     }
 
-    private async void OnCarouselTimerTick(
-    object? sender,
-    EventArgs e)
+    private void OnCarouselTimerTick(
+        object? sender,
+        EventArgs e)
     {
         if (_viewModel.IsImageViewerVisible)
             return;

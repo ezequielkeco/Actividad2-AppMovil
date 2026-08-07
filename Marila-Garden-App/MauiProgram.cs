@@ -13,6 +13,7 @@ using Marila_Garden_App.Views.Services;
 using Microsoft.Extensions.Logging;
 using Microsoft.Maui.Handlers;
 using Marila_Garden_App.ViewModels.Shared;
+using Marila_Garden_App.ViewModels.Assistant;
 
 namespace Marila_Garden_App
 {
@@ -64,6 +65,7 @@ namespace Marila_Garden_App
             builder.Services.AddSingleton<IAnimationService, AnimationService>();
             builder.Services.AddSingleton<INavigationHistoryService, NavigationHistoryService>();
             builder.Services.AddSingleton<FlyoutHeaderViewModel>();
+            builder.Services.AddSingleton<IServiceRecommendationService, ServiceRecommendationService>();
 
             builder.Services.AddTransient<LoginViewModel>();
             builder.Services.AddTransient<RequestViewModel>();
@@ -78,6 +80,7 @@ namespace Marila_Garden_App
             builder.Services.AddTransient<ServicesPage>();
             builder.Services.AddTransient<ServiceDetailPage>();
             builder.Services.AddTransient<RequestsHistoryPage>();
+            builder.Services.AddTransient<ServiceAssistantViewModel>();
 
             return builder.Build();
         }

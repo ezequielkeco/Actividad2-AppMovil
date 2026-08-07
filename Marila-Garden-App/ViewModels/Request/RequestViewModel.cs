@@ -260,8 +260,6 @@ public partial class RequestViewModel : AuthenticatedFormViewModelBase
         WeakReferenceMessenger.Default.Send(
             new ServiceRequestUpdatedMessage(existingRequest));
 
-        ResetToCreateMode();
-
         HasUnsavedChanges = false;
         SuccessMessage = "Solicitud actualizada correctamente";
 
